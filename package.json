@@ -1,6 +1,6 @@
 {
   "name": "kinka",
-  "version": "0.0.2",
+  "version": "0.0.3--alpha",
   "description": "very lite and simple request maker",
   "main": "index.js",
   "scripts": {
@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/acacode/kinka#readme",
   "devDependencies": {
+    "ajv": "6.0.0",
     "babel-cli": "6.26.0",
     "babel-core": "6.26.3",
     "babel-eslint": "8.2.1",

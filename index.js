@@ -1,7 +1,7 @@
-let abortableRequests = {}
-let baseURL
+var abortableRequests = {}
+var baseURL
 
-const parseRequestData = stringifiedData => {
+function parseRequestData(stringifiedData) {
   try {
     const data = JSON.parse(stringifiedData)
     return data
@@ -10,37 +10,49 @@ const parseRequestData = stringifiedData => {
   }
 }
 
-const requestIsSuccess = (request, specificSuccessStatus) =>
-  specificSuccessStatus
+function requestIsSuccess(request, specificSuccessStatus) {
+  return specificSuccessStatus
     ? request.status === specificSuccessStatus
     : request.status >= 200 && request.status < 300
+}
 
-const createResponse = ({ status, responseText, statusText }, isError) => {
+function createResponse(request, isError) {
   return {
-    status,
+    status: request.status,
     data:
-      responseText !== undefined && !isError
-        ? parseRequestData(responseText)
-        : null,
-    errorMessage: isError ? parseRequestData(responseText) : statusText,
+      request.responseText !== undefined && !isError
+        ? parseRequestData(request.responseText)
+        : undefined,
+    errorMessage: isError
+      ? parseRequestData(request.responseText)
+      : request.statusText,
     isError: !!isError,
     isSuccess: !isError,
   }
 }
 
-const createRequest = (
-  method,
-  path,
-  { body, successStatus, abortableKey, isProtected, headers } = {}
-) => {
-  let request = new XMLHttpRequest()
-  if (abortableKey) {
-    if (abortableRequests[abortableKey]) {
-      abortableRequests[abortableKey].abort()
-      delete abortableRequests[abortableKey]
-    }
-    abortableRequests[abortableKey] = request
+function getAbortableRequest(key) {
+  if (abortableRequests[key]) {
+    abortableRequests[key].abort()
+    delete abortableRequests[key]
   }
+  abortableRequests[key] = new XMLHttpRequest()
+  return abortableRequests[key]
+}
+
+function createRequest(method, path, options) {
+  var body, successStatus, abortableKey, isProtected, headers
+  if (options && typeof options === 'object') {
+    body = options.body
+    successStatus = options.successStatus
+    abortableKey = options.abortableKey
+    isProtected = options.isProtected
+    headers = options.headers
+  }
+
+  var request = abortableKey
+    ? getAbortableRequest(abortableKey)
+    : new XMLHttpRequest()
   return new Promise(resolve => {
     request.withCredentials = !!isProtected
     request.onreadystatechange = () => {
@@ -48,7 +60,7 @@ const createRequest = (
         case XMLHttpRequest.OPENED: {
           if (headers && typeof headers === 'object') {
             const headerNames = Object.keys(headers)
-            for (let x = 0; x < headerNames.length; x++)
+            for (var x = 0; x < headerNames.length; x++)
               request.setRequestHeader(headerNames[x], headers[headerNames[x]])
           }
           if (typeof body === 'object') {
@@ -76,22 +88,40 @@ const createRequest = (
   })
 }
 
-const kinka = {
-  get: (path, options) => createRequest('get', path, options),
-  post: (path, body, options) =>
-    createRequest('post', path, { ...options, body }),
-  put: (path, body, options) =>
-    createRequest('put', path, { ...options, body }),
-  patсh: (path, body, options) =>
-    createRequest('patсh', path, { ...options, body }),
-  delete: (path, options) => createRequest('delete', path, options),
-  custom: (method, path, options) => createRequest(method, path, options),
-  create: options => {
+function merge(options, commonOptions) {
+  options = options || {}
+  var keys = Object.keys(commonOptions)
+  for (var x = 0; x < keys.length; x++) {
+    options[keys[x]] = commonOptions[keys[x]]
+  }
+  return options
+}
+
+var kinka = {
+  get: function(path, options) {
+    return createRequest('get', path, options)
+  },
+  post: function(path, body, options) {
+    return createRequest('post', path, merge(options, { body: body }))
+  },
+  put: function(path, body, options) {
+    return createRequest('put', path, merge(options, { body: body }))
+  },
+  patсh: function(path, body, options) {
+    return createRequest('patсh', path, merge(options, { body: body }))
+  },
+  delete: function(path, options) {
+    return createRequest('delete', path, options)
+  },
+  custom: function(method, path, options) {
+    return createRequest(method, path, options)
+  },
+  create: function(options) {
     if (options.baseURL) baseURL = options.baseURL
     return kinka
   },
 }
 
-export default kinka.create({
+module.exports = kinka.create({
   baseURL: location.origin,
 })
