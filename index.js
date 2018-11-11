@@ -46,7 +46,7 @@ function patchHeaders(request, headers) {
     request.setRequestHeader(headerNames[x], headers[headerNames[x]])
 }
 function isObject(value) {
-  return value && typeof headers === 'object'
+  return value && typeof value === 'object'
 }
 
 function createRequest(method, path, options) {
