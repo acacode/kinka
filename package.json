@@ -1,7 +1,7 @@
 {
   "name": "kinka",
-  "version": "0.0.1",
-  "description": "request maker",
+  "version": "0.0.2",
+  "description": "very lite and simple request maker",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -15,5 +15,22 @@
   "bugs": {
     "url": "https://github.com/acacode/kinka/issues"
   },
-  "homepage": "https://github.com/acacode/kinka#readme"
+  "homepage": "https://github.com/acacode/kinka#readme",
+  "devDependencies": {
+    "babel-cli": "6.26.0",
+    "babel-core": "6.26.3",
+    "babel-eslint": "8.2.1",
+    "babel-loader": "7.1.4",
+    "babel-preset-env": "1.7.0",
+    "babel-preset-stage-2": "6.24.1",
+    "eslint": "4.18.0",
+    "eslint-config-prettier": "2.9.0",
+    "eslint-config-standard": "11.0.0",
+    "eslint-plugin-import": "2.9.0",
+    "eslint-plugin-node": "6.0.1",
+    "eslint-plugin-prettier": "2.5.0",
+    "eslint-plugin-promise": "3.6.0",
+    "eslint-plugin-standard": "3.0.1",
+    "prettier": "1.10.2"
+  }
 }
