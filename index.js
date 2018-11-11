@@ -40,35 +40,43 @@ function getAbortableRequest(key) {
   return abortableRequests[key]
 }
 
+function patchHeaders(request, headers) {
+  const headerNames = Object.keys(headers)
+  for (var x = 0; x < headerNames.length; x++)
+    request.setRequestHeader(headerNames[x], headers[headerNames[x]])
+}
+function isObject(value) {
+  return value && typeof headers === 'object'
+}
+
 function createRequest(method, path, options) {
-  var body, successStatus, abortableKey, isProtected, headers
-  if (options && typeof options === 'object') {
+  var body, successStatus, abortableKey, isProtected, headers, request
+  if (isObject(options)) {
     body = options.body
     successStatus = options.successStatus
     abortableKey = options.abortableKey
     isProtected = options.isProtected
     headers = options.headers
   }
-
-  var request = abortableKey
+  request = abortableKey
     ? getAbortableRequest(abortableKey)
     : new XMLHttpRequest()
-  return new Promise(resolve => {
+  return new Promise(function(resolve) {
     request.withCredentials = !!isProtected
-    request.onreadystatechange = () => {
+    request.onreadystatechange = function() {
       switch (request.readyState) {
-        case XMLHttpRequest.OPENED: {
-          if (headers && typeof headers === 'object') {
-            const headerNames = Object.keys(headers)
-            for (var x = 0; x < headerNames.length; x++)
-              request.setRequestHeader(headerNames[x], headers[headerNames[x]])
-          }
-          if (typeof body === 'object') {
-            body = JSON.stringify(body)
-          }
-          request.send(body)
-          break
-        }
+        // case XMLHttpRequest.UNSENT: {
+        //   if (headers && typeof headers === 'object') {
+        //     const headerNames = Object.keys(headers)
+        //     for (var x = 0; x < headerNames.length; x++)
+        //       request.setRequestHeader(headerNames[x], headers[headerNames[x]])
+        //   }
+        //   if (typeof body === 'object') {
+        //     body = JSON.stringify(body)
+        //   }
+        //   request.send(body)
+        //   break
+        // }
         case XMLHttpRequest.DONE: {
           const isError = !requestIsSuccess(request, successStatus)
           resolve(createResponse(request, isError))
@@ -78,13 +86,22 @@ function createRequest(method, path, options) {
           }
           break
         }
+        default:
+          break
       }
     }
     request.open(
       method.toUpperCase(),
-      path.substring(0, 4) === 'http' ? path : `${baseURL}${path}`,
+      path.substring(0, 4) === 'http' ? path : baseURL + path,
       true
     )
+    if (isObject(headers)) {
+      patchHeaders(request, headers)
+    }
+    if (isObject(body)) {
+      body = JSON.stringify(body)
+    }
+    request.send(body)
   })
 }
 
