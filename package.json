@@ -4,8 +4,7 @@
   "description": "very lite and simple request maker",
   "main": "index.js",
   "scripts": {
-    "build": "webpack -p",
-    "postinstall": "yarn build"
+    "build": "webpack -p"
   },
   "repository": {
     "type": "git",
