@@ -3,20 +3,7 @@
     <img width="220" height="220" src="https://github.com/acacode/kinka/raw/master/logo.png">
   </a>
   <br>
-  <br>
-
-
-  <br>
-	<a href="https://github.com/acacode/kinka/blob/master/LICENSE">
-		<img src="https://img.shields.io/badge/license-MIT-red.svg">
-	</a>
-	<a href="https://www.npmjs.com/package/kinka">
-		<img src="https://img.shields.io/npm/v/kinka.svg?style=flat">
-	</a>
-	<a href="https://travis-ci.org/acacode/kinka">
-		<img src="https://travis-ci.org/acacode/kinka.svg?branch=master">
-	</a>
-  <h1>kinka</h1>
+  <h1>kinka <a href="https://github.com/acacode/kinka/blob/master/LICENSE"><img src="https://img.shields.io/badge/license-MIT-red.svg"></a><a href="https://www.npmjs.com/package/kinka"><img src="https://img.shields.io/npm/v/kinka.svg?style=flat"></a><a href="https://travis-ci.org/acacode/kinka"><img src="https://travis-ci.org/acacode/kinka.svg?branch=master"></a></h1>
   <p>
     Simple and very light request maker
   </p>
