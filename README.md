@@ -32,4 +32,6 @@ or using yarn
 
 <h2 align="left">Usage</h2>
 <img src="https://github.com/acacode/kinka/raw/master/example_usage1.png">
-Fully documentation will be created in future
+At now you not need to wrap `try/catch` of your request, because you can get `status` `isSuccess` or `errorMessage` from response
+
+Don't worry, fully documentation will be created in future :)
