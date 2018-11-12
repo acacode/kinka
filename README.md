@@ -1,6 +1,6 @@
 <div align="center">
   <a href="https://www.npmjs.com/package/kinka">
-    <img width="250" height="210" src="https://github.com/acacode/kinka/raw/master/logo.png">
+    <img width="220" height="220" src="https://github.com/acacode/kinka/raw/master/logo.png">
   </a>
   <br>
   <br>

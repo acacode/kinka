@@ -1,17 +1,13 @@
 const path = require('path')
 
 module.exports = {
-  entry: ['./lib/kinka.js'],
+  entry: path.resolve(__dirname, 'lib/kinka.js'),
   mode: 'production',
-  node: {
-    fs: 'empty',
-    net: 'empty',
-    tls: 'empty',
-  },
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'kinka.min.js',
     library: 'kinka',
+    libraryTarget: 'commonjs2',
   },
   module: {
     rules: [

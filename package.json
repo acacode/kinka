@@ -1,6 +1,6 @@
 {
   "name": "kinka",
-  "version": "0.0.36--alpha",
+  "version": "0.0.37--alpha",
   "description": "very lite and simple request maker",
   "main": "index.js",
   "scripts": {
