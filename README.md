@@ -27,6 +27,6 @@ or using yarn
 <h2  align="left">Documentation</h2>
 <a href="https://acacode.github.io/kinka">Full documentation is here</a>
 <h2  align="left">Examples</h2>
-<img src="https://github.com/acacode/kinka/raw/master/docs/defaultUsing.png">
-<img src="https://github.com/acacode/kinka/raw/master/docs/omitCatchesSample.png">
-<img src="https://github.com/acacode/kinka/raw/master/docs/queryParams.png">
+<img src="https://github.com/acacode/kinka/raw/master/docs/images/defaultUsing.png">
+<img src="https://github.com/acacode/kinka/raw/master/docs/images/omitCatchesSample.png">
+<img src="https://github.com/acacode/kinka/raw/master/docs/images/queryParams.png">
