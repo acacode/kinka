@@ -1,7 +1,7 @@
 {
   "name": "kinka",
   "version": "0.0.39--alpha",
-  "description": "very lite and simple request maker",
+  "description": "very light and simple http client",
   "main": "index.js",
   "scripts": {
     "build": "webpack -p"
@@ -36,5 +36,18 @@
     "prettier": "1.10.2",
     "webpack": "4.16.5",
     "webpack-cli": "3.1.0"
-  }
+  },
+  "keywords": [
+    "xmlhttprequest",
+    "request",
+    "requests",
+    "requests-html",
+    "ajax-request",
+    "ajax",
+    "javascript",
+    "javascript-library",
+    "http-client",
+    "httpclient",
+    "http"
+  ]
 }
