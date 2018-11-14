@@ -18,11 +18,12 @@ If you not found answer on your question don't be shy to [post your question her
     <td>Description</td>
   </tr>
   <tr>
-    <td><b>get</td>
-	<td>[ 
-    <br><code>path: string</code>, 
-    <br><code>options?: MethodOptions</code>
-    <br> ]
+    <td>
+        <b>get</b>
+    </td>
+	<td>
+        <br><code>path: string</code>, 
+        <br><code>options?: MethodOptions</code>
     </td>
     <td>
 	    create request with <code>GET</code> method. <hr>
@@ -30,11 +31,12 @@ If you not found answer on your question don't be shy to [post your question her
    </td>
   </tr>
   <tr>
-    <td><b>options</td>
-	<td>[ 
-    <br><code>path: string</code>, 
-    <br><code>options?: MethodOptions</code>
-    <br> ]
+    <td>
+        <b>options</b>
+    </td>
+	<td>
+        <br><code>path: string</code>, 
+        <br><code>options?: MethodOptions</code>
     </td>
     <td>
 	    create request with <code>OPTIONS</code> method. <hr>
