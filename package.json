@@ -4,7 +4,7 @@
   "description": "very light and simple http client",
   "main": "index.js",
   "scripts": {
-    "build": "webpack -p"
+    "build": "webpack"
   },
   "repository": {
     "type": "git",
