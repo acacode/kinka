@@ -27,7 +27,8 @@ or using yarn
 <h2 align="left">Documentation</h2>
 <a href="https://github.com/acacode/kinka/blob/master/docs/DOCUMENTATION.md">Full documentation is here</a>
 
-<h2  align="left">Examples</h2>
+<h2 align="left">Examples</h2>
+<!-- https://jsfiddle.net/207u8knd/5/ -->
 <img src="https://github.com/acacode/kinka/raw/master/docs/images/defaultUsing.png">
 <img src="https://github.com/acacode/kinka/raw/master/docs/images/omitCatchesSample.png">
 <img src="https://github.com/acacode/kinka/raw/master/docs/images/queryParams.png">
