@@ -14,7 +14,7 @@
 
 **CAUTION** : alpha version.
 
-<a href="https://jsfiddle.net/207u8knd/8/"> Test kinka in JSFiddle </a>
+<a href="https://jsfiddle.net/207u8knd/16/"> Test kinka in JSFiddle </a>
 
 <h2  align="left">Installation</h2>
 
@@ -30,7 +30,6 @@ or using yarn
 <a href="https://github.com/acacode/kinka/blob/master/docs/DOCUMENTATION.md">Full documentation is here</a>
 
 <h2 align="left">Examples</h2>
-<!-- https://jsfiddle.net/207u8knd/5/ -->
 <img src="https://github.com/acacode/kinka/raw/master/docs/images/defaultUsing.png">
 <img src="https://github.com/acacode/kinka/raw/master/docs/images/omitCatchesSample.png">
 <img src="https://github.com/acacode/kinka/raw/master/docs/images/queryParams.png">
