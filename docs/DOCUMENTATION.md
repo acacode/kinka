@@ -7,7 +7,7 @@ If you not found answer on your question don't be shy to [post your question her
 
 
 Kinka have two versions: **development** and **production** (~4KB)
-For using production version needs set environment variable `NODE_ENV` to 'production`
+For using production version needs set environment variable `NODE_ENV` to `production`
 ```
 process.env.NODE_ENV = 'production'
 ```
@@ -28,7 +28,7 @@ process.env.NODE_ENV = 'production'
         <b>get</b>
     </td>
 	<td>
-        <br><code>path: MethodPath</code>, 
+        <br><code>path: string</code>, 
         <br><code>options?: MethodOptions</code>
     </td>
     <td>
@@ -41,7 +41,7 @@ process.env.NODE_ENV = 'production'
         <b>options</b>
     </td>
   	<td>
-        <br><code>path: MethodPath</code>, 
+        <br><code>path: string</code>, 
         <br><code>options?: MethodOptions</code>
     </td>
     <td>
@@ -54,7 +54,7 @@ process.env.NODE_ENV = 'production'
         <b>head</b>
     </td>
     <td> 
-        <br><code>path: MethodPath</code>, 
+        <br><code>path: string</code>, 
         <br><code>options?: MethodOptions</code>
     </td>
     <td>
@@ -67,7 +67,7 @@ process.env.NODE_ENV = 'production'
         <b>put</b>
     </td>
     <td>
-        <br><code>path: MethodPath</code>, 
+        <br><code>path: string</code>, 
         <br><code>body?: any</code>, 
         <br><code>options?: MethodOptions</code>
     </td>
@@ -81,7 +81,7 @@ process.env.NODE_ENV = 'production'
         <b>post</b>
     </td>
     <td>
-        <br><code>path: MethodPath</code>, 
+        <br><code>path: string</code>, 
         <br><code>body?: any</code>, 
         <br><code>options?: MethodOptions</code>
     </td>
@@ -95,7 +95,7 @@ process.env.NODE_ENV = 'production'
         <b>patch</b>
     </td>
     <td>
-        <br><code>path: MethodPath</code>, 
+        <br><code>path: string</code>, 
         <br><code>body?: any</code>, 
         <br><code>options?: MethodOptions</code>
     </td>
@@ -109,7 +109,7 @@ process.env.NODE_ENV = 'production'
         <b>delete</b>
     </td>
 	  <td>
-        <br><code>path: MethodPath</code>, 
+        <br><code>path: string</code>, 
         <br><code>options?: MethodOptions</code>
     </td>
     <td>
@@ -123,7 +123,7 @@ process.env.NODE_ENV = 'production'
     </td>
     <td>
         <br><code>method: string</code>, 
-        <br><code>path: MethodPath</code>, 
+        <br><code>path: string</code>, 
         <br><code>options?: MethodOptions</code>
     </td>
     <td>
@@ -152,24 +152,6 @@ process.env.NODE_ENV = 'production'
 
 
 ## Interfaces
-
-
-<table>
-  <tr>
-    <td colspan="3"> <b>MethodPath: string</b></td>
-  </tr>
-  <tr>
-    <td colspan="3">
-      Can have value like <code>/your-endpoint</code> or with full path <code>http://myapi.com/your-endpoint</code>. <br>
-      If you are use not own kinka instance:<br>
-      value '<code>/your-endpoint</code>' will have full path '<code>{{location.origin}}/your-endpoint</code>'.<br>
-      (example: <code>http:localhost:3000/your-endpoint</code>).<br>
-      But if you was created your own kinka instance with <code>baseURL</code>:<br>
-      (<code>const api = kinka.create({ baseURL: 'http://myapi.com' })</code>)<br>
-      value '<code>/your-endpoint</code>' will have full path '<code>http://myapi.com/your-endpoint</code>'
-    </td>
-  </tr>
-</table>
 
 <table>
   <tr>
