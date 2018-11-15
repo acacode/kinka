@@ -7,6 +7,7 @@ If you not found answer on your question don't be shy to [post your question her
 
 
 Kinka have two versions: **development** and **production** (~4KB)
+
 For using production version needs set environment variable `NODE_ENV` to `production`
 ```
 process.env.NODE_ENV = 'production'
