@@ -182,7 +182,7 @@ process.env.NODE_ENV = 'production'
   </tr>
   <tr>
     <td>
-        <b>query: object</b>
+        <b>query?: object</b>
     </td>
     <td>
         <code>undefined</code>
@@ -190,26 +190,30 @@ process.env.NODE_ENV = 'production'
     <td>
         query params for your http request<br>
         example:<br>
-	  
-	kinka.get('/all', { query: { disabled: true, sortBy: 'date' } })
-	// endpoint will be {{baseURL}}/all?disabled=true&sortBy=date
-	  
+    <pre><code>
+kinka.get('/all', { 
+    query: { 
+        disabled: true, 
+        sortBy: 'date' 
+    }})
+// endpoint will be {{baseURL}}/all?disabled=true&sortBy=date
+    </code></pre>	  
   </td>
   </tr>
   <tr>
     <td>
-        <b>abortableKey:string</b>
+        <b>abortableKey?:string</b>
     </td>
     <td>
         <code>undefined</code>
     </td>
     <td>
-        With abortable key your request have the ability cancelation last request if request with the same key is start launching
+        With abortable key your request have the ability of cancelation last request if request with the same key is start launching
     </td>
   </tr>
   <tr>
     <td>
-        <b>omitCatches</b>
+        <b>omitCatches?: bool</b>
     </td>
     <td>
         <code>instance.omitCatches | true</code>
@@ -217,33 +221,35 @@ process.env.NODE_ENV = 'production'
     <td>
         With <code>true</code> value your responses will not be throwing exceptions and you don't needed wrap your requests in <code>try/catch</code>.<br>
         And if you want catch your request exception you can get this from <code>response.err</code> or <code>response.isError</code><br>
-        Example:<br>  
-	  
-	const { err, status } = await kinka.get('/bad-request')
-	if(err){
-	    // catched exception 
-	} 
-	  	  
+        Example:<br>
+  <pre><code>
+const { err, status } = await kinka.get('/bad-request')
+if(err){
+    // catched exception
+}
+  </code></pre>	  
   <span>Otherwise:<span>
-
-      
-      try{
-        const { data } = await.kinka.get('/bad-request')
-      }catch(e){
-        // catched exception
-      }
-      
-
+  <pre><code>
+try{
+    const { data } = await kinka.get('/bad-request')
+}catch(e){
+    // catched exception
+}
+  </code></pre>
   </td>
   </tr>
   <tr>
     <td>
-        <b>withAuth</b>
+        <b>withAuth?: bool</b>
     </td>
     <td>
         <code>false</code>
     </td>
-    <td>not yet</td>
+    <td>
+        Indicates that this request should use credentials (like cookies or specific auth headers)<br>
+        Sets flag <code>withCredentials</code><br>
+        <a href="https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/withCredentials">Read more about it is here</a>
+    </td>
   </tr>
   <tr>
     <td>
@@ -252,14 +258,26 @@ process.env.NODE_ENV = 'production'
     <td>
         <code>undefined</code>
     </td>
-    <td>not yet</td>
+    <td>
+        Sets request headers<br>
+        Example:<br>
+    <pre><code>
+await kinka.get('/donuts/all', { 
+    headers: { 
+        ['Specific-Header']: 'arrgghhh' 
+    } 
+})
+    </code></pre>
+    </td>
   </tr>
   <tr>
     <td>
-        <b>body</b>
+        <b>body?: any</b>
     </td>
     <td>undefined</td>
-    <td>not yet</td>
+    <td>
+        Sets the request body. It is content which needed to send on server
+    </td>
   </tr>
 </table>
 <!-- [api](https://github.com/acacode/kinka/blob/master/README.md) -->
