@@ -9,8 +9,6 @@
 
 'use strict'
 
-require('core-js/fn/promise')
-
 if (process.env.NODE_ENV === 'production') {
   module.exports = require('./dist/kinka.min.js')
 } else {

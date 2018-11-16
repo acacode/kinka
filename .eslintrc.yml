@@ -18,7 +18,6 @@ rules:
     - trailingComma: es5
       singleQuote: true
       semi: false
-      no-proto: false
 
   # TODO: The following rules should be removed incrementally in order to fully
   # integrate lint rules from the Standard ESLint config and Prettier

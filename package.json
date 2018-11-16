@@ -1,6 +1,6 @@
 {
   "name": "kinka",
-  "version": "0.0.43--alpha",
+  "version": "0.0.44--alpha",
   "description": "very light and simple http web client",
   "main": "index.js",
   "scripts": {
@@ -24,7 +24,7 @@
     "babel-loader": "7.1.4",
     "babel-preset-env": "1.7.0",
     "babel-preset-stage-2": "6.24.1",
-    "core-js": "2.5.7",
+    "chai": "4.2.0",
     "eslint": "4.18.0",
     "eslint-config-prettier": "2.9.0",
     "eslint-config-standard": "11.0.0",
@@ -33,7 +33,10 @@
     "eslint-plugin-prettier": "2.5.0",
     "eslint-plugin-promise": "3.6.0",
     "eslint-plugin-standard": "3.0.1",
+    "mocha": "5.2.0",
     "prettier": "1.10.2",
+    "sinon": "7.1.1",
+    "sinon-chai": "3.2.0",
     "webpack": "4.16.5",
     "webpack-cli": "3.1.0"
   },
@@ -49,5 +52,6 @@
     "http-client",
     "httpclient",
     "http"
-  ]
+  ],
+  "typings": "./index.d.ts"
 }

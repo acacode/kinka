@@ -3,7 +3,7 @@
 
 Here is all public documentation about kinka.
 
-If you not found answer on your question don't be shy to [post your question here](https://github.com/acacode/kinka/issues)
+If you didn't find the answer on your question don't be shy to [post your question here](https://github.com/acacode/kinka/issues)
 
 
 Kinka have two versions: **development** and **production** (~4KB)
@@ -29,7 +29,7 @@ process.env.NODE_ENV = 'production'
     </td>
 	<td>
         <br><code>path: string</code>, 
-        <br><code>options?: MethodOptions</code>
+        <br><code>options?: RequestOptions</code>
     </td>
     <td>
 	      create request with <code>GET</code> method. <hr>
@@ -42,7 +42,7 @@ process.env.NODE_ENV = 'production'
     </td>
   	<td>
         <br><code>path: string</code>, 
-        <br><code>options?: MethodOptions</code>
+        <br><code>options?: RequestOptions</code>
     </td>
     <td>
 	      create request with <code>OPTIONS</code> method. <hr>
@@ -55,7 +55,7 @@ process.env.NODE_ENV = 'production'
     </td>
     <td> 
         <br><code>path: string</code>, 
-        <br><code>options?: MethodOptions</code>
+        <br><code>options?: RequestOptions</code>
     </td>
     <td>
         create request with <code>HEAD</code> method. <hr>
@@ -69,7 +69,7 @@ process.env.NODE_ENV = 'production'
     <td>
         <br><code>path: string</code>, 
         <br><code>body?: any</code>, 
-        <br><code>options?: MethodOptions</code>
+        <br><code>options?: RequestOptions</code>
     </td>
     <td>
         create request with <code>PUT</code> method. <hr>
@@ -83,7 +83,7 @@ process.env.NODE_ENV = 'production'
     <td>
         <br><code>path: string</code>, 
         <br><code>body?: any</code>, 
-        <br><code>options?: MethodOptions</code>
+        <br><code>options?: RequestOptions</code>
     </td>
     <td>
         create request with <code>POST</code> method. <hr>
@@ -97,7 +97,7 @@ process.env.NODE_ENV = 'production'
     <td>
         <br><code>path: string</code>, 
         <br><code>body?: any</code>, 
-        <br><code>options?: MethodOptions</code>
+        <br><code>options?: RequestOptions</code>
     </td>
     <td>
         create request with <code>PATCH</code> method. <hr>
@@ -110,7 +110,7 @@ process.env.NODE_ENV = 'production'
     </td>
 	  <td>
         <br><code>path: string</code>, 
-        <br><code>options?: MethodOptions</code>
+        <br><code>options?: RequestOptions</code>
     </td>
     <td>
         create request with <code>DELETE</code> method. <hr>
@@ -124,7 +124,7 @@ process.env.NODE_ENV = 'production'
     <td>
         <br><code>method: string</code>, 
         <br><code>path: string</code>, 
-        <br><code>options?: MethodOptions</code>
+        <br><code>options?: RequestOptions</code>
     </td>
     <td>
         create request with custom method name. <hr>
@@ -155,7 +155,7 @@ process.env.NODE_ENV = 'production'
 
 <table>
   <tr>
-    <td colspan="3"> <b>MethodOptions: object</b></td>
+    <td colspan="3"> <b>RequestOptions: object</b></td>
   </tr>
   <tr>
     <td>Property</td>
@@ -190,7 +190,7 @@ kinka.get('/all', {
         <code>undefined</code>
     </td>
     <td>
-        With abortable key your request have the ability of cancelation last request if request with the same key is start launching
+        With abortable key your request have ability to cancel last request if request with the same key is start launching
     </td>
   </tr>
   <tr>
@@ -201,8 +201,8 @@ kinka.get('/all', {
         <code>instance.omitCatches | true</code>
     </td>
     <td>
-        With <code>true</code> value your responses will not be throwing exceptions and you don't needed wrap your requests in <code>try/catch</code>.<br>
-        And if you want catch your request exception you can get this from <code>response.err</code> or <code>response.isError</code><br>
+        With <code>true</code> value your responses will not be throwing exceptions and you don't need to wrap your requests in <code>try/catch</code>.<br>
+        And if you want to catch exception you can get this from <code>response.err</code> or <code>response.isError</code><br>
         Example:<br>
   <pre><code>
 const { err, status } = await kinka.get('/bad-request')
@@ -230,7 +230,7 @@ try{
     <td>
         Indicates that this request should use credentials (like cookies or specific auth headers)<br>
         Sets flag <code>withCredentials</code><br>
-        <a href="https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/withCredentials">Read more about it is here</a>
+        <a href="https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/withCredentials">Read more about it is here...</a>
     </td>
   </tr>
   <tr>
@@ -238,7 +238,7 @@ try{
         <b>headers?: object</b>
     </td>
     <td>
-        <code>undefined</code>
+        <code>instance.omitCatches | undefined</code>
     </td>
     <td>
         Sets request headers<br>
@@ -259,6 +259,16 @@ await kinka.get('/donuts/all', {
     <td>undefined</td>
     <td>
         Sets the request body. It is content which needed to send on server
+    </td>
+  </tr>
+  <tr>
+    <td>
+        <b>timeout?: number</b>
+    </td>
+    <td>0</td>
+    <td>
+        Sets the number of milliseconds after which request automatically will be terminated. 0 value means no timeout.<br>
+        <a href="https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/timeout">Read more about it is here...</a>
     </td>
   </tr>
 </table>
