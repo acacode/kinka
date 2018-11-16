@@ -14,7 +14,7 @@
 
 **CAUTION** : alpha version.
 
-<a href="https://jsfiddle.net/207u8knd/16/"> Test kinka in JSFiddle </a>
+<a href="https://jsfiddle.net/207u8knd/17/"> Test kinka in JSFiddle </a>
 
 <h2  align="left">Installation</h2>
 
@@ -27,7 +27,7 @@ or using yarn
   
 
 <h2 align="left">Documentation</h2>
-<a href="https://github.com/acacode/kinka/blob/master/docs/DOCUMENTATION.md">Full documentation is here</a>
+<a href="https://github.com/acacode/kinka/blob/master/docs/documentation.md">Full documentation is here</a>
 
 <h2 align="left">Examples</h2>
 <img src="https://github.com/acacode/kinka/raw/master/docs/images/defaultUsing.png">
