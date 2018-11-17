@@ -274,3 +274,86 @@ await kinka.get('/donuts/all', {
   </tr>
 </table>
 <!-- [api](https://github.com/acacode/kinka/blob/master/README.md) -->
+
+
+# Examples
+
+```
+import kinka from 'kinka'
+
+kinka.get('https://test-api.com/users').then(response => {
+  // GET: https://test-api.com/users
+  if (!response.err) {
+    console.log(response.data)
+  }
+})
+```
+
+```
+import kinka from 'kinka'
+
+const api = kinka.create({ baseURL: 'https://test-api.com' })
+
+api.get('/users').then(response => {
+  // GET: https://test-api.com/users
+  if (!response.err) {
+    console.log(response.data)
+  }
+})
+```
+
+```
+import kinka from 'kinka'
+
+const api = kinka.create({ baseURL: 'https://test-api.com' })
+
+api
+  .post(
+    '/users',
+    {
+      firstName: 'David',
+      lastName: 'Bowie',
+    },
+    {
+      query: { as: 'admin' },
+    }
+  )
+  .then(({ err, isSuccess, data }) => {
+    // POST: https://test-api.com/users
+    if (!err && isSuccess) {
+      // err = undefined, isSuccess = true
+      console.log(data) // response data
+    }
+  })
+```
+
+```
+import kinka from 'kinka'
+
+const api = kinka.create({ baseURL: 'https://test-api.com' })
+
+const getUsers = () =>
+  api.get('/users', {
+    query: {
+      queryParam1: 1,
+      queryParam2: 'test',
+      queryParam3: false,
+    },
+    abortableKey: 'usersAbortableKey',
+    headers: {
+      'Specific-Header': 'some header data',
+    },
+  })
+
+const test = async () => {
+  const users = await api.all([getUsers(), getUsers(), getUsers()])
+  // all requests will be GET: https://test-api.com/users?queryParam1=1&queryParam2=test&queryParam3=false
+  // first and second requests has been catched because for each one specified same param 'abortableKey'
+  if (users[0].err && users[1].err && !users[2].err) {
+    const data = users[2].data
+    console.log('data', data)
+  }
+}
+
+test()
+```

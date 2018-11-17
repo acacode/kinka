@@ -12,22 +12,23 @@ declare interface KinkaResponse<T = any>  {
 }
 
 declare interface KinkaRequestOptions{
-    headers?: object;
-    withAuth?: boolean;
-    query?: object;
     abortableKey?: string;
-    successStatus?: number;
-    omitCatches?: boolean;
-    body?: any;
     baseURL?: string;
+    body?: any;
+    headers?: object;
+    omitCatches?: boolean;
+    query?: object;
+    successStatus?: number;
+    timeout?: number;
+    withAuth?: boolean;
 }
 
 declare interface KinkaInstanceOptions{
     baseURL?: string;
-    omitCatches?: boolean;
-    headers: {};
-    timeout?: number;
     customMethods?: (string[] | null);
+    headers: {};
+    omitCatches?: boolean;
+    timeout?: number;
 }
 
 export interface KinkaInstance {
