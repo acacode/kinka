@@ -40,7 +40,8 @@ process.env.NODE_ENV = 'production'
 	      example: <br>
 	  
 	kinka.get('/users', { abortableKey: 'usersKey' })
-	kinka.abort('usersKey') // GET:/users request will been canceled
+	kinka.abort('usersKey')
+	//GET:/users request will been canceled
 	  
   </td>
   </tr>
