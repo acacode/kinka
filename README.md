@@ -14,7 +14,7 @@
 
 **CAUTION** : alpha version.
 
-<a href="https://jsfiddle.net/207u8knd/17/"> Test kinka in JSFiddle </a>
+<a href="https://jsfiddle.net/207u8knd/18/"> Test kinka in JSFiddle </a>
 
 <h2  align="left">Installation</h2>
 
