@@ -17,7 +17,7 @@ process.env.NODE_ENV = 'production'
 
 <table>
   <tr>
-    <td colspan="4"> <b>kinka['property']</b></td>
+    <td colspan="4"> <b>kinka['name'](options)</b></td>
   </tr>
   <tr>
     <td>Name</td>
