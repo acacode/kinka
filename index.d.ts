@@ -32,6 +32,7 @@ declare interface KinkaInstanceOptions{
 }
 
 export interface KinkaInstance {
+    abort(abortableKey: string):undefined;
     all<T>(promises: Promise<T>[]): Promise<T[]>;
     create(options?: KinkaInstanceOptions): KinkaInstance;
     custom<T = any, R = KinkaResponse<T>>(method: string, path: string, options?: KinkaRequestOptions): Promise<R>;

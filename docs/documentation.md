@@ -17,127 +17,68 @@ process.env.NODE_ENV = 'production'
 
 <table>
   <tr>
-    <td colspan="3"> <b>kinka['property']</b></td>
+    <td colspan="4"> <b>kinka['property']</b></td>
   </tr>
   <tr>
     <td>Name</td>
     <td>Options</td>
+    <td>Returns</td>
     <td>Description</td>
   </tr>
   <tr>
     <td>
-        <b>get</b>
-    </td>
-	<td>
-        <br><code>path: string</code>, 
-        <br><code>options?: RequestOptions</code>
+        <b>abort</b>
     </td>
     <td>
-	      create request with <code>GET</code> method. <hr>
-	      returns <code>Promise&lt;Response&gt; </code>
-   </td>
+        <code>abortableKey: string</code>
+    </td>
+    <td>
+        <code>Kinka</code>
+    </td>
+    <td>
+	      abort request by abortable key<br>
+	      example: <br>
+	  
+	kinka.get('/users', { abortableKey: 'usersKey' })
+	kinka.abort('usersKey') // GET:/users request will been canceled
+	  
+  </td>
   </tr>
   <tr>
     <td>
-        <b>options</b>
-    </td>
-  	<td>
-        <br><code>path: string</code>, 
-        <br><code>options?: RequestOptions</code>
+        <b>all</b>
     </td>
     <td>
-	      create request with <code>OPTIONS</code> method. <hr>
-	      returns <code>Promise&lt;Response&gt; </code>    
-    </td>
-  </tr>
-  <tr>
-    <td>
-        <b>head</b>
-    </td>
-    <td> 
-        <br><code>path: string</code>, 
-        <br><code>options?: RequestOptions</code>
+        <code>requests: Array&lt;Promise&gt;</code>
     </td>
     <td>
-        create request with <code>HEAD</code> method. <hr>
-        returns <code>Promise&lt;Response&gt; </code>    
-    </td>
-  </tr>
-  <tr>
-    <td>
-        <b>put</b>
+        <code>Promise&lt;Response[]&gt;</code>
     </td>
     <td>
-        <br><code>path: string</code>, 
-        <br><code>body?: any</code>, 
-        <br><code>options?: RequestOptions</code>
-    </td>
-    <td>
-        create request with <code>PUT</code> method. <hr>
-        returns <code>Promise&lt;Response&gt; </code>    
-    </td>
-  </tr>
-  <tr>
-    <td>
-        <b>post</b>
-    </td>
-    <td>
-        <br><code>path: string</code>, 
-        <br><code>body?: any</code>, 
-        <br><code>options?: RequestOptions</code>
-    </td>
-    <td>
-        create request with <code>POST</code> method. <hr>
-        returns <code>Promise&lt;Response&gt; </code>    
-    </td>
-  </tr>
-  <tr>
-    <td>
-        <b>patch</b>
-    </td>
-    <td>
-        <br><code>path: string</code>, 
-        <br><code>body?: any</code>, 
-        <br><code>options?: RequestOptions</code>
-    </td>
-    <td>
-        create request with <code>PATCH</code> method. <hr>
-        returns <code>Promise&lt;Response&gt; </code>    
-    </td>
-  </tr>
-  <tr>
-    <td>
-        <b>delete</b>
-    </td>
-	  <td>
-        <br><code>path: string</code>, 
-        <br><code>options?: RequestOptions</code>
-    </td>
-    <td>
-        create request with <code>DELETE</code> method. <hr>
-        returns <code>Promise&lt;Response&gt; </code>    
-    </td>
-  </tr>
-  <tr>
-    <td>
-        <b>custom</b>
-    </td>
-    <td>
-        <br><code>method: string</code>, 
-        <br><code>path: string</code>, 
-        <br><code>options?: RequestOptions</code>
-    </td>
-    <td>
-        create request with custom method name. <hr>
-        returns <code>Promise&lt;Response&gt; </code>    
-   </td>
+          It method can helps if needed to wait more than one request<br>
+	      Return a promise that is fulfilled when all the items in the array are fulfilled.<br>
+	      example: <br>
+	  
+	const [friends, family, donuts] = await kinka.all([
+	  kinka.get('/friends'),
+	  kinka.get('/family'),
+	  kinka.get('/donuts'),
+	])
+	console.log(friends.data)
+	console.log(family.data)
+	console.log(donuts.data)
+	  
+  </td>
   </tr>
   <tr>
     <td>
         <b>create</b>
     </td>
     <td>
-        <br><code>options?: InstanceOptions</code>
+        <code>options?: InstanceOptions</code>
+    </td>
+	<td>
+        <code>Kinka</code>
     </td>
     <td>
 	      create new kinka instance with your own options.<br>
@@ -146,8 +87,131 @@ process.env.NODE_ENV = 'production'
 	const api = kinka.create({baseURL: 'myapi.com'})
 	api.get('/all') // GET: myapi.com/all promise
 	  
-  <hr> returns <code>Kinka</code>
   </td>
+  </tr>
+  <tr>
+    <td>
+        <b>custom</b>
+    </td>
+    <td>
+        <code>method: string</code>, 
+        <br><code>path: string</code>, 
+        <br><code>options?: RequestOptions</code>
+    </td>
+	<td>
+        <code>Promise&lt;Response&gt;</code>
+    </td>
+    <td>
+        create request with custom method name.
+   </td>
+  </tr>
+  <tr>
+    <td>
+        <b>delete</b>
+    </td>
+	<td>
+        <code>path: string</code>, 
+        <br><code>options?: RequestOptions</code>
+    </td>
+	<td>
+        <code>Promise&lt;Response&gt;</code>
+    </td>
+    <td>
+        create request with <code>DELETE</code> method.
+    </td>
+  </tr>
+  <tr>
+    <td>
+        <b>get</b>
+    </td>
+	<td>
+        <code>path: string</code>, 
+        <br><code>options?: RequestOptions</code>
+    </td>
+	<td>
+        <code>Promise&lt;Response&gt;</code>
+    </td>
+    <td>
+	      create request with <code>GET</code> method.
+   </td>
+  </tr>
+  <tr>
+    <td>
+        <b>head</b>
+    </td>
+    <td> 
+        <code>path: string</code>, 
+        <br><code>options?: RequestOptions</code>
+    </td>
+	<td>
+        <code>Promise&lt;Response&gt;</code>
+    </td>
+    <td>
+        create request with <code>HEAD</code> method.
+    </td>
+  </tr>
+  <tr>
+    <td>
+        <b>options</b>
+    </td>
+  	<td>
+        <code>path: string</code>, 
+        <br><code>options?: RequestOptions</code>
+    </td>
+	<td>
+        <code>Promise&lt;Response&gt;</code>
+    </td>
+    <td>
+	      create request with <code>OPTIONS</code> method.
+    </td>
+  </tr>
+  <tr>
+    <td>
+        <b>patch</b>
+    </td>
+    <td>
+        <code>path: string</code>, 
+        <br><code>body?: any</code>, 
+        <br><code>options?: RequestOptions</code>
+    </td>
+	<td>
+        <code>Promise&lt;Response&gt;</code>
+    </td>
+    <td>
+        create request with <code>PATCH</code> method.
+    </td>
+  </tr>
+  <tr>
+    <td>
+        <b>post</b>
+    </td>
+    <td>
+        <code>path: string</code>, 
+        <br><code>body?: any</code>, 
+        <br><code>options?: RequestOptions</code>
+    </td>
+	<td>
+        <code>Promise&lt;Response&gt;</code>
+    </td>
+    <td>
+        create request with <code>POST</code> method.
+    </td>
+  </tr>
+  <tr>
+    <td>
+        <b>put</b>
+    </td>
+    <td>
+        <code>path: string</code>, 
+        <br><code>body?: any</code>, 
+        <br><code>options?: RequestOptions</code>
+    </td>
+	<td>
+        <code>Promise&lt;Response&gt;</code>
+    </td>
+    <td>
+        create request with <code>PUT</code> method.
+    </td>
   </tr>
 </table>
 
