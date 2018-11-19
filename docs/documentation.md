@@ -294,7 +294,10 @@ api.post(
   '/user',
   { fullName: 'John Week' },
   {
-    auth: { username: 'boss-killer', password: 'IloveCats<3' },
+    auth: { 
+      username: 'boss-killer', 
+      password: 'IloveCats<3'
+    },
   }
 )
     </code></pre>
