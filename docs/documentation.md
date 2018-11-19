@@ -365,12 +365,18 @@ api.get('/data')
   <tr>
     <td><b>omitCatches?: bool</b></td>
     <td><code>true</code></td>
-    <td>Same option as in `RequestOptions` but it works globally for each request created via instance</td>
+    <td>
+      Same option as in `RequestOptions` but it works globally<br>
+      for each request created via instance
+    </td>
   </tr>
   <tr>
     <td><b>timeout?: number</b></td>
     <td><code>0</code></td>
-    <td>Same option as in `RequestOptions` but it works globally for each request created via instance</td>
+    <td>
+      Same option as in `RequestOptions` but it works globally<br>
+      for each request created via instance
+    </td>
   </tr>
   <tr>
     <td><b>inspectors?: object</b></td>
