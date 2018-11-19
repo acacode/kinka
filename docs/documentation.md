@@ -185,7 +185,7 @@ process.env.NODE_ENV = 'production'
   </tr>
   <tr>
     <td>Property</td>
-    <td>Default value</td>
+    <td>Default</td>
     <td>Description</td>
   </tr>
   <tr>
@@ -308,7 +308,7 @@ api.post(
   </tr>
   <tr>
     <td>Property</td>
-    <td>Default value</td>
+    <td>Default</td>
     <td>Description</td>
   </tr>
   <tr>
@@ -373,20 +373,7 @@ api.get('/data')
     <td>Same option as in `RequestOptions` but it works globally for each request created via instance</td>
   </tr>
   <tr>
-    <td><b>inspectors?:</b><pre><code>
-{ 
-    request?(
-      url: string, 
-      method: string, 
-      options: RequestOptions
-    ):(RequestOptions|undefined),
-    response?(
-      url: string, 
-      method: string, 
-      response?: Response
-    ):(Response|undefined), 
-}
-    </code></pre></td>
+    <td><b>inspectors?: object</b></td>
     <td>{}</td>
     <td>
         Allows to attach inspectors to your kinka instance.<br>
@@ -416,12 +403,11 @@ const api = kinka.create({
     </td>
   </tr>
   <tr>
-    <td><b>auth?(authData:any):(RequestOptions|any)</b></td>
+    <td><b>auth?(authData):RequestOptions</b></td>
     <td><code>undefined</code></td>
     <td>
         Allows to attach auth mixin for requests in your kinka instance.<br>
-        It mixin will be modify your request options before sending request.
-        Mixin takes one argument <code>authData</code> it is any data which needed for request authentication and returing object which should looks like <code>RequestOptions</code> interface.
+        It mixin will be modify your request options before sending request.<br>
         Example:<br>
         <pre><code>
 const api = kinka.create({
