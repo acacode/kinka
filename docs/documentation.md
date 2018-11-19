@@ -285,7 +285,8 @@ const api = kinka.create({
   baseURL: `${baseURL}/${apiPath}`,
   auth: ({ username, password }) => ({
     headers: {
-      Authorization: `Token ${username}:${stringToSHA256(password)}`,
+      Authorization: 
+        `Token ${username}:${stringToSHA256(password)}`,
     },
   }),
 })
@@ -335,7 +336,8 @@ const api = kinka.create({
     baseURL: 'https://api.com',
     customMethods: ['move'],
 })
-api.move('/data', { body: { files: null } }) // MOVE: https://api.com/data
+api.move('/data', { body: { files: null } })
+// MOVE: https://api.com/data
         </code></pre>
     </td>
   </tr>
