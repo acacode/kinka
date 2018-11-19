@@ -377,8 +377,10 @@ api.get('/data')
     <td>{}</td>
     <td>
         Allows to attach inspectors to your kinka instance.<br>
-        Inspectors it is watchers for requests or responses, which allows dynamically change request options or response data.<br>
-        If needed to change request options or response data then need to return modified options/response.
+        Inspectors it is watchers for requests or responses<br>
+        which allows dynamically change request options or response data.<br>
+        If needed to change request options or response data then<br>
+        need to return modified options/response.
         Example:<br>
         <pre><code>
 const api = kinka.create({
