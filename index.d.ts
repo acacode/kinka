@@ -21,12 +21,18 @@ declare interface KinkaRequestOptions{
     successStatus?: number;
     timeout?: number;
     withAuth?: boolean;
+    auth?:any;
 }
 
 declare interface KinkaInstanceOptions{
+    auth?(authData:any):(KinkaRequestOptions|any)
     baseURL?: string;
     customMethods?: (string[] | null);
-    headers: {};
+    headers: object;
+    inspectors?: { 
+        request?(url: string, method: string, options?: KinkaRequestOptions):(KinkaRequestOptions|undefined), 
+        response?<T = any, R = KinkaResponse<T>>(url: string, method: string, response: R):(R|undefined), 
+    }
     omitCatches?: boolean;
     timeout?: number;
 }

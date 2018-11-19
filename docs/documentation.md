@@ -26,15 +26,11 @@ process.env.NODE_ENV = 'production'
     <td>Description</td>
   </tr>
   <tr>
-    <td>
-        <b>abort</b>
-    </td>
+    <td><b>abort</b></td>
     <td>
         <code>abortableKey: string</code>
     </td>
-    <td>
-        <code>Kinka</code>
-    </td>
+    <td><code>undefined</code></td>
     <td>
 	      abort request by abortable key<br>
 	      example: <br>
@@ -46,15 +42,11 @@ process.env.NODE_ENV = 'production'
   </td>
   </tr>
   <tr>
-    <td>
-        <b>all</b>
-    </td>
+    <td><b>all</b></td>
     <td>
         <code>requests: Array&lt;Promise&gt;</code>
     </td>
-    <td>
-        <code>Promise&lt;Response[]&gt;</code>
-    </td>
+    <td><code>Promise&lt;Response[]&gt;</code></td>
     <td>
           It method can helps if needed to wait more than one request<br>
 	      Return a promise that is fulfilled when all the items in the array are fulfilled.<br>
@@ -72,15 +64,11 @@ process.env.NODE_ENV = 'production'
   </td>
   </tr>
   <tr>
-    <td>
-        <b>create</b>
-    </td>
+    <td><b>create</b></td>
     <td>
         <code>options?: InstanceOptions</code>
     </td>
-	<td>
-        <code>Kinka</code>
-    </td>
+	<td><code>Kinka</code></td>
     <td>
 	      create new kinka instance with your own options.<br>
 	      example: <br>
@@ -91,109 +79,81 @@ process.env.NODE_ENV = 'production'
   </td>
   </tr>
   <tr>
-    <td>
-        <b>custom</b>
-    </td>
+    <td><b>custom</b></td>
     <td>
         <code>method: string</code>, 
         <br><code>path: string</code>, 
         <br><code>options?: RequestOptions</code>
     </td>
-	<td>
-        <code>Promise&lt;Response&gt;</code>
-    </td>
+	<td><code>Promise&lt;Response&gt;</code></td>
     <td>
         create request with custom method name.
    </td>
   </tr>
   <tr>
-    <td>
-        <b>delete</b>
-    </td>
+    <td><b>delete</b></td>
 	<td>
         <code>path: string</code>, 
         <br><code>options?: RequestOptions</code>
     </td>
-	<td>
-        <code>Promise&lt;Response&gt;</code>
-    </td>
+	<td><code>Promise&lt;Response&gt;</code></td>
     <td>
         create request with <code>DELETE</code> method.
     </td>
   </tr>
   <tr>
-    <td>
-        <b>get</b>
-    </td>
+    <td><b>get</b></td>
 	<td>
         <code>path: string</code>, 
         <br><code>options?: RequestOptions</code>
     </td>
-	<td>
-        <code>Promise&lt;Response&gt;</code>
-    </td>
+	<td><code>Promise&lt;Response&gt;</code></td>
     <td>
 	      create request with <code>GET</code> method.
    </td>
   </tr>
   <tr>
-    <td>
-        <b>head</b>
-    </td>
+    <td><b>head</b></td>
     <td> 
         <code>path: string</code>, 
         <br><code>options?: RequestOptions</code>
     </td>
-	<td>
-        <code>Promise&lt;Response&gt;</code>
-    </td>
+	<td><code>Promise&lt;Response&gt;</code></td>
     <td>
         create request with <code>HEAD</code> method.
     </td>
   </tr>
   <tr>
-    <td>
-        <b>options</b>
-    </td>
+    <td><b>options</b></td>
   	<td>
         <code>path: string</code>, 
         <br><code>options?: RequestOptions</code>
     </td>
-	<td>
-        <code>Promise&lt;Response&gt;</code>
-    </td>
+	<td><code>Promise&lt;Response&gt;</code></td>
     <td>
 	      create request with <code>OPTIONS</code> method.
     </td>
   </tr>
   <tr>
-    <td>
-        <b>patch</b>
-    </td>
+    <td><b>patch</b></td>
     <td>
         <code>path: string</code>, 
         <br><code>body?: any</code>, 
         <br><code>options?: RequestOptions</code>
     </td>
-	<td>
-        <code>Promise&lt;Response&gt;</code>
-    </td>
+	<td><code>Promise&lt;Response&gt;</code></td>
     <td>
         create request with <code>PATCH</code> method.
     </td>
   </tr>
   <tr>
-    <td>
-        <b>post</b>
-    </td>
+    <td><b>post</b></td>
     <td>
         <code>path: string</code>, 
         <br><code>body?: any</code>, 
         <br><code>options?: RequestOptions</code>
     </td>
-	<td>
-        <code>Promise&lt;Response&gt;</code>
-    </td>
+	<td><code>Promise&lt;Response&gt;</code></td>
     <td>
         create request with <code>POST</code> method.
     </td>
@@ -229,12 +189,8 @@ process.env.NODE_ENV = 'production'
     <td>Description</td>
   </tr>
   <tr>
-    <td>
-        <b>query?: object</b>
-    </td>
-    <td>
-        <code>undefined</code>
-    </td>
+    <td><b>query?: object</b></td>
+    <td><code>undefined</code></td>
     <td>
         query params for your http request<br>
         example:<br>
@@ -249,23 +205,15 @@ kinka.get('/all', {
   </td>
   </tr>
   <tr>
-    <td>
-        <b>abortableKey?:string</b>
-    </td>
-    <td>
-        <code>undefined</code>
-    </td>
+    <td><b>abortableKey?:string</b></td>
+    <td><code>undefined</code></td>
     <td>
         With abortable key your request have ability to cancel last request if request with the same key is start launching
     </td>
   </tr>
   <tr>
-    <td>
-        <b>omitCatches?: bool</b>
-    </td>
-    <td>
-        <code>instance.omitCatches | true</code>
-    </td>
+    <td><b>omitCatches?: bool</b></td>
+    <td><code>instance.omitCatches | true</code></td>
     <td>
         With <code>true</code> value your responses will not be throwing exceptions and you don't need to wrap your requests in <code>try/catch</code>.<br>
         And if you want to catch exception you can get this from <code>response.err</code> or <code>response.isError</code><br>
@@ -287,12 +235,8 @@ try{
   </td>
   </tr>
   <tr>
-    <td>
-        <b>withAuth?: bool</b>
-    </td>
-    <td>
-        <code>false</code>
-    </td>
+    <td><b>withAuth?: bool</b></td>
+    <td><code>false</code></td>
     <td>
         Indicates that this request should use credentials (like cookies or specific auth headers)<br>
         Sets flag <code>withCredentials</code><br>
@@ -300,12 +244,8 @@ try{
     </td>
   </tr>
   <tr>
-    <td>
-        <b>headers?: object</b>
-    </td>
-    <td>
-        <code>instance.omitCatches | undefined</code>
-    </td>
+    <td><b>headers?: object</b></td>
+    <td><code>{}</code></td>
     <td>
         Sets request headers<br>
         Example:<br>
@@ -319,26 +259,186 @@ await kinka.get('/donuts/all', {
     </td>
   </tr>
   <tr>
-    <td>
-        <b>body?: any</b>
-    </td>
-    <td>undefined</td>
+    <td><b>body?: any</b></td>
+    <td><code>undefined</code></td>
     <td>
         Sets the request body. It is content which needed to send on server
     </td>
   </tr>
   <tr>
-    <td>
-        <b>timeout?: number</b>
-    </td>
-    <td>0</td>
+    <td><b>timeout?: number</b></td>
+    <td><code>0</code></td>
     <td>
         Sets the number of milliseconds after which request automatically will be terminated. 0 value means no timeout.<br>
         <a href="https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/timeout">Read more about it is here...</a>
     </td>
   </tr>
+  <tr>
+    <td><b>auth?: any</b></td>
+    <td><code>undefined</code></td>
+    <td>
+        Sets data for the instance `auth` mixin.<br>
+        Only works if `auth` mixin is setted in instance options<br>
+        Example:<br>
+    <pre><code>
+const api = kinka.create({
+  baseURL: `${baseURL}/${apiPath}`,
+  auth: ({ username, password }) => ({
+    headers: {
+      Authorization: `Token ${username}:${stringToSHA256(password)}`,
+    },
+  }),
+})
+api.post(
+  '/user',
+  { fullName: 'John Week' },
+  {
+    auth: { username: 'boss-killer', password: 'IloveCats<3' },
+  }
+)
+    </code></pre>
+    </td>
+  </tr>
 </table>
-<!-- [api](https://github.com/acacode/kinka/blob/master/README.md) -->
+
+
+<table>
+  <tr>
+    <td colspan="3"> <b>InstanceOptions: object</b></td>
+  </tr>
+  <tr>
+    <td>Property</td>
+    <td>Default value</td>
+    <td>Description</td>
+  </tr>
+  <tr>
+    <td><b>baseURL?: string</b></td>
+    <td><code>location.origin</code></td>
+    <td>
+        Sets the `baseURL` for instance.<br>
+        Allows to set base url address for server.<br>
+        Example:<br>
+        <pre><code>
+const api = kinka.create({ baseURL: 'https://api.com' })
+api.get('/data') //GET: https://api.com/data
+        </code></pre>
+    </td>
+  </tr>
+  <tr>
+    <td><b>customMethods?: (string[] | null)</b></td>
+    <td><code>null</code></td>
+    <td>
+        Allows to create instance methods which will have special http methods.<br>
+        Example:<br>
+        <pre><code>
+const api = kinka.create({
+    baseURL: 'https://api.com',
+    customMethods: ['move'],
+})
+api.move('/data', { body: { files: null } }) // MOVE: https://api.com/data
+        </code></pre>
+    </td>
+  </tr>
+  <tr>
+    <td><b>headers?: object</b></td>
+    <td><code>{}</code></td>
+    <td>
+        Allows to set specific headers for each request created via instance<br>
+        Example:<br>
+        <pre><code>
+const api = kinka.create({
+    baseURL: 'https://api.com',
+    headers: {
+        'API_VERSION': '01',
+    },
+})
+api.get('/data')
+/*
+    GET: https://api.com/data
+    headers: {
+        "API_VERSION": "01"
+    }
+*/
+        </code></pre>
+    </td>
+  </tr>
+  <tr>
+    <td><b>omitCatches?: bool</b></td>
+    <td><code>true</code></td>
+    <td>Same option as in `RequestOptions` but it works globally for each request created via instance</td>
+  </tr>
+  <tr>
+    <td><b>timeout?: number</b></td>
+    <td><code>0</code></td>
+    <td>Same option as in `RequestOptions` but it works globally for each request created via instance</td>
+  </tr>
+  <tr>
+    <td><b>inspectors?:</b><pre><code>
+{ 
+    request?(
+      url: string, 
+      method: string, 
+      options: RequestOptions
+    ):(RequestOptions|undefined),
+    response?(
+      url: string, 
+      method: string, 
+      response?: Response
+    ):(Response|undefined), 
+}
+    </code></pre></td>
+    <td>{}</td>
+    <td>
+        Allows to attach inspectors to your kinka instance.<br>
+        Inspectors it is watchers for requests or responses, which allows dynamically change request options or response data.<br>
+        If needed to change request options or response data then need to return modified options/response.
+        Example:<br>
+        <pre><code>
+const api = kinka.create({
+  baseURL: `${baseURL}/${apiPath}`,
+  inspectors: {
+    request: (url, method, options) => {
+      console.log(`request ${url}`, options)
+      // here request will be not modified
+    },
+    response: (url, method, response) => {
+      console.log(`response ${url}`, response)
+      if(!response.data){
+          response.data = null
+      }
+      // here response will be modified
+      // and data will be null 
+      return response
+    },
+  },
+})
+        </code></pre>
+    </td>
+  </tr>
+  <tr>
+    <td><b>auth?(authData:any):(RequestOptions|any)</b></td>
+    <td><code>undefined</code></td>
+    <td>
+        Allows to attach auth mixin for requests in your kinka instance.<br>
+        It mixin will be modify your request options before sending request.
+        Mixin takes one argument <code>authData</code> it is any data which needed for request authentication and returing object which should looks like <code>RequestOptions</code> interface.
+        Example:<br>
+        <pre><code>
+const api = kinka.create({
+  baseURL: `${baseURL}/${apiPath}`,
+  auth: ({ username, password }) => ({
+    headers: {
+      Auth: `Token ${username}:${stringToSHA256(password)}`,
+    },
+  }),
+})
+api.get('/data', {
+  auth: { username: 'TheFlash', password: 'SpeedF0rce' },
+})
+        </code></pre>
+    </td>
+  </tr>
+</table>
 
 
 # Examples
