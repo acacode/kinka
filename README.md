@@ -4,7 +4,7 @@
   </a>
   <br>
   <h1>
-    <a href="https://github.com/acacode/kinka/blob/master/LICENSE"><img src="https://img.shields.io/badge/license-MIT-red.svg?style=flat-square"></a><a href="https://www.npmjs.com/package/kinka"><img src="https://img.shields.io/npm/v/kinka.svg?style=flat-square"></a><a href="https://travis-ci.org/acacode/kinka"><img src="https://img.shields.io/travis/acacode/kinka.svg?style=flat-square"></a><a href="http://npm-stat.com/charts.html?package=kinka"><img src="https://img.shields.io/npm/dm/kinka.svg?style=flat-square"></a>
+    <a href="https://github.com/acacode/kinka/blob/master/LICENSE"><img src="https://img.shields.io/badge/license-MIT-red.svg?style=flat-square"></a><a href="https://www.npmjs.com/package/kinka"><img src="https://img.shields.io/npm/v/kinka.svg?style=flat-square"></a><a href="https://travis-ci.org/acacode/kinka"><img src="https://img.shields.io/travis/acacode/kinka.svg?style=flat-square"></a><a href="http://npm-stat.com/charts.html?package=kinka"><img src="https://img.shields.io/npm/dm/kinka.svg?style=flat-square"></a><a href="https://bundlephobia.com/result?p=kinka"><img src="https://flat.badgen.net/bundlephobia/min/kinka"></a><a href="https://bundlephobia.com/result?p=kinka"><img src="https://flat.badgen.net/bundlephobia/minzip/kinka"></a>
   </h1>
   <p>
     Simple and very light HTTP web client.
