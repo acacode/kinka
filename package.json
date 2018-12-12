@@ -16,6 +16,8 @@
   "bugs": {
     "url": "https://github.com/acacode/kinka/issues"
   },
+  "homepage": "https://github.com/acacode/kinka#readme",
+  "description": "very light and simple http web client",
   "devDependencies": {
     "ajv": "6.0.0",
     "babel-cli": "6.26.0",
@@ -40,7 +42,6 @@
     "webpack": "4.16.5",
     "webpack-cli": "3.1.0"
   },
-  "homepage": "https://github.com/acacode/kinka#readme",
   "keywords": [
     "xmlhttprequest",
     "request",
