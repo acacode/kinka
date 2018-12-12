@@ -1,10 +1,13 @@
 {
   "name": "kinka",
-  "version": "0.0.51--alpha",
+  "version": "0.0.52--alpha",
   "description": "very light and simple http web client",
   "main": "index.js",
   "scripts": {
-    "build": "webpack"
+    "build": "webpack",
+    "lint": "eslint .",
+    "prepare-package": "node ./prepare-package.js",
+    "compare-versions": "node ./compare-versions.js"
   },
   "repository": {
     "type": "git",
