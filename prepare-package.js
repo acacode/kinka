@@ -11,10 +11,15 @@ function patchFile(pathToFile, changeFunc) {
 patchFile('./package.json', packageJson => {
   const packageVersion = packageJson.version
   packageJson.devDependencies = {}
+  console.log('dev dependencies in package.json has been cleared')
 
   patchFile('./package-lock.json', lockFile => {
     lockFile.dependencies = {}
     lockFile.version = packageVersion
+    console.log('dev dependencies in package-lock.json has been cleared')
+    console.log(
+      `version in package-lock.json became the same in package.json (${packageVersion})`
+    )
     return lockFile
   })
   return packageJson
