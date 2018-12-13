@@ -27,12 +27,11 @@ function compareVersions() {
     const npmVersion = message.toString().replace('\n', '')
     const versionsAreEqual = currentVersion === npmVersion
     if (versionsAreEqual) {
-      console.error(
-        'current version (' +
-          currentVersion +
-          ') should be updated (npm: ' +
-          npmVersion +
-          ')'
+      const errorMessage = `Current version (${currentVersion}) should be updated/changed (npm: ${npmVersion})`
+      throw Error(errorMessage)
+    } else {
+      console.log(
+        "Current version is not equals with npm version. That's fine!"
       )
     }
     command.kill('SIGINT')
