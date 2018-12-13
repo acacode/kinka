@@ -12,8 +12,8 @@ install:
 script:
   - yarn lint
   - yarn build
-after_success:
   - yarn compare-versions
+after_success:
   - if [ ${TRAVIS_BRANCH} = "master" ] && [ "${TRAVIS_PULL_REQUEST}" = "false" ];then
     yarn prepare-package;
     npm publish;
