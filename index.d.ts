@@ -58,6 +58,6 @@ export interface KinkaInstance {
     [customMethod: string]: <T = any, R = KinkaResponse<T>>(path: string, options?: KinkaRequestOptions) => Promise<R>;
 }
 
-declare const Kinka: KinkaInstance;
+declare const kinka: KinkaInstance;
 
-export default Kinka
+export default kinka

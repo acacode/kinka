@@ -4,7 +4,10 @@
   </a>
   <br>
   <h1>
-    <a href="https://github.com/acacode/kinka/blob/master/LICENSE"><img src="https://img.shields.io/badge/license-MIT-red.svg?style=flat-square"></a><a href="https://www.npmjs.com/package/kinka"><img src="https://img.shields.io/npm/v/kinka.svg?style=flat-square"></a><a href="https://travis-ci.org/acacode/kinka"><img src="https://img.shields.io/travis/acacode/kinka.svg?style=flat-square"></a><a href="http://npm-stat.com/charts.html?package=kinka"><img src="https://img.shields.io/npm/dm/kinka.svg?style=flat-square"></a>
+    <a href="https://github.com/acacode/kinka/blob/master/LICENSE"><img src="https://img.shields.io/badge/license-MIT-red.svg?style=flat-square"></a>
+    <a href="https://www.npmjs.com/package/kinka"><img src="https://img.shields.io/npm/v/kinka.svg?style=flat-square"></a>
+    <a href="https://travis-ci.org/acacode/kinka"><img src="https://img.shields.io/travis/acacode/kinka.svg?style=flat-square"></a>
+    <a href="http://npm-stat.com/charts.html?package=kinka"><img src="https://img.shields.io/npm/dm/kinka.svg?style=flat-square"></a>
   </h1>
   <p>
     Simple and very light HTTP web client.
@@ -12,9 +15,7 @@
 </div>
 <b>kinka</b> it is very light weight (**~4KB minfied version**, **~1.5KB gzipped**)  JavaScript library which allows to reduce http code ( which are using <a href="https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest">XMLHttpRequests</a> ) and do http code more simple and easy to read.
 
-**CAUTION** : alpha version.
-
-<a href="https://jsfiddle.net/js2me/0y3ng8xu/"> Test kinka in JSFiddle </a>
+**CAUTION** alpha version!
 
 <h2  align="left">Installation</h2>
 
@@ -24,15 +25,15 @@ or using yarn
 
     yarn add kinka
 
-  
+<h2 align="left">Documentation & Examples</h2>
+<a href="https://github.com/acacode/kinka/blob/master/docs/documentation.md">Documentation</a><br>
+<!-- <a href="https://github.com/acacode/kinka/examples">Examples</a><br> -->
+<a href="https://jsfiddle.net/js2me/0y3ng8xu/">Sandbox</a><br>
 
-<h2 align="left">Documentation</h2>
-<a href="https://github.com/acacode/kinka/blob/master/docs/documentation.md">Full documentation is here</a>
+<img src="https://github.com/acacode/kinka/raw/master/docs/images/defaultUsing.png"><br>
+<img src="https://github.com/acacode/kinka/raw/master/docs/images/omitCatchesSample.png"><br>
+<img src="https://github.com/acacode/kinka/raw/master/docs/images/queryParams.png"><br>
 
-<h2 align="left">Examples</h2>
-<img src="https://github.com/acacode/kinka/raw/master/docs/images/defaultUsing.png">
-<img src="https://github.com/acacode/kinka/raw/master/docs/images/omitCatchesSample.png">
-<img src="https://github.com/acacode/kinka/raw/master/docs/images/queryParams.png">
 
 <h2 aligh="left">LICENSE</h2>
 

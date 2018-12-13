@@ -53,5 +53,8 @@
     "httpclient",
     "http"
   ],
-  "typings": "./index.d.ts"
+  "typings": "./index.d.ts",
+  "dependencies": {
+    "express": "^4.16.4"
+  }
 }
