@@ -19,8 +19,11 @@ function getCommandLine(task, env) {
   return [file, args, options]
 }
 
-function compareVersions() {
-  const procOptions = getCommandLine('npm view kinka version', process.env)
+function compareVersions(packageName) {
+  const procOptions = getCommandLine(
+    `npm view ${packageName} version`,
+    process.env
+  )
   const command = proc.spawn.apply(proc, procOptions)
 
   command.stdout.on('data', message => {
@@ -40,4 +43,4 @@ function compareVersions() {
   })
 }
 
-compareVersions()
+compareVersions('kinka')
