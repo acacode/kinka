@@ -1,23 +1,25 @@
 {
   "name": "kinka",
   "version": "0.0.52--alpha",
-  "description": "very light and simple http web client",
+  "license": "MIT",
   "main": "index.js",
   "scripts": {
-    "build": "webpack"
+    "build": "webpack",
+    "lint": "eslint .",
+    "lint-fix": "eslint . --fix",
+    "prepare-package": "node ./prepare-package.js",
+    "compare-versions": "node ./compare-versions.js"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/acacode/kinka.git"
+  "author": {
+    "name": "acacode"
   },
-  "author": "acacode",
-  "license": "MIT",
   "bugs": {
     "url": "https://github.com/acacode/kinka/issues"
   },
   "homepage": "https://github.com/acacode/kinka#readme",
   "devDependencies": {
     "ajv": "6.0.0",
+    "express": "4.16.4",
     "babel-cli": "6.26.0",
     "babel-core": "6.26.3",
     "babel-eslint": "8.2.1",
@@ -55,6 +57,9 @@
   ],
   "typings": "./index.d.ts",
   "dependencies": {
-    "express": "^4.16.4"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/acacode/kinka.git"
   }
 }
