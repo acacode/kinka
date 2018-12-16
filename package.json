@@ -7,8 +7,8 @@
     "build": "webpack",
     "lint": "eslint .",
     "lint-fix": "eslint . --fix",
-    "prepare-package": "node ./prepare-package.js",
-    "compare-versions": "node ./compare-versions.js",
+    "prepare-package": "node ./bin/prepare-package.js",
+    "compare-versions": "node ./bin/compare-versions.js",
     "test": "./node_modules/.bin/karma start",
     "unit-test": "mocha \"test/**/*.spec.js\""
   },
