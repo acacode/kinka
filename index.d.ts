@@ -14,7 +14,7 @@ declare interface KinkaResponse<T = any>  {
 declare interface KinkaRequestOptions{
     abortableKey?: string;
     baseURL?: string;
-    body?: any;
+    data?: any;
     headers?: object;
     omitCatches?: boolean;
     query?: object;
@@ -46,9 +46,9 @@ export interface KinkaInstance {
     get<T = any, R = KinkaResponse<T>>(path: string, options?: KinkaRequestOptions): Promise<R>;
     head<T = any, R = KinkaResponse<T>>(path: string, options?: KinkaRequestOptions): Promise<R>;
     options<T = any, R = KinkaResponse<T>>(path: string, options?: KinkaRequestOptions): Promise<R>;
-    patch<T = any, R = KinkaResponse<T>>(path: string, body?: any, options?: KinkaRequestOptions): Promise<R>;
-    post<T = any, R = KinkaResponse<T>>(path: string, body?: any, options?: KinkaRequestOptions): Promise<R>;
-    put<T = any, R = KinkaResponse<T>>(path: string, body?: any, options?: KinkaRequestOptions): Promise<R>;
+    patch<T = any, R = KinkaResponse<T>>(path: string, data?: any, options?: KinkaRequestOptions): Promise<R>;
+    post<T = any, R = KinkaResponse<T>>(path: string, data?: any, options?: KinkaRequestOptions): Promise<R>;
+    put<T = any, R = KinkaResponse<T>>(path: string, data?: any, options?: KinkaRequestOptions): Promise<R>;
     
     /**
      * custom method works only if 
