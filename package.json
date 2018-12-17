@@ -10,7 +10,7 @@
     "prepare-package": "node ./bin/prepare-package.js",
     "compare-versions": "node ./bin/compare-versions.js",
     "test": "./node_modules/.bin/karma start",
-    "unit-test": "mocha \"test/**/*.spec.js\""
+    "unit-test": "mocha \"test/unit/**/*.js\" --compilers js:babel-core/register"
   },
   "author": {
     "name": "acacode"
@@ -22,10 +22,12 @@
   "devDependencies": {
     "ajv": "6.0.0",
     "babel-cli": "6.26.0",
-    "babel-core": "6.26.3",
+    "babel-core": "^6.26.3",
     "babel-eslint": "8.2.1",
     "babel-loader": "7.1.4",
     "babel-preset-env": "1.7.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-stage-0": "^6.24.1",
     "babel-preset-stage-2": "6.24.1",
     "chai": "^4.2.0",
     "eslint": "4.18.0",
@@ -54,6 +56,8 @@
     "karma-sauce-launcher": "^2.0.2",
     "karma-sinon": "^1.0.5",
     "mocha": "^5.2.0",
+    "mock-browser": "^0.92.14",
+    "mock-xmlhttprequest": "^2.0.0",
     "prettier": "1.10.2",
     "requirejs": "^2.3.6",
     "sinon": "7.1.1",
