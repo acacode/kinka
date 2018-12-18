@@ -14,45 +14,28 @@
 
 **CAUTION** alpha version!
 
-<h2  align="left">Installation</h2>
 
-    npm i -S kinka
+## 🚀 Installation
 
-or using yarn
+    $ npm install -g flamebird
+    # or using yarn
+    $ yarn add kinka
 
-    yarn add kinka
+## 📚 Documentation & Examples
 
-<h2 align="left">Documentation & Examples</h2>
 <a href="https://github.com/acacode/kinka/blob/master/docs/documentation.md">Documentation</a><br>
 <!-- <a href="https://github.com/acacode/kinka/examples">Examples</a><br> -->
 <a href="https://jsfiddle.net/js2me/0y3ng8xu/">Sandbox</a><br>
 
-<img src="https://github.com/acacode/kinka/raw/master/docs/images/defaultUsing.png"><br>
-<img src="https://github.com/acacode/kinka/raw/master/docs/images/omitCatchesSample.png"><br>
-<img src="https://github.com/acacode/kinka/raw/master/docs/images/queryParams.png"><br>
+## ❓ Why kinka ❔
 
+**It is easiest way to catch your bad request**
+![catching error](./docs/images/catchingError.png)
+**More powerful things which can improve your interaction with your requests**
+**Have very small size which can improve site load time**
+<!-- <img src="https://github.com/acacode/kinka/raw/master/docs/images/omitCatchesSample.png"><br> -->
+<!-- <img src="https://github.com/acacode/kinka/raw/master/docs/images/queryParams.png"><br> -->
 
-<h2 aligh="left">LICENSE</h2>
+## 📝 License
 
-MIT License
-
-Copyright (c) 2018-present Sergey Volkov
-
-Permission is hereby granted, free of charge, to any person obtaining
-a copy of this software and associated documentation files (the
-'Software'), to deal in the Software without restriction, including
-without limitation the rights to use, copy, modify, merge, publish,
-distribute, sublicense, and/or sell copies of the Software, and to
-permit persons to whom the Software is furnished to do so, subject to
-the following conditions:
-
-The above copyright notice and this permission notice shall be
-included in all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED 'AS IS', WITHOUT WARRANTY OF ANY KIND,
-EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
-IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
-CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
-TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
-SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+Licensed under the [MIT License](./LICENSE).
