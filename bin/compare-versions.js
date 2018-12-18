@@ -1,6 +1,6 @@
 const proc = require('child_process')
 const isWin = require('os').platform() === 'win32'
-const currentVersion = require('./package.json').version
+const currentVersion = require('../package.json').version
 
 function getCommandLine(task, env) {
   var file, args
