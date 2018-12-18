@@ -30,7 +30,7 @@
 ## ❓ Why kinka ❔
 
 **It is easiest way to catch your bad request**
-![catching error](./docs/images/catchingError.png)
+![catching error](./docs/images/catchingErrors.png)
 **More powerful things which can improve your interaction with your requests**
 **Have very small size which can improve site load time**
 <!-- <img src="https://github.com/acacode/kinka/raw/master/docs/images/omitCatchesSample.png"><br> -->
