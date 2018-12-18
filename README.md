@@ -10,7 +10,7 @@
     Simple and very light HTTP web client for browsers.
   </p>
 </div>
-<b>kinka</b> it is very light weight (<b>~4KB minfied version</b>, <b>~1.5KB minzipped</b>)  JavaScript library which allows to reduce http code ( which are using <a href="https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest">XMLHttpRequests</a> ) and do http code more simple and easy to read.
+<b>kinka</b> it is very light weight (<b>~4KB minified version</b>, <b>~1.8KB minzipped</b>)  JavaScript library which allows to reduce http code ( which are using <a href="https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest">XMLHttpRequests</a> ) and do http code more simple and easy to read.
 
 **CAUTION** alpha version!
 
