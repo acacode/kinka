@@ -23,18 +23,16 @@
 
 ## 📚 Documentation & Examples
 
-[Documentation](./docs/documentation.md)
-[Examples](./examples)
-[Sandbox](https://jsfiddle.net/js2me/0y3ng8xu/)
+[Documentation](./docs/documentation.md)  
+[Examples](./examples)  
+[Sandbox](https://jsfiddle.net/js2me/0y3ng8xu/)  
 
-## ❓ Why kinka ❔
+## Why kinka ❔
 
 **It is easiest way to catch your bad request**
-![catching error](./docs/images/catchingErrors.png)
-
-**More powerful things 💪 which can improve your interaction with your requests**
-
-**Have very small size which can improve site load time**
+![catching error](./docs/images/catchingErrors.png)  
+**More powerful things 💪 which can improve your interaction with your requests**  
+**Have very small size which can improve site load time**  
 <!-- <img src="https://github.com/acacode/kinka/raw/master/docs/images/omitCatchesSample.png"><br> -->
 <!-- <img src="https://github.com/acacode/kinka/raw/master/docs/images/queryParams.png"><br> -->
 
