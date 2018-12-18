@@ -17,7 +17,7 @@
 
 ## 🚀 Installation
 
-    $ npm install -g flamebird
+    $ npm i -S kinka
     # or using yarn
     $ yarn add kinka
 
