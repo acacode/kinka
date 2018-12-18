@@ -11,40 +11,49 @@ describe('kinka instance : ', () => {
   })
 
   const testMethod = (name, api = kinka) => {
-    describe(` - ${name} method : `, () => {
+    const path = '/test'
+    describe(` - ${name} method : `, function() {
       let onCreateXHRstub = sinon.stub()
-      let onSendXHRstub = sinon.stub()
       beforeEach(() => {
         global.XMLHttpRequest = MockXMLHttpRequest.newMockXhr()
         global.XMLHttpRequest.onCreate = function(xhr) {
           onCreateXHRstub()
         }
-        global.XMLHttpRequest.onSend = function(xhr) {
-          onSendXHRstub()
-          xhr.respond(200, {}, null, 'OK')
-        }
         onCreateXHRstub.reset()
-        onSendXHRstub.reset()
       })
       it(`should be function`, () => {
         expect(typeof api[name]).to.be.equal('function')
       })
       it(`should return Promise instance`, done => {
-        expect(api[name]('/test') instanceof Promise).to.be.equal(true)
+        expect(api[name](path) instanceof Promise).to.be.equal(true)
         done()
       })
       it(`should create XMLHttpRequest instance`, done => {
-        api[name]('/test')
+        api[name](path)
         expect(onCreateXHRstub.calledOnce).to.equal(true)
         done()
       })
-      it(`should create request with ${name.toUpperCase()} method`, done => {
-        api[name]('/test').then(response => {
-          console.log(response)
-          expect(true).to.equal(true)
+      it(`should create request with ${name.toUpperCase()} method`, function(done) {
+        global.XMLHttpRequest.onSend = function(xhr) {
+          expect(xhr.method).to.be.equal(name.toUpperCase())
           done()
-        })
+        }
+        api[name](path)
       })
+      it(`should create request with "/test" url`, function(done) {
+        global.XMLHttpRequest.onSend = function(xhr) {
+          expect(xhr.url).to.be.equal(path)
+          done()
+        }
+        api[name](path)
+      })
+      // it(`should create request with "/test" url`, function(done) {
+      //   global.XMLHttpRequest.onSend = function(xhr) {
+      //     expect(xhr.url).to.be.equal('/url')
+      //     done()
+      //   }
+      //   api[name](path)
+      // })
     })
   }
 
