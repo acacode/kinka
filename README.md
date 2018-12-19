@@ -12,7 +12,7 @@
 </div>
 <b>kinka</b> it is very light weight (<b>~4KB minfied version</b>, <b>~1.5KB gzipped</b>)  JavaScript library which allows to reduce http code ( which are using <a href="https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest">XMLHttpRequests</a> ) and do http code more simple and easy to read.
 
-**CAUTION** : alpha version.
+❗️❗️❗️**CAUTION**❗️❗️❗️ : Currently it is alpha version. And soon the package will has been updated to [release version (1.0.0)](https://github.com/acacode/kinka/pull/3) and then most changes in the release version will be not compatible with alpha version ( property "body" will be renamed to "data" for more readable ). And also all code of the kinka will has been wrapped to unit tests and ,of course, most bugs has been fixed in the release version.
 
 <a href="https://jsfiddle.net/js2me/0y3ng8xu/"> Test kinka in JSFiddle </a>
 
