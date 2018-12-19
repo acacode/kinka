@@ -13,8 +13,11 @@ describe('kinka instance : ', () => {
   const testMethod = (name, options = {}) => {
     const api = options.api || kinka
     const path = (options.baseURL || '') + '/test'
-    describe(` - ${name} method : `, function() {
+    describe(`${name} method : `, function() {
       let onCreateXHRstub = sinon.stub()
+      let testFunction = options.testCustom
+        ? api.custom.bind(api, name)
+        : api[name].bind(api)
       beforeEach(() => {
         global.XMLHttpRequest = MockXMLHttpRequest.newMockXhr()
         global.XMLHttpRequest.onCreate = function(xhr) {
@@ -23,14 +26,14 @@ describe('kinka instance : ', () => {
         onCreateXHRstub.reset()
       })
       it(`should be function`, () => {
-        expect(typeof api[name]).to.be.equal('function')
+        expect(typeof testFunction).to.be.equal('function')
       })
       it(`should return Promise instance`, done => {
-        expect(api[name](path) instanceof Promise).to.be.equal(true)
+        expect(testFunction(path) instanceof Promise).to.be.equal(true)
         done()
       })
       it(`should create XMLHttpRequest instance`, done => {
-        api[name](path)
+        testFunction(path)
         expect(onCreateXHRstub.calledOnce).to.equal(true)
         done()
       })
@@ -39,29 +42,33 @@ describe('kinka instance : ', () => {
           expect(xhr.method).to.be.equal(name.toUpperCase())
           done()
         }
-        api[name](path)
+        testFunction(path)
       })
       it(`request should have "${path}" url`, function(done) {
         global.XMLHttpRequest.onSend = function(xhr) {
           expect(xhr.url).to.be.equal(path)
           done()
         }
-        api[name](path)
+        testFunction(path)
       })
     })
   }
 
-  describe(' - basic methods : ', () => {
+  describe('basic methods : ', () => {
     const methods = ['delete', 'get', 'head', 'options', 'patch', 'post', 'put']
     methods.forEach(name => testMethod(name))
   })
 
-  describe(' - custom methods : ', () => {
+  describe('custom methods : ', () => {
     const customMethods = ['permanent', 'kill', 'stop', 'move']
     const api = kinka.create({ customMethods })
     customMethods.forEach(name => testMethod(name, { api }))
+    describe('using "kinka.custom" function : ', () => {
+      const customMethods = ['foo', 'bar', 'baz', 'moveout']
+      customMethods.forEach(name => testMethod(name, { testCustom: true }))
+    })
   })
-  describe(' - using baseURL option : ', () => {
+  describe('using baseURL option : ', () => {
     const examples = [
       ['https://test-server.com', 'https://test-server.com'],
       ['test-server.com', 'test-server.com'],
@@ -81,7 +88,7 @@ describe('kinka instance : ', () => {
       })
     }
     examples.forEach(test)
-    describe(' - requests : ', () => {
+    describe('requests : ', () => {
       const examples = [
         [
           'https://test-server.com/example',
