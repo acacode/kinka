@@ -1,8 +1,12 @@
 import '../../__unit__'
 import { expect } from 'chai'
-import { describe, it, beforeEach } from 'mocha'
-import sinon from 'sinon'
-import { merge, isObject, parseJSON } from '../../../lib/helpers/base'
+import { describe, it } from 'mocha'
+import {
+  merge,
+  isObject,
+  parseJSON,
+  isUndefined,
+} from '../../../lib/helpers/base'
 
 describe('base helpers : ', () => {
   describe('merge : ', () => {
@@ -56,23 +60,37 @@ describe('base helpers : ', () => {
     examples.forEach(test)
   })
 
-  //   describe('parseJSON : ', () => {
-  //     it('should be function', () => {
-  //       expect(typeof parseJSON).to.be.equal('function')
-  //     })
-  //     const examples = [
-  //       [true, {}],
-  //       [false, 0],
-  //       [false, '1'],
-  //       [true, []],
-  //       [true, { null: null }],
-  //     ]
-  //     const test = ([expected, value]) =>
-  //       it(`should return ${expected} because value is ${
-  //         expected ? '' : 'not '
-  //       }object`, () => {
-  //         expect(parseJSON(value)).to.be.equal(expected)
-  //       })
-  //     examples.forEach(test)
-  //   })
+  describe('parseJSON : ', () => {
+    it('should be function', () => {
+      expect(typeof parseJSON).to.be.equal('function')
+    })
+    const examples = [
+      [{}, '{}'],
+      [{ key: 'value' }, '{ "key": "value" }'],
+      [5, '5'],
+      [-1, -1],
+      [undefined, undefined],
+    ]
+    const test = ([expected, value]) =>
+      it(`should parse stringified value ${value} otherwise return same value`, () => {
+        expect(parseJSON(value)).to.deep.equal(expected)
+      })
+    examples.forEach(test)
+  })
+  describe('isUndefined : ', () => {
+    it('should be function', () => {
+      expect(typeof isUndefined).to.be.equal('function')
+    })
+    const examples = [
+      ['', '', '5'],
+      ['5', undefined, '5'],
+      [null, null, '5'],
+      [undefined, undefined],
+    ]
+    const test = ([expected, value, defaultValue]) =>
+      it(`should check value on undefined and return ${expected}`, () => {
+        expect(isUndefined(value, defaultValue)).to.be.equal(expected)
+      })
+    examples.forEach(test)
+  })
 })
