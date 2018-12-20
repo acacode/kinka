@@ -7,6 +7,7 @@ cache:
       - "node_modules"
 before_install:
   - echo "//registry.npmjs.org/:_authToken=\${NPM_TOKEN}" > .npmrc
+  - npm i -g github-release-cli
 install:
   - yarn
 script:
@@ -15,6 +16,7 @@ script:
   - yarn compare-versions
 after_success:
   - if [ ${TRAVIS_BRANCH} = "master" ] && [ "${TRAVIS_PULL_REQUEST}" = "false" ];then
-    yarn prepare-package;
+    node ./bin/git-tag.js;
+    node ./bin/prepare-package.js;
     npm publish;
     fi
