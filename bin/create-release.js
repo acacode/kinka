@@ -11,11 +11,11 @@ function createRelease() {
         activeBranch
       )
       const command =
-        `github-release upload \\` +
-        `--owner=${packageData.author.name} \\` +
-        `--repo=${packageData.name} \\` +
-        `--tag="${packageData.version}" \\` +
-        `--name="${activeBranch}" \\` +
+        `github-release upload \\ ` +
+        `--owner=${packageData.author.name} \\ ` +
+        `--repo=${packageData.name} \\ ` +
+        `--tag="${packageData.version}" \\ ` +
+        `--name="${activeBranch}" \\ ` +
         `--body="latest message ${lastGitLog}"`
       console.log('commandcommandcommandcommand', command)
       spawnCommand(command, message => {
