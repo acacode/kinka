@@ -8,6 +8,7 @@ cache:
 before_install:
   - echo "//registry.npmjs.org/:_authToken=\${NPM_TOKEN}" > .npmrc
   - export PACKAGE_VERSION=$(node -p "require('./package.json').version")
+  - export NPM_REMOTE_VERSION=$(npm view kinka version)
   - export PACKAGE_NAME=$(node -p "require('./package.json').name")
 install:
   - yarn
@@ -16,7 +17,9 @@ script:
   - yarn build
   - yarn compare-versions
 after_success:
-  yarn release ${PACKAGE_VERSION} --config ./.release-it.json -n;
   # - if [ ${TRAVIS_BRANCH} = "master" ] && [ "${TRAVIS_PULL_REQUEST}" = "false" ];then
-    # yarn release ${PACKAGE_VERSION} --config ./.release-it.json -n;
+  - yarn release ${PACKAGE_VERSION}
+  - if [ ${PACKAGE_VERSION} != ${REMOTE_VERSION} ];then
+    npm publish;
+    fi
     # fi
