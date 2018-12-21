@@ -14,10 +14,8 @@ install:
 script:
   - yarn lint
   - yarn build
-  - yarn release
+  - yarn compare-versions
 after_success:
   - if [ ${TRAVIS_BRANCH} = "master" ] && [ "${TRAVIS_PULL_REQUEST}" = "false" ];then
-    node ./bin/git-tag.js;
-    node ./bin/prepare-package.js;
-    npm publish;
+    yarn release ${PACKAGE_VERSION} --config ./.release-it.json -n;
     fi
