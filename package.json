@@ -11,7 +11,7 @@
     "compare-versions": "node ./bin/compare-versions.js",
     "test": "./node_modules/.bin/karma start",
     "unit-test": "mocha \"test/**/*.spec.js\"",
-    "release": "release-it"
+    "git-release": "release-it"
   },
   "author": {
     "name": "acacode"
