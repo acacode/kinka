@@ -1,8 +1,8 @@
 {
     "non-interactive": true,
     "git": {
-        "requireCleanWorkingDir": true,
-        "requireUpstream": true,
+        "requireCleanWorkingDir": false,
+        "requireUpstream": false,
         "commit": true,
         "tag": true,
         "push": true,

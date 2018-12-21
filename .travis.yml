@@ -21,8 +21,8 @@ after_success:
   - git add .
   - git commit -m "build release ${PACKAGE_VERSION} [ci skip]"
   - git status
+  - git push
   - env
-  - git remote set-url origin https://github.com/acacode/kinka.git
   - yarn git-release ${PACKAGE_VERSION}
-  - npm publish
+# - npm publish
 
