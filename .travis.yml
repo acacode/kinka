@@ -18,12 +18,13 @@ script:
   - yarn build
 after_success:
   - ls -l
-  - git add .
-  - git commit -m "build release ${PACKAGE_VERSION} [ci skip]"
+  - git add . && git commit -m "build release ${PACKAGE_VERSION} [ci skip]"
   - git status
   - env
   - git remote rm origin
-  - git remote add origin js2me:${GITHUB_TOKEN}@github.com/acacode/kinka.git
+  - git remote add origin https://js2me:${GITHUB_TOKEN}@github.com/acacode/kinka.git
   - yarn git-release ${PACKAGE_VERSION}
+  - rm -rf dist
+  - git add . && git commit -m "remove production files [ci skip]"
 # - npm publish
 
