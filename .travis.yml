@@ -21,7 +21,6 @@ after_success:
   - git add .
   - git commit -m "build release ${PACKAGE_VERSION} [ci skip]"
   - git status
-  - git push
   - env
   - git remote rm origin
   - git remote add origin js2me:${GITHUB_TOKEN}@github.com/acacode/kinka.git
