@@ -81,5 +81,8 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/acacode/kinka.git"
+  },
+  "github": {
+    "release": true
   }
 }
