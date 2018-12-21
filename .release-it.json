@@ -19,7 +19,7 @@
       "tagName": "${version}",
       "tagAnnotation": "Release ${version}",
       "tagArgs": "",
-      "push": true,
+      "push": false,
       "pushArgs": "",
       "pushRepo": "origin"
     },
