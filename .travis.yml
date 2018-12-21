@@ -19,7 +19,8 @@ script:
 after_success:
   # - if [ ${TRAVIS_BRANCH} = "master" ] && [ "${TRAVIS_PULL_REQUEST}" = "false" ];then
   - yarn release ${PACKAGE_VERSION}
-  - if [ ${PACKAGE_VERSION} != ${REMOTE_VERSION} ];then
-    npm publish;
+  - if [ ${PACKAGE_VERSION} != ${NPM_REMOTE_VERSION} ];then
+    echo 1000000;
+    # npm publish;
     fi
     # fi

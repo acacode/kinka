@@ -2,6 +2,7 @@
     "non-interactive": true,
     "git": {
         "requireCleanWorkingDir": false,
+        "requireUpstream": false,
         "commit": false,
         "tag": true,
         "push": false
