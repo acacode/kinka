@@ -1,6 +1,6 @@
 {
   "name": "kinka",
-  "version": "0.0.71--alpha",
+  "version": "0.0.75--alpha",
   "license": "MIT",
   "description": "very light and simple http web client",
   "main": "index.js",
