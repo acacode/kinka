@@ -1,11 +1,11 @@
 {
     "non-interactive": true,
     "git": {
-        "requireCleanWorkingDir": false,
-        "requireUpstream": false,
+        "requireCleanWorkingDir": true,
+        "requireUpstream": true,
         "commit": true,
         "tag": true,
-        "push": false,
+        "push": true,
         "commitMessage": "Release ${name} ${version} [ci skip]"
     },
     "npm": {

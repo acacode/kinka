@@ -19,6 +19,10 @@ script:
   - yarn compare-versions
 after_success:
   - ls -l
+  - git add .
+  - git commit -m "build release ${PACKAGE_VERSION} [ci skip]"
+  - git status
+  - env
   - yarn git-release ${PACKAGE_VERSION}
   - npm publish
 
