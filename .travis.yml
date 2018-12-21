@@ -21,6 +21,5 @@ after_success:
   - yarn release ${PACKAGE_VERSION}
   - if [ ${PACKAGE_VERSION} != ${NPM_REMOTE_VERSION} ];then
     echo 1000000;
-    # npm publish;
     fi
     # fi
