@@ -19,9 +19,7 @@ script:
   - yarn compare-versions
 after_success:
   - ls -l
-  #- if [ ${TRAVIS_BRANCH} = "master" ] && [ "${TRAVIS_PULL_REQUEST}" = "false" ] && [ ${PACKAGE_VERSION} != ${NPM_REMOTE_VERSION} ];then
   git add .
   git commit -m "created build files for kinka ${PACKAGE_VERSION} release"
   yarn git-release ${PACKAGE_VERSION}
   npm publish
-  # fi
