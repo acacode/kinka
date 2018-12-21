@@ -1,0 +1,82 @@
+{
+    "increment": null,
+    "preReleaseId": null,
+    "pkgFiles": ["package.json"],
+    "scripts": {
+      "beforeStart": "",
+      "beforeBump": null,
+      "afterBump": null,
+      "beforeStage": null,
+      "changelog": "git log --pretty=format:\"* %s (%h)\" [REV_RANGE]",
+      "afterRelease": null
+    },
+    "git": {
+      "requireCleanWorkingDir": true,
+      "requireUpstream": true,
+      "addUntrackedFiles": false,
+      "commit": false,
+      "tag": true,
+      "tagName": "${PACKAGE_VERSION}",
+      "tagAnnotation": "Release ${PACKAGE_VERSION}",
+      "tagArgs": "",
+      "push": true,
+      "pushArgs": "",
+      "pushRepo": "origin"
+    },
+    "npm": {
+      "publish": true,
+      "publishPath": ".",
+      "tag": "latest",
+      "private": false,
+      "access": null,
+      "otp": null
+    },
+    "github": {
+      "release": false,
+      "releaseName": "Release ${PACKAGE_VERSION}",
+      "preRelease": false,
+      "draft": false,
+      "tokenRef": "GITHUB_TOKEN",
+      "assets": null,
+      "host": null,
+      "timeout": 0,
+      "proxy": null
+    },
+    "dist": {
+      "repo": false,
+      "stageDir": ".stage",
+      "baseDir": "dist",
+      "files": ["**/*"],
+      "pkgFiles": null,
+      "scripts": {
+        "beforeStage": null,
+        "afterRelease": null
+      },
+      "git": {
+        "addUntrackedFiles": false,
+        "commit": true,
+        "tag": true,
+        "push": true
+      },
+      "github": {
+        "release": false
+      },
+      "npm": {
+        "publish": false
+      }
+    },
+    "prompt": {
+      "commit": true,
+      "tag": true,
+      "push": true,
+      "release": true,
+      "publish": true,
+      "dist": {
+        "commit": true,
+        "tag": false,
+        "push": true,
+        "release": false,
+        "publish": false
+      }
+    }
+  }
