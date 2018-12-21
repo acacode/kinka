@@ -11,7 +11,7 @@
       "afterRelease": null
     },
     "git": {
-      "requireCleanWorkingDir": true,
+      "requireCleanWorkingDir": false,
       "requireUpstream": true,
       "addUntrackedFiles": false,
       "commit": false,
