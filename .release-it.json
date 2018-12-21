@@ -16,8 +16,8 @@
       "addUntrackedFiles": false,
       "commit": false,
       "tag": true,
-      "tagName": "${PACKAGE_VERSION}",
-      "tagAnnotation": "Release ${PACKAGE_VERSION}",
+      "tagName": "${version}",
+      "tagAnnotation": "Release ${version}",
       "tagArgs": "",
       "push": true,
       "pushArgs": "",
@@ -33,7 +33,7 @@
     },
     "github": {
       "release": false,
-      "releaseName": "Release ${PACKAGE_VERSION}",
+      "releaseName": "Release ${version}",
       "preRelease": false,
       "draft": false,
       "tokenRef": "GITHUB_TOKEN",
@@ -59,22 +59,22 @@
         "push": true
       },
       "github": {
-        "release": false
+        "release": true
       },
       "npm": {
-        "publish": false
+        "publish": true
       }
     },
     "prompt": {
-      "commit": true,
-      "tag": true,
-      "push": true,
-      "release": true,
-      "publish": true,
+      "commit": false,
+      "tag": false,
+      "push": false,
+      "release": false,
+      "publish": false,
       "dist": {
-        "commit": true,
+        "commit": false,
         "tag": false,
-        "push": true,
+        "push": false,
         "release": false,
         "publish": false
       }
