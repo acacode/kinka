@@ -16,7 +16,6 @@ script:
   - yarn lint
   - yarn unit-test
   - yarn build
-  - yarn compare-versions
 after_success:
   - ls -l
   - git add .
