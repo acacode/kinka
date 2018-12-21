@@ -16,6 +16,7 @@ script:
   - yarn build
   - yarn compare-versions
 after_success:
-  - if [ ${TRAVIS_BRANCH} = "master" ] && [ "${TRAVIS_PULL_REQUEST}" = "false" ];then
-    yarn release ${PACKAGE_VERSION} --config ./.release-it.json -n;
-    fi
+  yarn release ${PACKAGE_VERSION} --config ./.release-it.json -n;
+  # - if [ ${TRAVIS_BRANCH} = "master" ] && [ "${TRAVIS_PULL_REQUEST}" = "false" ];then
+    # yarn release ${PACKAGE_VERSION} --config ./.release-it.json -n;
+    # fi
