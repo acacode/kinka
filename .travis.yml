@@ -17,9 +17,9 @@ script:
   - yarn build
   - yarn compare-versions
 after_success:
-  # - if [ ${TRAVIS_BRANCH} = "master" ] && [ "${TRAVIS_PULL_REQUEST}" = "false" ];then
+  # - if [ ${TRAVIS_BRANCH} = "master" ] && [ "${TRAVIS_PULL_REQUEST}" = "false" ] && [ ${PACKAGE_VERSION} != ${NPM_REMOTE_VERSION} ];then
   - yarn release ${PACKAGE_VERSION}
-  - if [ ${PACKAGE_VERSION} != ${NPM_REMOTE_VERSION} ];then
+  - if [ ${PACKAGE_VERSION} != ${$(npm view kinka version)} ];then
     echo 1000000;
     fi
     # fi

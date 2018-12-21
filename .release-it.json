@@ -3,9 +3,10 @@
     "git": {
         "requireCleanWorkingDir": false,
         "requireUpstream": false,
-        "commit": false,
+        "commit": true,
         "tag": true,
-        "push": false
+        "push": false,
+        "commitMessage": "Release ${name} ${version} [ci skip]"
     },
     "npm": {
         "publish": true
