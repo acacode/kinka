@@ -138,7 +138,7 @@ process.env.NODE_ENV = 'production'
     <td><b>patch</b></td>
     <td>
         <code>path: string</code>, 
-        <br><code>body?: any</code>, 
+        <br><code>data?: any</code>, 
         <br><code>options?: RequestOptions</code>
     </td>
 	<td><code>Promise&lt;Response&gt;</code></td>
@@ -150,7 +150,7 @@ process.env.NODE_ENV = 'production'
     <td><b>post</b></td>
     <td>
         <code>path: string</code>, 
-        <br><code>body?: any</code>, 
+        <br><code>data?: any</code>, 
         <br><code>options?: RequestOptions</code>
     </td>
 	<td><code>Promise&lt;Response&gt;</code></td>
@@ -164,7 +164,7 @@ process.env.NODE_ENV = 'production'
     </td>
     <td>
         <code>path: string</code>, 
-        <br><code>body?: any</code>, 
+        <br><code>data?: any</code>, 
         <br><code>options?: RequestOptions</code>
     </td>
 	<td>
@@ -259,7 +259,7 @@ await kinka.get('/donuts/all', {
     </td>
   </tr>
   <tr>
-    <td><b>body?: any</b></td>
+    <td><b>data?: any</b></td>
     <td><code>undefined</code></td>
     <td>
         Sets the request body. It is content which needed to send on server
@@ -339,7 +339,7 @@ const api = kinka.create({
     baseURL: 'https://api.com',
     customMethods: ['move'],
 })
-api.move('/data', { body: { files: null } })
+api.move('/data', { data: { files: null } })
 // MOVE: https://api.com/data
         </code></pre>
     </td>

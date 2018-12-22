@@ -1,0 +1,37 @@
+language: node_js
+node_js:
+  - "node"
+cache:
+  yarn: true
+  directories:
+      - "node_modules"
+before_install:
+  - echo "//registry.npmjs.org/:_authToken=\${NPM_TOKEN}" > .npmrc
+  - export PACKAGE_VERSION=$(node -p "require('./package.json').version")
+  - export NPM_REMOTE_VERSION=$(npm view kinka version)
+  - export PACKAGE_NAME=$(node -p "require('./package.json').name")
+install:
+  - yarn
+script:
+  - yarn lint
+  - yarn unit-test
+  - yarn build
+after_success:
+  - ls -l
+  - git add . && git commit -m "travis: build release ${PACKAGE_VERSION} [ci skip]"
+  - git status
+  - env
+  - git remote rm origin
+  - git remote add origin https://js2me:${GITHUB_TOKEN}@github.com/acacode/kinka.git
+  - git remote set-url origin https://js2me:${GITHUB_TOKEN}@github.com/acacode/kinka.git
+  - git fetch -p
+  - git fetch
+  - git symbolic-ref HEAD refs/heads/${TRAVIS_BRANCH}
+  - git symbolic-ref HEAD
+  - git remote show origin
+  - if [ ${TRAVIS_BRANCH} = "master" ] && [ "${TRAVIS_PULL_REQUEST}" = "false" ];then
+    yarn git-release ${PACKAGE_VERSION};
+    npm publish;
+    fi
+  # - npm publish
+

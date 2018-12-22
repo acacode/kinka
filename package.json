@@ -1,17 +1,21 @@
 {
   "name": "kinka",
-  "version": "0.0.57--alpha",
+  "version": "1.0.0",
+  "license": "MIT",
   "description": "very light and simple http web client",
   "main": "index.js",
   "scripts": {
-    "build": "webpack"
+    "build": "webpack",
+    "lint": "eslint .",
+    "lint-fix": "eslint . --fix",
+    "compare-versions": "node ./bin/compare-versions.js",
+    "test": "./node_modules/.bin/karma start",
+    "git-release": "release-it",
+    "unit-test": "mocha \"test/unit/**/*.js\" --compilers js:babel-core/register"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/acacode/kinka.git"
+  "author": {
+    "name": "acacode"
   },
-  "author": "acacode",
-  "license": "MIT",
   "bugs": {
     "url": "https://github.com/acacode/kinka/issues"
   },
@@ -22,7 +26,10 @@
     "babel-core": "6.26.3",
     "babel-eslint": "8.2.1",
     "babel-loader": "7.1.4",
+    "babel-plugin-transform-async-await": "1.0.0",
     "babel-preset-env": "1.7.0",
+    "babel-preset-es2015": "6.24.1",
+    "babel-preset-stage-0": "6.24.1",
     "babel-preset-stage-2": "6.24.1",
     "chai": "4.2.0",
     "eslint": "4.18.0",
@@ -33,8 +40,29 @@
     "eslint-plugin-prettier": "2.5.0",
     "eslint-plugin-promise": "3.6.0",
     "eslint-plugin-standard": "3.0.1",
+    "express": "4.16.4",
+    "karma": "3.1.3",
+    "karma-chai": "0.1.0",
+    "karma-chrome-launcher": "2.2.0",
+    "karma-coverage": "1.1.2",
+    "karma-firefox-launcher": "1.1.0",
+    "karma-headless-chrome-launcher": "0.0.6",
+    "karma-ie-launcher": "1.0.0",
+    "karma-jasmine": "2.0.1",
+    "karma-jasmine-ajax": "0.1.13",
+    "karma-mocha": "1.3.0",
+    "karma-opera-launcher": "1.0.0",
+    "karma-phantomjs-launcher": "1.0.4",
+    "karma-requirejs": "1.1.0",
+    "karma-safari-launcher": "1.0.0",
+    "karma-sauce-launcher": "2.0.2",
+    "karma-sinon": "1.0.5",
     "mocha": "5.2.0",
+    "mock-browser": "0.92.14",
+    "mock-xmlhttprequest": "2.0.0",
     "prettier": "1.10.2",
+    "release-it": "9.2.0",
+    "requirejs": "2.3.6",
     "sinon": "7.1.1",
     "sinon-chai": "3.2.0",
     "webpack": "4.16.5",
@@ -53,5 +81,13 @@
     "httpclient",
     "http"
   ],
-  "typings": "./index.d.ts"
+  "typings": "./index.d.ts",
+  "dependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/acacode/kinka.git"
+  },
+  "github": {
+    "release": true
+  }
 }
