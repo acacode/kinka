@@ -23,7 +23,8 @@ after_success:
   - env
   - git remote rm origin
   - git remote add origin https://js2me:${GITHUB_TOKEN}@github.com/acacode/kinka.git
-  - git fetch -p origin
+  - git fetch -p 
+  - git remote show origin
   - yarn git-release ${PACKAGE_VERSION}
   - rm -rf dist
   - git add . && git commit -m "travis: remove release files [ci skip]"
