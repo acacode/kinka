@@ -18,7 +18,6 @@ script:
   - yarn build
 after_success:
   - ls -l
-  - git add . && git commit -m "travis: build release ${PACKAGE_VERSION} [ci skip]"
   - git status
   - env
   - git remote rm origin
@@ -28,6 +27,8 @@ after_success:
   - git fetch
   - git symbolic-ref HEAD refs/heads/${TRAVIS_BRANCH}
   - git symbolic-ref HEAD
+  - git add . && git commit -m "travis: build release ${PACKAGE_VERSION} [ci skip]"
+  - git push
   - git remote show origin
   - if [ ${TRAVIS_BRANCH} = "master" ] && [ "${TRAVIS_PULL_REQUEST}" = "false" ];then
     yarn git-release ${PACKAGE_VERSION};
