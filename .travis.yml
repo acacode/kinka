@@ -31,5 +31,5 @@ after_success:
   - yarn git-release ${PACKAGE_VERSION}
   - rm -rf dist
   - git add . && git commit -m "travis: remove release files [ci skip]"
-# - npm publish
+  # - npm publish
 
