@@ -26,10 +26,12 @@ after_success:
   - git remote set-url origin https://js2me:${GITHUB_TOKEN}@github.com/acacode/kinka.git
   - git fetch -p
   - git fetch
-  - git symbolic-ref HEAD refs/heads/develop
+  - git symbolic-ref HEAD refs/heads/${TRAVIS_BRANCH}
+  - git symbolic-ref HEAD
   - git remote show origin
-  - yarn git-release ${PACKAGE_VERSION}
-  - rm -rf dist
-  - git add . && git commit -m "travis: remove release files [ci skip]"
+  - if [ ${TRAVIS_BRANCH} = "master" ] && [ "${TRAVIS_PULL_REQUEST}" = "false" ];then
+    yarn git-release ${PACKAGE_VERSION};
+    npm publish;
+    fi
   # - npm publish
 
