@@ -18,7 +18,6 @@ script:
   - yarn build
 after_success:
   - ls -l
-  - git status
   - env
   - git remote rm origin
   - git remote add origin https://js2me:${GITHUB_TOKEN}@github.com/acacode/kinka.git
@@ -27,12 +26,16 @@ after_success:
   - git fetch
   - git symbolic-ref HEAD refs/heads/${TRAVIS_BRANCH}
   - git symbolic-ref HEAD
-  - git add . && git commit -m "travis: build release ${PACKAGE_VERSION} [ci skip]"
-  - git push
   - git remote show origin
+  - git status
   - if [ ${TRAVIS_BRANCH} = "master" ] && [ "${TRAVIS_PULL_REQUEST}" = "false" ];then
+    git add . && git commit -m "build release ${PACKAGE_VERSION} [ci skip]";
+    git push --set-upstream origin ${TRAVIS_BRANCH};
     yarn git-release ${PACKAGE_VERSION};
     npm publish;
+    rm -rf dist;
+    git add . && git commit -m "remove dist folder [ci skip]";
+    git push --set-upstream origin ${TRAVIS_BRANCH};
     fi
   # - npm publish
 
