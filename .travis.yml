@@ -26,7 +26,7 @@ after_success:
   - git remote set-url origin https://js2me:${GITHUB_TOKEN}@github.com/acacode/kinka.git
   - git fetch -p
   - git fetch
-  - git symbolic-ref HEAD
+  - git symbolic-ref HEAD refs/heads/develop
   - git remote show origin
   - yarn git-release ${PACKAGE_VERSION}
   - rm -rf dist
