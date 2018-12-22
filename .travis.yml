@@ -30,9 +30,12 @@ after_success:
   - git status
   - if [ ${TRAVIS_BRANCH} = "master" ] && [ "${TRAVIS_PULL_REQUEST}" = "false" ];then
     git add . && git commit -m "build release ${PACKAGE_VERSION} [ci skip]";
-    git push --set-upstream origin ${TRAVIS_BRANCH}
+    git push --set-upstream origin ${TRAVIS_BRANCH};
     yarn git-release ${PACKAGE_VERSION};
     npm publish;
+    rm -rf dist;
+    git add . && git commit -m "remove dist folder [ci skip]";
+    git push --set-upstream origin ${TRAVIS_BRANCH};
     fi
   # - npm publish
 
