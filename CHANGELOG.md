@@ -1,6 +1,11 @@
 
 # Changelog
 
+## [1.0.3]
+
+### Fixed
+- Added default error message `{}` if response catches error
+
 
 ## [1.0.0]
 
