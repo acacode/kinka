@@ -4,7 +4,7 @@
 ## [1.0.3]
 
 ### Fixed
-- Added default error message `{}` if response catches error
+- Added default error message `{}` in `KinkaResponse` if request catches error
 
 
 ## [1.0.0]
