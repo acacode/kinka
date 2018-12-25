@@ -5,6 +5,7 @@
 
 ### Fixed
 - Added default error message `{}` in `KinkaResponse` if request catches error
+- Transforming request `data` for request 
 
 
 ## [1.0.0]
