@@ -9,7 +9,7 @@
     "lint": "eslint .",
     "lint-fix": "eslint . --fix",
     "compare-versions": "node ./bin/compare-versions.js",
-    "test": "./node_modules/.bin/karma start",
+    "test": "karma start",
     "git-release": "release-it",
     "unit-test": "mocha \"test/unit/**/*.js\" --compilers js:babel-core/register"
   },

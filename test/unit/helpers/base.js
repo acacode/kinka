@@ -50,9 +50,13 @@ describe('base helpers : ', () => {
       [false, '1'],
       [true, []],
       [true, { null: null }],
+      [false, null],
+      [false, () => {}],
+      [false, true],
+      [true, new ArrayBuffer()],
     ]
     const test = ([expected, value]) =>
-      it(`should return ${expected} because value is ${
+      it(`should return ${expected} because ${value} is ${
         expected ? '' : 'not '
       }object`, () => {
         expect(isObject(value)).to.be.equal(expected)
