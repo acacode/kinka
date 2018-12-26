@@ -1,14 +1,13 @@
 
 # Changelog
 
-## [1.0.3]
+## [1.0.3](https://github.com/acacode/kinka/releases/tag/1.0.3)
 
 ### Fixed
-- Added default error message `{}` in `KinkaResponse` if request catches error
+- Added default error message `{}` in `KinkaResponse` if request catches error  
 - Transforming request `data` for request 
 
-
-## [1.0.0]
+## [1.0.0](https://github.com/acacode/kinka/releases/tag/1.0.1)
 
 ### Deprecated
 - property `body` in [`KinkaRequestOptions`](./index.d.ts)  
