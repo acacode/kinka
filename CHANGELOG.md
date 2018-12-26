@@ -1,11 +1,11 @@
 
-# Changelog
+# CHANGELOG
 
 ## [1.0.3](https://github.com/acacode/kinka/releases/tag/1.0.3)
 
 ### Fixed
 - Added default error message `{}` in `KinkaResponse` if request catches error  
-- Transforming request `data` for request 
+- Transforming/Preparing `data` of the request before sending on server  
 
 ## [1.0.0](https://github.com/acacode/kinka/releases/tag/1.0.1)
 
