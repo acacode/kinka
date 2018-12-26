@@ -20,15 +20,6 @@ const createConfig = mode => {
         },
       ],
     },
-    //   optimization: {
-    //     minimizer: [
-    //       new UglifyJsPlugin({
-    //         cache: true,
-    //         parallel: true,
-    //         uglifyOptions: { output: { comments: false } },
-    //       }),
-    //     ],
-    //   },
   }
 }
 
