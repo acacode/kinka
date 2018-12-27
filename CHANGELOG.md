@@ -6,6 +6,7 @@
 ### Fixed
 - Added default error message `{}` in `KinkaResponse` if request catches error  
 - Transforming/Preparing `data` of the request before sending on server  
+- Transforming/Preparing `data` of the response before returning to user  
 
 ## [1.0.0](https://github.com/acacode/kinka/releases/tag/1.0.1)
 
