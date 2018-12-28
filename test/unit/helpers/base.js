@@ -6,13 +6,16 @@ import {
   isObject,
   parseJSON,
   isUndefined,
+  valueIs,
 } from '../../../lib/helpers/base'
 
 describe('base helpers : ', () => {
-  describe('merge : ', () => {
+  const shouldBeFunction = func =>
     it('should be function', () => {
-      expect(typeof merge).to.be.equal('function')
+      expect(typeof func).to.be.equal('function')
     })
+  describe('merge : ', () => {
+    shouldBeFunction(merge)
     const testArg = function foo() {}
     const examples = [
       [{ a: 3, b: 4 }, [{ a: 3 }, { b: 4 }]],
@@ -41,18 +44,20 @@ describe('base helpers : ', () => {
   })
 
   describe('isObject : ', () => {
-    it('should be function', () => {
-      expect(typeof isObject).to.be.equal('function')
-    })
+    shouldBeFunction(isObject)
     const examples = [
       [true, {}],
       [false, 0],
       [false, '1'],
       [true, []],
       [true, { null: null }],
+      [false, null],
+      [false, () => {}],
+      [false, true],
+      [true, new ArrayBuffer()],
     ]
     const test = ([expected, value]) =>
-      it(`should return ${expected} because value is ${
+      it(`should return ${expected} because ${value} is ${
         expected ? '' : 'not '
       }object`, () => {
         expect(isObject(value)).to.be.equal(expected)
@@ -61,9 +66,7 @@ describe('base helpers : ', () => {
   })
 
   describe('parseJSON : ', () => {
-    it('should be function', () => {
-      expect(typeof parseJSON).to.be.equal('function')
-    })
+    shouldBeFunction(parseJSON)
     const examples = [
       [{}, '{}'],
       [{ key: 'value' }, '{ "key": "value" }'],
@@ -77,10 +80,9 @@ describe('base helpers : ', () => {
       })
     examples.forEach(test)
   })
+
   describe('isUndefined : ', () => {
-    it('should be function', () => {
-      expect(typeof isUndefined).to.be.equal('function')
-    })
+    shouldBeFunction(isUndefined)
     const examples = [
       ['', '', '5'],
       ['5', undefined, '5'],
@@ -88,8 +90,30 @@ describe('base helpers : ', () => {
       [undefined, undefined],
     ]
     const test = ([expected, value, defaultValue]) =>
-      it(`should check value on undefined and return ${expected}`, () => {
+      it(`should validate value on undefined and return ${expected}`, () => {
         expect(isUndefined(value, defaultValue)).to.be.equal(expected)
+      })
+    examples.forEach(test)
+  })
+
+  describe('valueIs : ', () => {
+    shouldBeFunction(valueIs)
+    const examples = [
+      [true, '', ['String', 'Number']],
+      [true, -6, ['String', 'Number']],
+      [false, {}, ['String', 'Number']],
+      [true, new ArrayBuffer(), ['ArrayBuffer']],
+      [true, new Uint16Array(), ['Uint16Array']],
+      [true, {}, ['Object']],
+      [false, [], ['Object']],
+      [true, [], ['Object', 'Array']],
+      [true, function() {}, ['Function']],
+    ]
+    const test = ([expected, value, typeNames]) =>
+      it(`should validate type of value on types [${typeNames.join(
+        ','
+      )}] and return ${expected}`, () => {
+        expect(valueIs(value, typeNames)).to.be.equal(expected)
       })
     examples.forEach(test)
   })
