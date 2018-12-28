@@ -11,7 +11,7 @@
   </p>
 </div>
 
-**kinka** it is very light weight 💨 ([**4KB min**, **1.8KB minzip**](https://bundlephobia.com/result?p=kinka)) and more powerful JavaScript library  
+**kinka** it is very light weight 💨 ([**~5.3KB min**, **~2KB minzip**](https://bundlephobia.com/result?p=kinka)) and more powerful JavaScript library  
 It will reduce your http code (which are using [XMLHttpRequests](https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest)) and allows http code more simple and easy to read.
 
 ## 🚀 Installation
