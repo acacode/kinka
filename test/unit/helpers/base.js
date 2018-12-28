@@ -7,7 +7,7 @@ import {
   parseJSON,
   isUndefined,
   valueIs,
-} from '../../../lib/helpers/base'
+} from '../../../lib/helpers'
 
 describe('base helpers : ', () => {
   const shouldBeFunction = func =>
