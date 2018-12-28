@@ -3,6 +3,9 @@
 
 ## [1.0.3](https://github.com/acacode/kinka/releases/tag/1.0.3)
 
+### Changed
+- default value for `KinkaResponse`.`data` and `KinkaResponse`.`err` has been changed from `undefined` to `null`
+
 ### Fixed
 - Added default error message `{}` in `KinkaResponse` if request catches error  
 - Transforming/Preparing `data` of the request before sending on server  
