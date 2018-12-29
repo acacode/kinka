@@ -1,4 +1,12 @@
-
+/**
+ * Object which will returns as result of completed request
+ * Example:
+ * kinka.get('/data').then(response => {
+ *  // response it is this interface
+ * })
+ * @interface KinkaResponse
+ * @template T
+ */
 declare interface KinkaResponse<T = any>  {
     data: T;
     err: (object | T | any);
@@ -11,6 +19,14 @@ declare interface KinkaResponse<T = any>  {
     type: ('arraybuffer' | 'blob' | 'document' | 'json' | 'text' | 'ms-stream' | 'moz-chunked-arraybuffer'),
 }
 
+
+/**
+ * Object which needed for configure your own request
+ * All properties in this object will override instance options
+ * Where this object is using:
+ * kinka.get('/url', { baseURL: 'overriden' } as KinkaRequestOptions)
+ * @interface KinkaRequestOptions
+ */
 declare interface KinkaRequestOptions{
     abortableKey?: string;
     baseURL?: string;
@@ -23,7 +39,10 @@ declare interface KinkaRequestOptions{
     withAuth?: boolean;
     auth?:any;
 }
-
+/**
+ * Object which sending when user creating a new instance
+ * @interface KinkaInstanceOptions
+ */
 declare interface KinkaInstanceOptions{
     auth?(authData:any):(KinkaRequestOptions|any)
     baseURL?: string;
@@ -37,6 +56,11 @@ declare interface KinkaInstanceOptions{
     timeout?: number;
 }
 
+/**
+ * List of methods which have kinka instance
+ * @export
+ * @interface KinkaInstance
+ */
 export interface KinkaInstance {
     abort(abortableKey: string):undefined;
     all<T>(promises: Promise<T>[]): Promise<T[]>;
