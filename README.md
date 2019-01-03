@@ -38,7 +38,7 @@ It will reduce your http code (which are using [XMLHttpRequests](https://develop
 
 ## Contributing
 
-To contribute to kinka, please refer to [CONTRIBUTING.md](./CONTRIBUTING.md). It should contain most of the things you'll need to get your contribution started!
+If you want to help kinka, please refer to [CONTRIBUTING.md](./CONTRIBUTING.md). It should contain most of the things you'll need to get your contribution started!  
 Working on your first Pull Request? [Learn how to do it](https://egghead.io/courses/how-to-contribute-to-an-open-source-project-on-github)
 
 ## 📝 License
