@@ -2,10 +2,12 @@ import '../../__unit__'
 import { expect } from 'chai'
 import { describe, it } from 'mocha'
 import {
-  merge,
+  includes,
   isObject,
-  parseJSON,
   isUndefined,
+  merge,
+  parseJSON,
+  parseUrlEncodedForm,
   valueIs,
 } from '../../../lib/helpers'
 
@@ -114,6 +116,42 @@ describe('base helpers : ', () => {
         ','
       )}] and return ${expected}`, () => {
         expect(valueIs(value, typeNames)).to.be.equal(expected)
+      })
+    examples.forEach(test)
+  })
+
+  describe('includes : ', () => {
+    shouldBeFunction(includes)
+    const examples = [
+      [true, 'abc', 'a'],
+      [false, '', 'cc'],
+      [true, 'asdasd asdasd', ' '],
+      [false, [], 1],
+      [true, [1, 2, 3, 4], 1],
+    ]
+    const test = ([expected, value, includedValue]) =>
+      it(`should check \`${value}\` on containing \`${includedValue}\` and return ${expected}`, () => {
+        expect(includes(value, includedValue)).to.be.equal(expected)
+      })
+    examples.forEach(test)
+  })
+
+  describe('parseUrlEncodedForm : ', () => {
+    shouldBeFunction(includes)
+    const examples = [
+      [{ abc: '' }, 'abc'],
+      [{ foo: 'bar', bar: 'foo' }, 'foo=bar&bar=foo'],
+      [{ foo: 'bar', bar: '' }, 'foo=bar&bar='],
+      [{ foo: 'bar', bar: '' }, 'foo=bar&bar'],
+      [{ foo: 'bar', bar: '"' }, 'foo=bar&bar="'],
+      [
+        { '-1asd32': '', '': '', asd7asd: '', asdasd: '' },
+        '-1asd32&&&&asdasd&&asd7asd&&&',
+      ],
+    ]
+    const test = ([expected, str]) =>
+      it(`should parse url encoded string (\`${str}\`) and return expected object`, () => {
+        expect(parseUrlEncodedForm(str)).to.deep.equal(expected)
       })
     examples.forEach(test)
   })
