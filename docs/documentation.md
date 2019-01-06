@@ -1,14 +1,11 @@
 
 # Documentation
 
-Here is all public documentation about kinka.
+Here is all public documentation about kinka.  
+If you didn't find the answer on your question don't be shy to [post your question here](https://github.com/acacode/kinka/issues)  
 
-If you didn't find the answer on your question don't be shy to [post your question here](https://github.com/acacode/kinka/issues)
-
-
-Kinka have two versions: **development** and **production** (~4KB)
-
-For using production version needs set environment variable `NODE_ENV` to `production`
+Kinka have two versions: **development** and **production** (~4KB)  
+For using production version needs set environment variable `NODE_ENV` to `production`  
 ```
 process.env.NODE_ENV = 'production'
 ```

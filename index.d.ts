@@ -39,6 +39,7 @@ declare interface KinkaRequestOptions{
     withAuth?: boolean;
     auth?:any;
 }
+
 /**
  * Object which sending when user creating a new instance
  * @interface KinkaInstanceOptions
