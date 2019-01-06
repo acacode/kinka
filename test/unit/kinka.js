@@ -20,7 +20,10 @@ describe('kinka instance : ', () => {
       beforeEach(() => {
         jasmine.Ajax.install()
         jasmine.Ajax.stubRequest(path).andReturn({
-          responseText: 'immediate response',
+          status: 200,
+          statusText: 'HTTP/1.1 200 OK',
+          contentType: 'application/json;charset=UTF-8',
+          responseText: JSON.stringify({ data: 'some data' }),
         })
 
         // global.XMLHttpRequest = MockXMLHttpRequest.newMockXhr()
