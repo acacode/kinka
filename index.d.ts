@@ -29,15 +29,17 @@ declare interface KinkaResponse<T = any>  {
  */
 declare interface KinkaRequestOptions{
     abortableKey?: string;
+    auth?:any;
     baseURL?: string;
     data?: any;
     headers?: object;
     omitCatches?: boolean;
+    onDownloadProgress?: (progressEvent: ProgressEventInit)=>void
+    onUploadProgress?: (progressEvent: ProgressEventInit)=>void
     query?: object;
     successStatus?: number;
     timeout?: number;
     withAuth?: boolean;
-    auth?:any;
 }
 
 /**

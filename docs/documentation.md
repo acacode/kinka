@@ -300,6 +300,42 @@ api.post(
     </code></pre>
     </td>
   </tr>
+  <tr>
+    <td><b>onDownloadProgress?: function</b></td>
+    <td><code>undefined</code></td>
+    <td>
+        Allows to handle progress of the request download<br>
+    <pre><code>
+const response = await kinka.get('/kittens', {
+  onDownloadProgress: ({ total, loaded }) => {
+    console.log(
+      'kittens downloaded at ',
+      Math.floor(loaded * 100 / total),
+      '%'
+    )
+  },
+})
+    </code></pre>
+    </td>
+  </tr>
+  <tr>
+    <td><b>onUploadProgress?: function</b></td>
+    <td><code>undefined</code></td>
+    <td>
+        Allows to handle progress of the request upload<br>
+    <pre><code>
+const response = await kinka.post('/kittens', {
+  onUploadProgress: ({ total, loaded }) => {
+    console.log(
+      'kittens uploaded at ',
+      Math.floor(loaded * 100 / total),
+      '%'
+    )
+  },
+})
+    </code></pre>
+    </td>
+  </tr>
 </table>
 
 

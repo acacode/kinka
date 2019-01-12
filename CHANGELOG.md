@@ -1,6 +1,33 @@
 
 # CHANGELOG
 
+
+
+## [1.1.3](https://github.com/acacode/kinka/releases/tag/1.1.3)
+
+### Removed
+- Property `body` from `KinkaRequestOptions`  
+
+### Changed
+- Unit tests for request methods using `nock` and `xmlhttprequest` testing libraries  
+- Small code refactoring  
+
+### Added
+- Unit tests for request helpers:  
+  - abortRequest  
+  - createAbortableRequest  
+  - createRequest  
+  - getUrl  
+  - getUrlWithQuery  
+  - prepareRequestData  
+  - removeAbortableKey  
+  - requestIsSuccess  
+  - setHeaders  
+  - abortableRequests  
+  - updateContentType  
+- extra `onDownloadProgress` property for `KinkaRequestOptions`  
+- extra `onUploadProgress` property for `KinkaRequestOptions`  
+
 ## [1.0.3](https://github.com/acacode/kinka/releases/tag/1.0.3)
 
 ### Changed

@@ -56,9 +56,10 @@ describe('request helpers : ', () => {
 
   describe('createAbortableRequest : ', () => {
     itShouldBeFunc(createAbortableRequest)
-    const testAbortableKey = 'test-request'
     describe('new request : ', () => {
+      const testAbortableKey = 'test-new-request'
       let XHRspy = sinon.spy()
+      let returnedValue
       const clearAbortableStorage = () => {
         delete abortableRequests[testAbortableKey]
       }
@@ -66,9 +67,8 @@ describe('request helpers : ', () => {
         clearAbortableStorage()
         global.XMLHttpRequest = function FakeXHR() {
           XHRspy()
-          return new OriginalXHR()
         }
-        createAbortableRequest(testAbortableKey)
+        returnedValue = createAbortableRequest(testAbortableKey)
       })
       afterEach(() => {
         clearAbortableStorage()
@@ -77,9 +77,35 @@ describe('request helpers : ', () => {
       it('should create XmlHttpRequest instance', () => {
         expect(XHRspy.calledOnce).to.be.equal(true)
       })
-      // it('should remove request from abortable requests storage', () => {
-      //   expect(abortableRequests).to.deep.equal({})
-      // })
+      it('should assign XmlHttpRequest instance to abortable requests storage by key', () => {
+        expect(
+          abortableRequests[testAbortableKey] instanceof XMLHttpRequest
+        ).to.be.equal(true)
+      })
+      it('should return XmlHttpRequest instance', () => {
+        expect(
+          returnedValue === abortableRequests[testAbortableKey]
+        ).to.be.equal(true)
+      })
+    })
+    describe('existing request : ', () => {
+      const testAbortableKey = 'test-existing-request'
+      const clearAbortableStorage = () => {
+        delete abortableRequests[testAbortableKey]
+      }
+      afterEach(() => {
+        clearAbortableStorage()
+        global.XMLHttpRequest = OriginalXHR
+      })
+      it('should abort previous request', () => {
+        global.XMLHttpRequest = OriginalXHR
+        const xhr = createAbortableRequest(testAbortableKey)
+        xhr.abort = sinon.spy()
+        xhr.open('GET', 'https://google.com/test', true)
+        createAbortableRequest(testAbortableKey)
+        // twice because mocked xmlhttprequest do abort always before open method
+        expect(xhr.abort.calledTwice).to.be.equal(true)
+      })
     })
   })
 

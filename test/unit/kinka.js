@@ -13,7 +13,7 @@ describe('kinka instance : ', () => {
   const testMethod = (name, options = {}) => {
     const methodName = name.toUpperCase()
     const api = options.api || kinka
-    const baseURL = options.baseURL || global.location
+    const baseURL = options.baseURL || global.location.origin
     const path = `/test-path/method-${name}/custom-method-${Boolean(
       options.testCustom
     )}`
