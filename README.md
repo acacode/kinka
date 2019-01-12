@@ -10,8 +10,8 @@
   </p>
 </div>
 
-**kinka** it is [very light weight 💨](https://bundlephobia.com/result?p=kinka) and more powerful JavaScript library  
-It will reduce your http code (which are using [XMLHttpRequests](https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest)) and allows http code more simple and easy to read.
+**kinka** it is [most lighter 💨](https://bundlephobia.com/result?p=kinka) and very powerful JavaScript library designed for ajax requests!  
+It will reduce your http code (which are using [XMLHttpRequests](https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest)) and allows do http code more simpler and easy to read.  
 
 ## 🚀 Installation
 
