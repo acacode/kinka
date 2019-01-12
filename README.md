@@ -30,7 +30,7 @@ It will reduce your http code (which are using [XMLHttpRequests](https://develop
 **It is easiest way to catch your bad request**
 ![catching error](./docs/images/catchingErrors.png)  
 **More [powerful things 💪](./docs/documentation.md)(e.g. auto abortable requests) which can improve your interaction with your requests**  
-![abortable key example](./docs/images/abortableKey.png)  
+![abortable key example](./docs/images/autoAbortableRequests.png)  
 **Have [very small size](https://bundlephobia.com/result?p=kinka) which can improve site load time**  
 ![query params example](./docs/images/queryParams.png)  
 <!-- <img src="https://github.com/acacode/kinka/raw/master/docs/images/omitCatchesSample.png"><br> -->
