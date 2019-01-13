@@ -27,8 +27,8 @@ It will reduce your http code (which are using [XMLHttpRequests](https://develop
 
 ## Why kinka ❔
 
-### It is easiest way to catch your bad request  
-![catching error](./docs/images/catchingErrors.png)  
+### It is the easiest way to catch your bad request  
+![catching error example](./docs/images/catchingErrors.png)  
 ### Many [powerful features 💪](./docs/documentation.md)(e.g. auto abortable requests) which can improve your interaction with your requests  
 ![abortable key example](./docs/images/autoAbortableRequests.png)  
 ### Have [very small size](https://bundlephobia.com/result?p=kinka) which can improve site load time  

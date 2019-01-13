@@ -212,7 +212,7 @@ kinka.get('/all', {
     <td><b>omitCatches?: bool</b></td>
     <td><code>instance.omitCatches | true</code></td>
     <td>
-        With <code>true</code> value your responses will not be throwing exceptions and you don't need to wrap your requests in <code>try/catch</code>.<br>
+        With <code>true</code> your responses will not be throwing exceptions and you don't need to wrap your requests in <code>try/catch</code>.<br>
         And if you want to catch exception you can get this from <code>response.err</code> or <code>response.isError</code><br>
         Example:<br>
   <pre><code>
