@@ -237,7 +237,7 @@ try{
     <td>
         Indicates that this request should use credentials (like cookies or specific auth headers)<br>
         Sets flag <code>withCredentials</code><br>
-        <a href="https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/withCredentials">Read more about it is here...</a>
+        <a href="https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/withCredentials">Read more about it here...</a>
     </td>
   </tr>
   <tr>
@@ -250,13 +250,14 @@ try{
         or will have fulfilled `err` property<br>
         Example:<br>
   <pre><code>
-    const { data, err } = await kinka.get('/wrong-request', {
-      successStatus: 401 
-    })
-    // request returned 401 status code then this condition have truthy value
-    if(!err) {
-      console.log('response -> ', data)
-    }
+const { data, err } = await kinka.get('/wrong-request', {
+  successStatus: 401 
+})
+// request returned 401 status code then
+// this condition have truthy value
+if(!err) {
+  console.log('response -> ', data)
+}
   </code></pre>
     </td>
   </tr>
@@ -287,7 +288,7 @@ await kinka.get('/donuts/all', {
     <td><code>0</code></td>
     <td>
         Sets the number of milliseconds after which request automatically will be terminated. 0 value means no timeout.<br>
-        <a href="https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/timeout">Read more about it is here...</a>
+        <a href="https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/timeout">Read more about it here...</a>
     </td>
   </tr>
   <tr>
