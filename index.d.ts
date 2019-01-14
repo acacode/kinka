@@ -160,11 +160,64 @@ export declare interface KinkaRequestOptions{
      * @memberof KinkaRequestOptions
      */
     omitCatches?: boolean;
+
+    /**
+     * Allows to handle progress of the request download
+     *
+     * @memberof KinkaRequestOptions
+     */
     onDownloadProgress?: (progressEvent: ProgressEvent)=>any
+
+    /**
+     * Allows to handle progress of the request upload
+     *
+     * @memberof KinkaRequestOptions
+     */
     onUploadProgress?: (progressEvent: ProgressEvent)=>any
+
+    /**
+     * query params for your http request
+     * Example:
+     * kinka.get('/all', { 
+     * query: { 
+     *     disabled: true, 
+     *     sortBy: 'date' 
+     * }})
+     * // request will have url {{baseURL}}/all?disabled=true&sortBy=date
+     *
+     * @type {object}
+     * @memberof KinkaRequestOptions
+     */
     query?: object;
+
+    /**
+     * Allows to set specific success status for your http request
+     * If you added this property with 201 value then all another responses
+     * with success status codes will be catches an exception,
+     * or will have fulfilled `err` property
+     *
+     * @type {number}
+     * @memberof KinkaRequestOptions
+     */
     successStatus?: number;
+
+    /**
+     * Sets the number of milliseconds after which request automatically will be terminated. 0 value means no timeout.
+     * Read more: https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/timeout
+     *
+     * @type {number}
+     * @memberof KinkaRequestOptions
+     */
     timeout?: number;
+
+    /**
+     * Indicates that this request should use credentials (like cookies or specific auth headers)
+     * Sets flag {request.withCredentials}
+     * Read more: https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/withCredentials
+     *
+     * @type {boolean}
+     * @memberof KinkaRequestOptions
+     */
     withAuth?: boolean;
 }
 

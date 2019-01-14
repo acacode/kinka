@@ -197,7 +197,7 @@ kinka.get('/all', {
         disabled: true, 
         sortBy: 'date' 
     }})
-// endpoint will be {{baseURL}}/all?disabled=true&sortBy=date
+// request will have url {{baseURL}}/all?disabled=true&sortBy=date
     </code></pre>	  
   </td>
   </tr>
@@ -238,6 +238,26 @@ try{
         Indicates that this request should use credentials (like cookies or specific auth headers)<br>
         Sets flag <code>withCredentials</code><br>
         <a href="https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/withCredentials">Read more about it is here...</a>
+    </td>
+  </tr>
+  <tr>
+    <td><b>successStatus?: number</b></td>
+    <td><code>range between 200 and 300</code></td>
+    <td>
+        Allows to set specific success status for your http request<br>
+        If you added this property with 201 value then all another responses<br>
+        with success status codes will be catches an exception,<br>
+        or will have fulfilled `err` property<br>
+        Example:<br>
+  <pre><code>
+    const { data, err } = await kinka.get('/wrong-request', {
+      successStatus: 401 
+    })
+    // request returned 401 status code then this condition have truthy value
+    if(!err) {
+      console.log('response -> ', data)
+    }
+  </code></pre>
     </td>
   </tr>
   <tr>
