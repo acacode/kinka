@@ -28,14 +28,14 @@ process.env.NODE_ENV = 'production'
   <tr>
     <td><b>abort</b></td>
     <td>
-        <code>abortableKey: string</code>
+        <code>cancelToken: string</code>
     </td>
     <td><code>undefined</code></td>
     <td>
 	      abort request by abortable key<br>
 	      example: <br>
 	  
-	kinka.get('/users', { abortableKey: 'usersKey' })
+	kinka.get('/users', { cancelToken: 'usersKey' })
 	kinka.abort('usersKey')
 	//GET:/users request will been canceled
 	  
@@ -205,7 +205,7 @@ kinka.get('/all', {
   </td>
   </tr>
   <tr>
-    <td><b>abortableKey?:string</b></td>
+    <td><b>cancelToken?:string</b></td>
     <td><code>undefined</code></td>
     <td>
         With abortable key your request have ability to cancel last request if request with the same key is start launching
@@ -503,7 +503,7 @@ const getUsers = () =>
       queryParam2: 'test',
       queryParam3: false,
     },
-    abortableKey: 'usersAbortableKey',
+    cancelToken: 'usersAbortableKey',
     headers: {
       'Specific-Header': 'some header data',
     },
@@ -512,7 +512,7 @@ const getUsers = () =>
 const test = async () => {
   const users = await api.all([getUsers(), getUsers(), getUsers()])
   // all requests will be GET: https://test-api.com/users?queryParam1=1&queryParam2=test&queryParam3=false
-  // first and second requests has been catched because for each one specified same param 'abortableKey'
+  // first and second requests has been catched because for each one specified same param 'cancelToken'
   if (users[0].err && users[1].err && !users[2].err) {
     const data = users[2].data
     console.log('data', data)

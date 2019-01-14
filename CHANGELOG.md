@@ -1,6 +1,12 @@
 
 # CHANGELOG
 
+## [1.0.4](https://github.com/acacode/kinka/releases/tag/1.0.4)
+
+### Changed
+- Renamed `abortableKey` to `cancelToken` for more readability.  
+- Small changes in warning deprecation messages
+
 ## [1.0.3](https://github.com/acacode/kinka/releases/tag/1.0.3)
 
 ### Changed
