@@ -102,7 +102,7 @@ export declare interface KinkaRequestOptions{
      * @type {string}
      * @memberof KinkaRequestOptions
      */
-    cancelKey?: string;
+    cancelToken?: string;
 
     /**
      * Sets data for the instance `auth` mixin.
@@ -376,11 +376,11 @@ export interface KinkaInstance {
     /**
      *
      *
-     * @param {string} cancelKey
+     * @param {string} cancelToken
      * @returns {undefined} 
      * @memberof KinkaInstance
      */
-    abort(cancelKey: string):undefined;
+    abort(cancelToken: string):undefined;
 
     /**
      *
