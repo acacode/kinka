@@ -102,7 +102,7 @@ export declare interface KinkaRequestOptions{
      * @type {string}
      * @memberof KinkaRequestOptions
      */
-    abortableKey?: string;
+    cancelKey?: string;
 
     /**
      * Sets data for the instance `auth` mixin.
@@ -164,6 +164,7 @@ export declare interface KinkaRequestOptions{
     /**
      * Allows to handle progress of the request download
      *
+     * @type {function}
      * @memberof KinkaRequestOptions
      */
     onDownloadProgress?: (progressEvent: ProgressEvent)=>any
@@ -171,6 +172,7 @@ export declare interface KinkaRequestOptions{
     /**
      * Allows to handle progress of the request upload
      *
+     * @type {function}
      * @memberof KinkaRequestOptions
      */
     onUploadProgress?: (progressEvent: ProgressEvent)=>any
@@ -226,15 +228,141 @@ export declare interface KinkaRequestOptions{
  * @interface KinkaInstanceOptions
  */
 export declare interface KinkaInstanceOptions{
+
+    /**
+     * Allows to attach auth mixin for requests in your kinka instance.
+     * It mixin will be modify your request options before sending request.
+     * Example:
+     * 
+     * const api = kinka.create({
+     *  baseURL: `${baseURL}/${apiPath}`,
+     *    auth: ({ username, password }) => ({
+     *        headers: {
+     *        Auth: `Token ${username}:${stringToSHA256(password)}`,
+     *       },
+     *    }),
+     *  })
+     *  api.get('/data', {
+     *    auth: { username: 'TheFlash', password: 'SpeedF0rce' },
+     *  })
+     * 
+     * @type {function}
+     * @memberof KinkaInstanceOptions
+     */
     auth?: (authData:any)=>(KinkaRequestOptions|any)
+
+    /**
+     * Sets the `baseURL` for instance.
+     * Allows to set base url address for server.
+     * Example:
+     * const api = kinka.create({ baseURL: 'https://api.com' })
+     * api.get('/data') //GET: https://api.com/data
+     *
+     * @type {string}
+     * @memberof KinkaInstanceOptions
+     */
     baseURL?: string;
+
+    /**
+     * Allows to create instance methods which will have special http methods.
+     *
+     * @type {((string[] | null))}
+     * @memberof KinkaInstanceOptions
+     */
     customMethods?: (string[] | null);
+
+    /**
+     * Allows to set specific headers for each request created via instance
+     * Example:
+     * const api = kinka.create({
+     *   baseURL: 'https://api.com',
+     *   headers: {
+     *    'API_VERSION': '01',
+     *   },
+     * })
+     * api.get('/data')
+     * GET: https://api.com/data
+     * headers: {
+     *   "API_VERSION": "01"
+     * }
+     *
+     * @type {object}
+     * @memberof KinkaInstanceOptions
+     */
     headers?: object;
-    inspectors?: { 
-        request?: (url: string, method: string, options?: KinkaRequestOptions)=>(KinkaRequestOptions|any), 
+
+    /**
+     * Allows to attach inspectors to your kinka instance.
+     * Inspectors it is watchers for requests or responses
+     * which allows dynamically change request options or response data.
+     * If needed to change request options or response data then
+     * need to return modified options/response.
+     * Example:
+     * const api = kinka.create({
+     *   baseURL: `${baseURL}/${apiPath}`,
+     *   inspectors: {
+     *     request: (url, method, options) => {
+     *       console.log(`request ${url}`, options)
+     *       // here request will be not modified
+     *     },
+     *     response: (url, method, response) => {
+     *       console.log(`response ${url}`, response)
+     *       if(!response.data){
+     *           response.data = null
+     *       }
+     *       // here response will be modified
+     *       // and data will be null 
+     *       return response
+     *     },
+     *   },
+     * })
+     * 
+     * @type {{ request?: function, response?: function }} object with optionable `request` and `response` keys
+     * @memberof KinkaInstanceOptions
+     */
+    inspectors?: {
+
+        /**
+         * callback which will be called always when request will been created
+         * 
+         * @type {function}
+         */
+        request?: (url: string, method: string, options?: KinkaRequestOptions)=>(KinkaRequestOptions|any),
+
+        /**
+         * callback which will be called always when request returned response
+         *
+         * @type {function}
+         */
         response?: <T = any, R = KinkaResponse<T>>(url: string, method: string, response: R)=>(R|any), 
     }
+
+    /**
+     * With {true} your responses will not be throwing exceptions and you don't need to wrap your requests in try/catch.
+     * And if you want to catch exception you can get this from {response.err} or {response.isError}
+     * Example:
+     * const api = kinka.create('https://api.com', { omitCatches: true })
+     * ...
+     * // here the application is not been crashed
+     * const { err } = await api.get('/bad-request')
+     * if(err){
+     *   // catched error
+     *   console.log(err)
+     * }
+     * 
+     * @type {boolean} - by default will be {true}
+     * @memberof KinkaInstanceOptions
+     */
     omitCatches?: boolean;
+
+    /**
+     * Sets the number of milliseconds after which
+     * request automatically will be terminated. 0 value means no timeout.
+     * Read more: https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/timeout
+     *
+     * @type {number} - by default no timeout
+     * @memberof KinkaInstanceOptions
+     */
     timeout?: number;
 }
 
@@ -244,16 +372,133 @@ export declare interface KinkaInstanceOptions{
  * @interface KinkaInstance
  */
 export interface KinkaInstance {
-    abort(abortableKey: string):undefined;
+
+    /**
+     *
+     *
+     * @param {string} cancelKey
+     * @returns {undefined} 
+     * @memberof KinkaInstance
+     */
+    abort(cancelKey: string):undefined;
+
+    /**
+     *
+     *
+     * @template T
+     * @param {Promise<T>[]} promises
+     * @returns {Promise<T[]>}
+     * @memberof KinkaInstance
+     */
     all<T>(promises: Promise<T>[]): Promise<T[]>;
+
+    /**
+     *
+     *
+     * @param {KinkaInstanceOptions} [options]
+     * @returns {KinkaInstance}
+     * @memberof KinkaInstance
+     */
     create(options?: KinkaInstanceOptions): KinkaInstance;
+
+    /**
+     *
+     *
+     * @template T
+     * @template R
+     * @param {string} method
+     * @param {string} path
+     * @param {KinkaRequestOptions} [options]
+     * @returns {Promise<R>}
+     * @memberof KinkaInstance
+     */
     custom<T = any, R = KinkaResponse<T>>(method: string, path: string, options?: KinkaRequestOptions): Promise<R>;
+
+    /**
+     *
+     *
+     * @template T
+     * @template R
+     * @param {string} path
+     * @param {KinkaRequestOptions} [options]
+     * @returns {Promise<R>}
+     * @memberof KinkaInstance
+     */
     delete<T = any, R = KinkaResponse<T>>(path: string, options?: KinkaRequestOptions): Promise<R>;
+
+    /**
+     *
+     *
+     * @template T
+     * @template R
+     * @param {string} path
+     * @param {KinkaRequestOptions} [options]
+     * @returns {Promise<R>}
+     * @memberof KinkaInstance
+     */
     get<T = any, R = KinkaResponse<T>>(path: string, options?: KinkaRequestOptions): Promise<R>;
+
+    /**
+     *
+     *
+     * @template T
+     * @template R
+     * @param {string} path
+     * @param {KinkaRequestOptions} [options]
+     * @returns {Promise<R>}
+     * @memberof KinkaInstance
+     */
     head<T = any, R = KinkaResponse<T>>(path: string, options?: KinkaRequestOptions): Promise<R>;
+
+    /**
+     *
+     *
+     * @template T
+     * @template R
+     * @param {string} path
+     * @param {KinkaRequestOptions} [options]
+     * @returns {Promise<R>}
+     * @memberof KinkaInstance
+     */
     options<T = any, R = KinkaResponse<T>>(path: string, options?: KinkaRequestOptions): Promise<R>;
+
+    /**
+     *
+     *
+     * @template T
+     * @template R
+     * @param {string} path
+     * @param {*} [data]
+     * @param {KinkaRequestOptions} [options]
+     * @returns {Promise<R>}
+     * @memberof KinkaInstance
+     */
     patch<T = any, R = KinkaResponse<T>>(path: string, data?: any, options?: KinkaRequestOptions): Promise<R>;
+
+    /**
+     *
+     *
+     * @template T
+     * @template R
+     * @param {string} path
+     * @param {*} [data]
+     * @param {KinkaRequestOptions} [options]
+     * @returns {Promise<R>}
+     * @memberof KinkaInstance
+     */
     post<T = any, R = KinkaResponse<T>>(path: string, data?: any, options?: KinkaRequestOptions): Promise<R>;
+
+    /**
+     *
+     *
+     * @template T
+     * @template R
+     * @param {string} path
+     * @param {*} [data]
+     * @param {KinkaRequestOptions} [options]
+     * @returns {Promise<R>}
+     * @memberof KinkaInstance
+     */
     put<T = any, R = KinkaResponse<T>>(path: string, data?: any, options?: KinkaRequestOptions): Promise<R>;
     
     /**
