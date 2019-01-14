@@ -2,11 +2,11 @@
 # CHANGELOG
 
 
-
-## [1.1.3](https://github.com/acacode/kinka/releases/tag/1.1.3)
+## [2.0.0](https://github.com/acacode/kinka/releases/tag/2.0.0)
 
 ### Removed
-- Property `body` from `KinkaRequestOptions`  
+- Property `body` from `KinkaRequestOptions` (renamed to `data`)  
+- Property `abortableKey` from `KinkaRequestOptions` (renamed to `cancelToken`)  
 
 ### Changed
 - Unit tests for request methods using `nock` and `xmlhttprequest` testing libraries  
@@ -27,6 +27,12 @@
   - updateContentType  
 - extra `onDownloadProgress` property for `KinkaRequestOptions`  
 - extra `onUploadProgress` property for `KinkaRequestOptions`  
+
+## [1.0.4](https://github.com/acacode/kinka/releases/tag/1.0.4)
+
+### Changed
+- Renamed `abortableKey` to `cancelToken` for more readability.  
+- Small changes in warning deprecation messages
 
 ## [1.0.3](https://github.com/acacode/kinka/releases/tag/1.0.3)
 

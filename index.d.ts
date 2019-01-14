@@ -374,7 +374,11 @@ export declare interface KinkaInstanceOptions{
 export interface KinkaInstance {
 
     /**
-     *
+     * abort request by cancel token.
+     * Example:
+     * kinka.get('/users', { cancelToken: 'usersKey' })
+	 * kinka.abort('usersKey')
+	 * //GET:/users request will been canceled
      *
      * @param {string} cancelToken
      * @returns {undefined} 
