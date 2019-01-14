@@ -197,7 +197,8 @@ kinka.get('/all', {
         disabled: true, 
         sortBy: 'date' 
     }})
-// request will have url {{baseURL}}/all?disabled=true&sortBy=date
+// request will have url: 
+// {{baseURL}}/all?disabled=true&sortBy=date
     </code></pre>	  
   </td>
   </tr>
@@ -235,7 +236,8 @@ try{
     <td><b>withAuth?: bool</b></td>
     <td><code>false</code></td>
     <td>
-        Indicates that this request should use credentials (like cookies or specific auth headers)<br>
+        Indicates that this request should use credentials<br>
+        (like cookies or specific auth headers)<br>
         Sets flag <code>withCredentials</code><br>
         <a href="https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/withCredentials">Read more about it here...</a>
     </td>
@@ -287,7 +289,8 @@ await kinka.get('/donuts/all', {
     <td><b>timeout?: number</b></td>
     <td><code>0</code></td>
     <td>
-        Sets the number of milliseconds after which request automatically will be terminated. 0 value means no timeout.<br>
+        Sets the number of milliseconds after which<br>
+        request automatically will be terminated. 0 value means no timeout.<br>
         <a href="https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/timeout">Read more about it here...</a>
     </td>
   </tr>
