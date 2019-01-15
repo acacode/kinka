@@ -1,9 +1,10 @@
 import '../../__unit__'
-// import nock from 'nock'
+import nock from 'nock'
 import { expect } from 'chai'
 import { XMLHttpRequest as OriginalXHR } from 'xmlhttprequest'
 import sinon from 'sinon'
 import { describe, it, beforeEach, afterEach } from 'mocha'
+import kinka from '../../..'
 import {
   abortRequest,
   createAbortableRequest,
@@ -111,6 +112,37 @@ describe('request helpers : ', () => {
 
   describe('createRequest : ', () => {
     itShouldBeFunc(createRequest)
+    describe('default kinka instance : ', () => {
+      let promise
+      let xhrOpenOrigin = XMLHttpRequest.prototype.open
+      let xhrOpenSpy = sinon.spy()
+
+      const httpMock = nock('http://127.0.0.1:8988')
+      httpMock.intercept('/all', 'GET').reply(200, { data: 'test' })
+      const testFunc = createRequest.bind(kinka)
+      beforeEach(() => {
+        promise = testFunc('get', '/all')
+        console.log('asd', promise, promise.then, promise.catch)
+        XMLHttpRequest.prototype.open = function() {
+          console.log('op[e', arguments)
+          xhrOpenSpy(arguments)
+          xhrOpenOrigin.apply(this, arguments)
+        }
+      })
+      afterEach(() => {
+        xhrOpenSpy.resetHistory()
+        XMLHttpRequest.prototype.open = xhrOpenOrigin
+        nock.cleanAll()
+      })
+      it('should call `open` XMLHttpRequest method with expected args', function(done) {
+        promise.then(() => {
+          expect(xhrOpenSpy.args).to.deep.equal([
+            ['GET', 'http://127.0.0.1:8988/all', true],
+          ])
+          done()
+        })
+      })
+    })
     //
   })
   describe('getUrl : ', () => {
