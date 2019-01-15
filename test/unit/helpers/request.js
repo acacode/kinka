@@ -113,30 +113,36 @@ describe('request helpers : ', () => {
   describe('createRequest : ', () => {
     itShouldBeFunc(createRequest)
     describe('default kinka instance : ', () => {
-      let promise
-      let xhrOpenOrigin = XMLHttpRequest.prototype.open
+      let testRequest
+      const httpMock = nock(location.origin)
       let xhrOpenSpy = sinon.spy()
 
-      const httpMock = nock('http://127.0.0.1:8988')
-      httpMock.intercept('/all', 'GET').reply(200, { data: 'test' })
       const testFunc = createRequest.bind(kinka)
       beforeEach(() => {
-        promise = testFunc('get', '/all')
-        console.log('asd', promise, promise.then, promise.catch)
-        XMLHttpRequest.prototype.open = function() {
-          console.log('op[e', arguments)
-          xhrOpenSpy(arguments)
-          xhrOpenOrigin.apply(this, arguments)
+        // }
+        httpMock
+          .intercept('/all', 'GET')
+          .reply(200, { fullName: 'Donald Trump', id: 1 })
+        const OrXHR = global.XMLHttpRequest
+        global.XMLHttpRequest = function FakeXHR() {
+          const instance = new OrXHR(arguments)
+          const origOpen = instance.open
+          instance.open = function() {
+            xhrOpenSpy([].slice.call(arguments))
+            return origOpen.apply(this, arguments)
+          }
+          return instance
         }
+        testRequest = testFunc('get', '/all')
       })
       afterEach(() => {
-        xhrOpenSpy.resetHistory()
-        XMLHttpRequest.prototype.open = xhrOpenOrigin
+        global.XMLHttpRequest = OriginalXHR
         nock.cleanAll()
+        xhrOpenSpy.resetHistory()
       })
       it('should call `open` XMLHttpRequest method with expected args', function(done) {
-        promise.then(() => {
-          expect(xhrOpenSpy.args).to.deep.equal([
+        testRequest.then(function() {
+          expect(xhrOpenSpy.args[0]).to.deep.equal([
             ['GET', 'http://127.0.0.1:8988/all', true],
           ])
           done()

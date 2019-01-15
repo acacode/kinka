@@ -25,8 +25,8 @@ describe('kinka instance : ', () => {
     let testRequest
     describe(`${name} method : `, function() {
       let XHRisCreated = false
+      const OriginXHR = global.XMLHttpRequest
       beforeEach(() => {
-        const OriginXHR = global.XMLHttpRequest
         global.XMLHttpRequest = function() {
           XHRisCreated = true
           return new OriginXHR()
@@ -38,6 +38,8 @@ describe('kinka instance : ', () => {
       })
       afterEach(() => {
         XHRisCreated = false
+        global.XMLHttpRequest = OriginXHR
+        nock.cleanAll()
       })
 
       it(`should be function`, () => {
