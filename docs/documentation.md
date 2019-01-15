@@ -45,7 +45,7 @@ process.env.NODE_ENV = 'production'
     </td>
     <td><code>Promise&lt;Response[]&gt;</code></td>
     <td>
-          It method can helps if needed to wait more than one request<br>
+        That method can helps if needed to wait more than one request<br>
 	      Return a promise that is fulfilled when all the items in the array are fulfilled.<br>
 	      example: <br>
 	  
@@ -85,6 +85,11 @@ process.env.NODE_ENV = 'production'
 	<td><code>Promise&lt;Response&gt;</code></td>
     <td>
         create request with custom method name.
+	      example: <br>
+	  
+	const promise = kinka.custom('kill', '/all')
+  // KILL: myapi.com/all promise
+	  
    </td>
   </tr>
   <tr>

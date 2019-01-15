@@ -367,7 +367,8 @@ export declare interface KinkaInstanceOptions{
 }
 
 /**
- * List of methods which have kinka instance
+ * Properties and methods of the kinka instance
+ * 
  * @export
  * @interface KinkaInstance
  */
@@ -387,8 +388,18 @@ export interface KinkaInstance {
     abort(cancelToken: string):undefined;
 
     /**
-     *
-     *
+     * That method can helps if needed to wait more than one request
+     * Return a promise that is fulfilled when all the items in the array are fulfilled.
+     * Example:
+	 * const [friends, family, donuts] = await kinka.all([
+	 *   kinka.get('/friends'),
+	 *   kinka.get('/family'),
+	 *   kinka.get('/donuts'),
+	 * ])
+	 * console.log(friends.data)
+	 * console.log(family.data)
+	 * console.log(donuts.data)
+     * 
      * @template T
      * @param {Promise<T>[]} promises
      * @returns {Promise<T[]>}
@@ -397,8 +408,11 @@ export interface KinkaInstance {
     all<T>(promises: Promise<T>[]): Promise<T[]>;
 
     /**
-     *
-     *
+     * create new kinka instance with your own options.
+     * Example:
+     * const api = kinka.create({baseURL: 'myapi.com'})
+	 * api.get('/all') // GET: myapi.com/all promise
+     * 
      * @param {KinkaInstanceOptions} [options]
      * @returns {KinkaInstance}
      * @memberof KinkaInstance
@@ -406,7 +420,11 @@ export interface KinkaInstance {
     create(options?: KinkaInstanceOptions): KinkaInstance;
 
     /**
-     *
+     * create request with custom method name.
+     * Example:
+     * const api = kinka.create({baseURL: 'myapi.com'})
+	 * const promise = api.custom('kill', '/all')
+     * // KILL: myapi.com/all promise
      *
      * @template T
      * @template R
@@ -419,7 +437,11 @@ export interface KinkaInstance {
     custom<T = any, R = KinkaResponse<T>>(method: string, path: string, options?: KinkaRequestOptions): Promise<R>;
 
     /**
-     *
+     * create request with {DELETE} method.
+     * Example:
+     * const api = kinka.create({baseURL: 'myapi.com'})
+     * const promise = api.delete('/all')
+     * // DELETE: myapi.com/all promise
      *
      * @template T
      * @template R
@@ -431,7 +453,11 @@ export interface KinkaInstance {
     delete<T = any, R = KinkaResponse<T>>(path: string, options?: KinkaRequestOptions): Promise<R>;
 
     /**
-     *
+     * create request with {GET} method.
+     * Example:
+     * const api = kinka.create({baseURL: 'myapi.com'})
+     * const promise = api.get('/all')
+     * // GET: myapi.com/all promise
      *
      * @template T
      * @template R
@@ -443,7 +469,11 @@ export interface KinkaInstance {
     get<T = any, R = KinkaResponse<T>>(path: string, options?: KinkaRequestOptions): Promise<R>;
 
     /**
-     *
+     * create request with {HEAD} method.
+     * Example:
+     * const api = kinka.create({baseURL: 'myapi.com'})
+     * const promise = api.head('/all')
+     * // HEAD: myapi.com/all promise
      *
      * @template T
      * @template R
@@ -455,7 +485,11 @@ export interface KinkaInstance {
     head<T = any, R = KinkaResponse<T>>(path: string, options?: KinkaRequestOptions): Promise<R>;
 
     /**
-     *
+     * create request with {OPTIONS} method.
+     * Example:
+     * const api = kinka.create({baseURL: 'myapi.com'})
+     * const promise = api.options('/all')
+     * // OPTIONS: myapi.com/all promise
      *
      * @template T
      * @template R
@@ -467,7 +501,11 @@ export interface KinkaInstance {
     options<T = any, R = KinkaResponse<T>>(path: string, options?: KinkaRequestOptions): Promise<R>;
 
     /**
-     *
+     * create request with {PATCH} method.
+     * Example:
+     * const api = kinka.create({baseURL: 'myapi.com'})
+     * const promise = api.patch('/all')
+     * // PATCH: myapi.com/all promise
      *
      * @template T
      * @template R
@@ -480,7 +518,11 @@ export interface KinkaInstance {
     patch<T = any, R = KinkaResponse<T>>(path: string, data?: any, options?: KinkaRequestOptions): Promise<R>;
 
     /**
-     *
+     * create request with {POST} method.
+     * Example:
+     * const api = kinka.create({baseURL: 'myapi.com'})
+     * const promise = api.post('/all')
+     * // POST: myapi.com/all promise
      *
      * @template T
      * @template R
@@ -493,7 +535,11 @@ export interface KinkaInstance {
     post<T = any, R = KinkaResponse<T>>(path: string, data?: any, options?: KinkaRequestOptions): Promise<R>;
 
     /**
-     *
+     * create request with {PUT} method.
+     * Example:
+     * const api = kinka.create({baseURL: 'myapi.com'})
+     * const promise = api.put('/all')
+     * // PUT: myapi.com/all promise
      *
      * @template T
      * @template R
@@ -509,6 +555,9 @@ export interface KinkaInstance {
      * custom method works only if 
      * this method name send to 'customMethods' to instance options when you was created new kinka instance.
      * Otherwise will be catched an error - "kinka['property'] is not a function"
+     * Example:
+     * const api = kinka.create({ baseURL: 'myapi.com', customMethods: ['pull'] })
+     * api.pull('/changes') // PULL: myapi.com/changes promise
      */
     [customMethod: string]: <T = any, R = KinkaResponse<T>>(path: string, options?: KinkaRequestOptions) => Promise<R>;
 }
