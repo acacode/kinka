@@ -113,44 +113,147 @@ describe('request helpers : ', () => {
   describe('createRequest : ', () => {
     itShouldBeFunc(createRequest)
     describe('default kinka instance : ', () => {
-      let testRequest
-      const httpMock = nock(location.origin)
-      let xhrOpenSpy = sinon.spy()
-
-      const testFunc = createRequest.bind(kinka)
-      beforeEach(() => {
-        // }
-        httpMock
-          .intercept('/all', 'GET')
-          .reply(200, { fullName: 'Donald Trump', id: 1 })
-        const OrXHR = global.XMLHttpRequest
-        global.XMLHttpRequest = function FakeXHR() {
-          const instance = new OrXHR(arguments)
-          const origOpen = instance.open
-          instance.open = function() {
-            xhrOpenSpy([].slice.call(arguments))
-            return origOpen.apply(this, arguments)
-          }
-          return instance
+      describe('GET request : ', () => {
+        let spies = {
+          open: sinon.spy(),
+          send: sinon.spy(),
         }
-        testRequest = testFunc('get', '/all')
-      })
-      afterEach(() => {
-        global.XMLHttpRequest = OriginalXHR
-        nock.cleanAll()
-        xhrOpenSpy.resetHistory()
-      })
-      it('should call `open` XMLHttpRequest method with expected args', function(done) {
-        testRequest.then(function() {
-          expect(xhrOpenSpy.args[0]).to.deep.equal([
-            ['GET', 'http://127.0.0.1:8988/all', true],
-          ])
-          done()
+
+        const makeRequest = (requestConfig = {}, requestOptions) => {
+          const { baseURL, path, status, method, data } = {
+            ...{
+              method: 'GET',
+              path: '/all',
+              baseURL: location.origin,
+              data: { fullName: 'Donald Trump', id: 1 },
+              status: 200,
+            },
+            ...requestConfig,
+          }
+          const httpMock = nock(baseURL)
+          httpMock.intercept(path, method).reply(status, data)
+          const XHR = global.XMLHttpRequest
+          global.XMLHttpRequest = function FakeXHR() {
+            const instance = new XHR(arguments)
+            const originalOpen = instance.open
+            instance.open = function() {
+              spies.open.apply(spies.open, [].slice.call(arguments))
+              return originalOpen.apply(this, arguments)
+            }
+            const originalSend = instance.send
+            instance.send = function() {
+              spies.send.apply(spies.send, [].slice.call(arguments))
+              return originalSend.apply(this, arguments)
+            }
+            return instance
+          }
+          return createRequest.call(
+            kinka,
+            method.toLowerCase(),
+            path,
+            requestOptions
+          )
+        }
+        afterEach(() => {
+          global.XMLHttpRequest = OriginalXHR
+          nock.cleanAll()
+          spies.open.resetHistory()
+          spies.send.resetHistory()
+        })
+        it('should call `open` XMLHttpRequest method with expected args', function(done) {
+          const request = {
+            method: 'GET',
+            path: '/all',
+          }
+          makeRequest(request).then(function() {
+            expect(spies.open.args).to.deep.equal([
+              [request.method, `${location.origin}${request.path}`, true],
+            ])
+            done()
+          })
+        })
+        it('should call `send` XMLHttpRequest method', function(done) {
+          makeRequest().then(function() {
+            expect(spies.send.calledOnce).to.be.equal(true)
+            done()
+          })
+        })
+        it('response should be success and to be expected object', function(done) {
+          makeRequest().then(function(response) {
+            expect(response).to.deep.equal({
+              data: { fullName: 'Donald Trump', id: 1 },
+              err: null,
+              headers: { 'content-type': 'application/json' },
+              isError: false,
+              isSuccess: true,
+              response: undefined, // reason: mocked XHR is not supported it
+              status: 200,
+              statusText: null,
+              type: undefined, // reason: mocked XHR is not supported it
+              url: 'http://127.0.0.1:8988/all',
+            })
+            done()
+          })
+        })
+        it("request shouldn't catched and just have 'err' property as truthy value", function(done) {
+          makeRequest({
+            status: 404,
+            data: { errorMessage: 'occurred an server error' },
+          }).then(function(response) {
+            expect(response.err).to.deep.equal({
+              errorMessage: 'occurred an server error',
+            })
+            expect(response.status).to.be.equal(404)
+            done()
+          })
+        })
+        it("request should catches with 'omitCatches' as falsy value (promise)", function(done) {
+          makeRequest(
+            {
+              status: 404,
+              data: { errorMessage: 'occurred an server error' },
+            },
+            {
+              omitCatches: false,
+            }
+          ).catch(function(err) {
+            expect(err.err).to.deep.equal({
+              errorMessage: 'occurred an server error',
+            })
+            expect(err.status).to.be.equal(404)
+            done()
+          })
+        })
+        it("request should catches with 'omitCatches' as falsy value (async/await)", async () => {
+          try {
+            await makeRequest(
+              {
+                status: 404,
+                data: { errorMessage: 'occurred an server error' },
+              },
+              {
+                omitCatches: false,
+              }
+            )
+          } catch (e) {
+            expect(e.err).to.deep.equal({
+              errorMessage: 'occurred an server error',
+            })
+            expect(e.status).to.be.equal(404)
+          }
         })
       })
     })
-    //
+    // it('should call `open` XMLHttpRequest method with expected args', function(done) {
+    //   testRequest.then(function() {
+    //     expect(xhrOpenSpy.args).to.deep.equal([
+    //       [['GET', 'http://127.0.0.1:8988/all', true]],
+    //     ])
+    //     done()
+    //   })
+    // })
   })
+  //
   describe('getUrl : ', () => {
     itShouldBeFunc(getUrl)
     //
