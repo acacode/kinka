@@ -112,171 +112,276 @@ describe('request helpers : ', () => {
 
   describe('createRequest : ', () => {
     itShouldBeFunc(createRequest)
-    describe('default kinka instance : ', () => {
-      describe('GET request : ', () => {
-        const badResponse = {
-          status: 404,
-          data: { errorMessage: 'occurred an server error' },
-        }
-        let spies = {
-          open: sinon.spy(),
-          send: sinon.spy(),
-        }
 
-        const makeRequest = (requestConfig = {}, requestOptions) => {
-          const { baseURL, path, status, method, data } = {
-            ...{
-              method: 'GET',
-              path: '/all',
-              baseURL: location.origin,
-              data: { fullName: 'Donald Trump', id: 1 },
-              status: 200,
-            },
-            ...requestConfig,
-          }
-          const httpMock = nock(baseURL)
-          httpMock.intercept(path, method).reply(status, data)
-          const XHR = global.XMLHttpRequest
-          global.XMLHttpRequest = function FakeXHR() {
-            const instance = new XHR(arguments)
-            const originalOpen = instance.open
-            instance.open = function() {
-              spies.open.apply(spies.open, [].slice.call(arguments))
-              return originalOpen.apply(this, arguments)
-            }
-            const originalSend = instance.send
-            instance.send = function() {
-              spies.send.apply(spies.send, [].slice.call(arguments))
-              return originalSend.apply(this, arguments)
-            }
-            return instance
-          }
-          return createRequest.call(
-            kinka,
-            method.toLowerCase(),
-            path,
-            requestOptions
-          )
+    let spies = {
+      open: sinon.spy(),
+      send: sinon.spy(),
+    }
+
+    const makeRequest = (
+      requestConfig = {},
+      requestOptions,
+      existingKinkaInstance
+    ) => {
+      const { baseURL, path, status, method, data } = {
+        ...{
+          method: 'GET',
+          path: '/all',
+          baseURL: location.origin,
+          data: { fullName: 'Donald Trump', id: 1 },
+          status: 200,
+        },
+        ...requestConfig,
+      }
+      const httpMock = nock(baseURL)
+      httpMock.intercept(path, method).reply(status, data)
+      const XHR = global.XMLHttpRequest
+      global.XMLHttpRequest = function FakeXHR() {
+        const instance = new XHR(arguments)
+        const originalOpen = instance.open
+        instance.open = function() {
+          spies.open.apply(spies.open, [].slice.call(arguments))
+          return originalOpen.apply(this, arguments)
         }
-        afterEach(() => {
-          global.XMLHttpRequest = OriginalXHR
-          nock.cleanAll()
-          spies.open.resetHistory()
-          spies.send.resetHistory()
+        const originalSend = instance.send
+        instance.send = function() {
+          spies.send.apply(spies.send, [].slice.call(arguments))
+          return originalSend.apply(this, arguments)
+        }
+        return instance
+      }
+      return createRequest.call(
+        existingKinkaInstance || kinka,
+        method.toLowerCase(),
+        path,
+        requestOptions
+      )
+    }
+
+    describe('default kinka instance : ', () => {
+      const badResponse = {
+        status: 404,
+        data: { errorMessage: 'occurred an server error' },
+      }
+      afterEach(() => {
+        global.XMLHttpRequest = OriginalXHR
+        nock.cleanAll()
+        spies.open.resetHistory()
+        spies.send.resetHistory()
+      })
+      it('should call `open` XMLHttpRequest method with expected args', function(done) {
+        const request = {
+          method: 'GET',
+          path: '/all',
+        }
+        makeRequest(request).then(function() {
+          expect(spies.open.args).to.deep.equal([
+            [request.method, `${location.origin}${request.path}`, true],
+          ])
+          done()
         })
-        it('should call `open` XMLHttpRequest method with expected args', function(done) {
-          const request = {
-            method: 'GET',
-            path: '/all',
-          }
-          makeRequest(request).then(function() {
-            expect(spies.open.args).to.deep.equal([
-              [request.method, `${location.origin}${request.path}`, true],
-            ])
-            done()
+      })
+      it('should call `send` XMLHttpRequest method', function(done) {
+        makeRequest().then(function() {
+          expect(spies.send.calledOnce).to.be.equal(true)
+          done()
+        })
+      })
+      it('response should be success and to be expected object', function(done) {
+        makeRequest().then(function(response) {
+          expect(response).to.deep.equal({
+            data: { fullName: 'Donald Trump', id: 1 },
+            err: null,
+            headers: { 'content-type': 'application/json' },
+            isError: false,
+            isSuccess: true,
+            response: undefined, // reason: mocked XHR is not supported it
+            status: 200,
+            statusText: null,
+            type: undefined, // reason: mocked XHR is not supported it
+            url: 'http://127.0.0.1:8988/all',
           })
+          done()
         })
-        it('should call `send` XMLHttpRequest method', function(done) {
-          makeRequest().then(function() {
-            expect(spies.send.calledOnce).to.be.equal(true)
-            done()
+      })
+      it("request shouldn't catched and just have 'err' property as truthy value", function(done) {
+        makeRequest(badResponse).then(function(response) {
+          expect(response.err).to.deep.equal({
+            errorMessage: 'occurred an server error',
           })
+          expect(response.status).to.be.equal(404)
+          done()
         })
-        it('response should be success and to be expected object', function(done) {
-          makeRequest().then(function(response) {
-            expect(response).to.deep.equal({
-              data: { fullName: 'Donald Trump', id: 1 },
-              err: null,
-              headers: { 'content-type': 'application/json' },
-              isError: false,
-              isSuccess: true,
-              response: undefined, // reason: mocked XHR is not supported it
-              status: 200,
-              statusText: null,
-              type: undefined, // reason: mocked XHR is not supported it
-              url: 'http://127.0.0.1:8988/all',
-            })
-            done()
+      })
+      it("request should catches with 'omitCatches' as falsy value (promise)", function(done) {
+        makeRequest(badResponse, {
+          omitCatches: false,
+        }).catch(function(err) {
+          expect(err.err).to.deep.equal({
+            errorMessage: 'occurred an server error',
           })
+          expect(err.status).to.be.equal(404)
+          done()
         })
-        it("request shouldn't catched and just have 'err' property as truthy value", function(done) {
-          makeRequest(badResponse).then(function(response) {
-            expect(response.err).to.deep.equal({
-              errorMessage: 'occurred an server error',
-            })
-            expect(response.status).to.be.equal(404)
-            done()
-          })
-        })
-        it("request should catches with 'omitCatches' as falsy value (promise)", function(done) {
-          makeRequest(badResponse, {
+      })
+      it("request should catches with 'omitCatches' as falsy value (async/await)", async () => {
+        try {
+          await makeRequest(badResponse, {
             omitCatches: false,
-          }).catch(function(err) {
-            expect(err.err).to.deep.equal({
-              errorMessage: 'occurred an server error',
-            })
-            expect(err.status).to.be.equal(404)
-            done()
           })
+        } catch (e) {
+          expect(e.err).to.deep.equal({
+            errorMessage: 'occurred an server error',
+          })
+          expect(e.status).to.be.equal(404)
+        }
+      })
+      it("request shouldn't catches with 'omitCatches' as truthy value (async/await)", async () => {
+        const catchSpy = sinon.spy()
+        try {
+          const response = await makeRequest(badResponse, {
+            omitCatches: true,
+          })
+          expect(response.isError).to.be.equal(true)
+        } catch (e) {
+          catchSpy()
+        }
+        expect(catchSpy.calledOnce).to.be.equal(false)
+      })
+      it("request should catches with 'omitCatches' as falsy value (async/await)", async () => {
+        const catchSpy = sinon.spy()
+        try {
+          await makeRequest(badResponse, {
+            omitCatches: false,
+          })
+        } catch (e) {
+          catchSpy()
+        }
+        expect(catchSpy.calledOnce).to.be.equal(true)
+      })
+    })
+
+    describe('existing kinka instance : ', () => {
+      afterEach(() => {
+        global.XMLHttpRequest = OriginalXHR
+        nock.cleanAll()
+        spies.open.resetHistory()
+        spies.send.resetHistory()
+      })
+      it('should call `open` XMLHttpRequest method with expected args', function(done) {
+        const request = {
+          method: 'GET',
+          path: '/all',
+          baseURL: 'https://my-api.com',
+        }
+        makeRequest(
+          request,
+          {},
+          kinka.create({ baseURL: request.baseURL })
+        ).then(function() {
+          expect(spies.open.args).to.deep.equal([
+            [request.method, `${request.baseURL}${request.path}`, true],
+          ])
+          done()
         })
-        it("request should catches with 'omitCatches' as falsy value (async/await)", async () => {
-          try {
-            await makeRequest(badResponse, {
-              omitCatches: false,
-            })
-          } catch (e) {
-            expect(e.err).to.deep.equal({
-              errorMessage: 'occurred an server error',
-            })
-            expect(e.status).to.be.equal(404)
-          }
-        })
-        it("request shouldn't catches with 'omitCatches' as truthy value (async/await)", async () => {
-          const catchSpy = sinon.spy()
-          try {
-            const response = await makeRequest(badResponse, {
-              omitCatches: true,
-            })
-            expect(response.isError).to.be.equal(true)
-          } catch (e) {
-            catchSpy()
-          }
-          expect(catchSpy.calledOnce).to.be.equal(false)
-        })
-        it("request should catches with 'omitCatches' as falsy value (async/await)", async () => {
-          const catchSpy = sinon.spy()
-          try {
-            await makeRequest(badResponse, {
-              omitCatches: false,
-            })
-          } catch (e) {
-            catchSpy()
-          }
-          expect(catchSpy.calledOnce).to.be.equal(true)
+      })
+      it('response should be success and to be expected object', function(done) {
+        const request = {
+          baseURL: 'https://my-api.com',
+        }
+        makeRequest(
+          request,
+          {},
+          kinka.create({ baseURL: request.baseURL })
+        ).then(function(response) {
+          expect(response).to.deep.equal({
+            data: { fullName: 'Donald Trump', id: 1 },
+            err: null,
+            headers: { 'content-type': 'application/json' },
+            isError: false,
+            isSuccess: true,
+            response: undefined, // reason: mocked XHR is not supported it
+            status: 200,
+            statusText: null,
+            type: undefined, // reason: mocked XHR is not supported it
+            url: `${request.baseURL}/all`,
+          })
+          done()
         })
       })
     })
-    // it('should call `open` XMLHttpRequest method with expected args', function(done) {
-    //   testRequest.then(function() {
-    //     expect(xhrOpenSpy.args).to.deep.equal([
-    //       [['GET', 'http://127.0.0.1:8988/all', true]],
-    //     ])
-    //     done()
-    //   })
-    // })
   })
-  //
+
   describe('getUrl : ', () => {
     itShouldBeFunc(getUrl)
-    //
+
+    const examples = [
+      ['https://localhost:7070/all', '/all', 'https://localhost:7070'],
+      ['https://localhost:7070/all', 'https://localhost:7070/all'],
+      ['ws://localhost:7070/all', 'ws://localhost:7070/all'],
+      ['//localhost:7070/all', '//localhost:7070/all'],
+      [
+        'https://localhost:7070/all?yes=no&foo=bar',
+        '/all',
+        'https://localhost:7070',
+        {
+          yes: 'no',
+          foo: 'bar',
+        },
+      ],
+    ]
+
+    const test = ([expected, path, baseURL, query]) =>
+      it(`should create url ${expected}`, () =>
+        expect(getUrl(path, baseURL, query)).to.be.equal(expected))
+    examples.forEach(test)
   })
+
   describe('getUrlWithQuery : ', () => {
     itShouldBeFunc(getUrlWithQuery)
-    //
+
+    const examples = [
+      [
+        'https://localhost:4040?yes=no&foo=bar',
+        'https://localhost:4040',
+        {
+          yes: 'no',
+          foo: 'bar',
+        },
+      ],
+      [
+        'https://localhost:4040?yes=no&foo=bar&no=yes&bar=foo',
+        'https://localhost:4040?yes=no&foo=bar',
+        {
+          no: 'yes',
+          bar: 'foo',
+        },
+      ],
+    ]
+
+    const test = ([expected, url, query]) =>
+      it(`should create url ${expected} with query`, () =>
+        expect(getUrlWithQuery(url, query)).to.be.equal(expected))
+    examples.forEach(test)
   })
+
   describe('prepareRequestData : ', () => {
     itShouldBeFunc(prepareRequestData)
-    //
+
+    it('should return raw data if data have type ArrayBuffer', () => {
+      const data = new ArrayBuffer()
+      expect(prepareRequestData(data)).to.be.equal(data)
+    })
+    ;[
+      new Int32Array(),
+      new DataView(new ArrayBuffer()),
+      new Int16Array(),
+    ].forEach(data => {
+      it('should return data buffer if data is ArrayBuffer view', () => {
+        expect(prepareRequestData(data)).to.be.equal(data.buffer)
+      })
+    })
+    // TODO: JSONs, undefined checks
   })
   describe('removeAbortableKey : ', () => {
     itShouldBeFunc(removeAbortableKey)
@@ -372,61 +477,3 @@ describe('request helpers : ', () => {
     examples.forEach(test)
   })
 })
-//   const testMethod = (name, options = {}) => {
-//     const methodName = name.toUpperCase()
-//     const api = options.api || kinka
-//     const baseURL = options.baseURL || global.location
-//     const path = `/test-path/method-${name}/custom-method-${Boolean(
-//       options.testCustom
-//     )}`
-//     const url = `${baseURL}${path}`
-//     const httpMock = nock(baseURL)
-//     const testFunc = options.testCustom
-//       ? api.custom.bind(api, name)
-//       : api[name].bind(api)
-//     let testRequest
-//     describe(`${name} method : `, function() {
-//       let XHRisCreated = false
-//       beforeEach(() => {
-//         const OriginXHR = global.XMLHttpRequest
-//         global.XMLHttpRequest = function() {
-//           XHRisCreated = true
-//           return new OriginXHR()
-//         }
-//         httpMock
-//           .intercept(path, methodName)
-//           .reply(200, { fullName: 'Donald Trump', id: 1 })
-//         testRequest = testFunc(url)
-//       })
-//       afterEach(() => {
-//         XHRisCreated = false
-//       })
-
-//       it(`should be function`, () => {
-//         expect(typeof testFunc).to.be.equal('function')
-//       })
-//       it(`should return Promise instance`, () => {
-//         expect(testRequest instanceof Promise).to.be.equal(true)
-//       })
-//       it(`should create XMLHttpRequest instance`, done => {
-//         expect(XHRisCreated).to.equal(true)
-//         done()
-//       })
-//       it(`request should return expected data`, function(done) {
-//         testRequest.then(function(response) {
-//           expect(response.data).to.deep.equal({
-//             fullName: 'Donald Trump',
-//             id: 1,
-//           })
-//           done()
-//         })
-//       })
-//       it(`request should have "${url}" url`, function(done) {
-//         testRequest.then(function(response) {
-//           expect(response.url).to.be.equal(url)
-//           done()
-//         })
-//       })
-//     })
-//   }
-// })
