@@ -114,6 +114,10 @@ describe('request helpers : ', () => {
     itShouldBeFunc(createRequest)
     describe('default kinka instance : ', () => {
       describe('GET request : ', () => {
+        const badResponse = {
+          status: 404,
+          data: { errorMessage: 'occurred an server error' },
+        }
         let spies = {
           open: sinon.spy(),
           send: sinon.spy(),
@@ -196,10 +200,7 @@ describe('request helpers : ', () => {
           })
         })
         it("request shouldn't catched and just have 'err' property as truthy value", function(done) {
-          makeRequest({
-            status: 404,
-            data: { errorMessage: 'occurred an server error' },
-          }).then(function(response) {
+          makeRequest(badResponse).then(function(response) {
             expect(response.err).to.deep.equal({
               errorMessage: 'occurred an server error',
             })
@@ -208,15 +209,9 @@ describe('request helpers : ', () => {
           })
         })
         it("request should catches with 'omitCatches' as falsy value (promise)", function(done) {
-          makeRequest(
-            {
-              status: 404,
-              data: { errorMessage: 'occurred an server error' },
-            },
-            {
-              omitCatches: false,
-            }
-          ).catch(function(err) {
+          makeRequest(badResponse, {
+            omitCatches: false,
+          }).catch(function(err) {
             expect(err.err).to.deep.equal({
               errorMessage: 'occurred an server error',
             })
@@ -226,21 +221,38 @@ describe('request helpers : ', () => {
         })
         it("request should catches with 'omitCatches' as falsy value (async/await)", async () => {
           try {
-            await makeRequest(
-              {
-                status: 404,
-                data: { errorMessage: 'occurred an server error' },
-              },
-              {
-                omitCatches: false,
-              }
-            )
+            await makeRequest(badResponse, {
+              omitCatches: false,
+            })
           } catch (e) {
             expect(e.err).to.deep.equal({
               errorMessage: 'occurred an server error',
             })
             expect(e.status).to.be.equal(404)
           }
+        })
+        it("request shouldn't catches with 'omitCatches' as truthy value (async/await)", async () => {
+          const catchSpy = sinon.spy()
+          try {
+            const response = await makeRequest(badResponse, {
+              omitCatches: true,
+            })
+            expect(response.isError).to.be.equal(true)
+          } catch (e) {
+            catchSpy()
+          }
+          expect(catchSpy.calledOnce).to.be.equal(false)
+        })
+        it("request should catches with 'omitCatches' as falsy value (async/await)", async () => {
+          const catchSpy = sinon.spy()
+          try {
+            await makeRequest(badResponse, {
+              omitCatches: false,
+            })
+          } catch (e) {
+            catchSpy()
+          }
+          expect(catchSpy.calledOnce).to.be.equal(true)
         })
       })
     })
