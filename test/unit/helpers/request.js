@@ -157,17 +157,19 @@ describe('request helpers : ', () => {
       )
     }
 
+    const cleanAll = () => {
+      global.XMLHttpRequest = OriginalXHR
+      nock.cleanAll()
+      spies.open.resetHistory()
+      spies.send.resetHistory()
+    }
+
     describe('default kinka instance : ', () => {
       const badResponse = {
         status: 404,
         data: { errorMessage: 'occurred an server error' },
       }
-      afterEach(() => {
-        global.XMLHttpRequest = OriginalXHR
-        nock.cleanAll()
-        spies.open.resetHistory()
-        spies.send.resetHistory()
-      })
+      afterEach(cleanAll)
       it('should call `open` XMLHttpRequest method with expected args', function(done) {
         const request = {
           method: 'GET',
@@ -187,18 +189,23 @@ describe('request helpers : ', () => {
         })
       })
       it('response should be success and to be expected object', function(done) {
-        makeRequest().then(function(response) {
+        makeRequest({
+          status: 201,
+          path: '/data',
+          method: 'POST',
+          data: { foo: 'barbarian' },
+        }).then(function(response) {
           expect(response).to.deep.equal({
-            data: { fullName: 'Donald Trump', id: 1 },
+            data: { foo: 'barbarian' },
             err: null,
             headers: { 'content-type': 'application/json' },
             isError: false,
             isSuccess: true,
             response: undefined, // reason: mocked XHR is not supported it
-            status: 200,
+            status: 201,
             statusText: null,
             type: undefined, // reason: mocked XHR is not supported it
-            url: 'http://127.0.0.1:8988/all',
+            url: 'http://127.0.0.1:8988/data',
           })
           done()
         })
@@ -261,12 +268,7 @@ describe('request helpers : ', () => {
     })
 
     describe('existing kinka instance : ', () => {
-      afterEach(() => {
-        global.XMLHttpRequest = OriginalXHR
-        nock.cleanAll()
-        spies.open.resetHistory()
-        spies.send.resetHistory()
-      })
+      afterEach(cleanAll)
       it('should call `open` XMLHttpRequest method with expected args', function(done) {
         const request = {
           method: 'GET',
