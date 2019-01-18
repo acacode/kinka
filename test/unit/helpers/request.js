@@ -18,7 +18,6 @@ import {
   abortableRequests,
   updateContentType,
 } from '../../../lib/helpers'
-// const MockXMLHttpRequest = require('mock-xmlhttprequest')
 
 describe('request helpers : ', () => {
   const itShouldBeFunc = testFunc => {
