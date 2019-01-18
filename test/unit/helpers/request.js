@@ -381,11 +381,40 @@ describe('request helpers : ', () => {
         expect(prepareRequestData(data)).to.be.equal(data.buffer)
       })
     })
+
+    it('should stringify JSON', () => {
+      expect(prepareRequestData({ foo: 'bar' })).to.be.equal('{"foo":"bar"}')
+    })
+    it('should stringify JSON and patch headers', () => {
+      const data = { foo: 'bar' }
+      const headers = {}
+      const value = prepareRequestData(data, headers, 'utf-8')
+      expect(value).to.be.equal('{"foo":"bar"}')
+      expect(headers).to.deep.equal({
+        'Content-Type': 'application/json;charset=utf-8',
+      })
+    })
+    it('should check data on undefined otherwise return null', () => {
+      expect(prepareRequestData('example')).to.be.equal('example')
+      expect(prepareRequestData(100)).to.be.equal(100)
+      expect(prepareRequestData(undefined)).to.be.equal(null)
+      expect(prepareRequestData(null)).to.be.equal(null)
+    })
     // TODO: JSONs, undefined checks
   })
   describe('removeAbortableKey : ', () => {
     itShouldBeFunc(removeAbortableKey)
     //
+    beforeEach(() => {
+      abortableRequests['my-token'] = 'example'
+    })
+    afterEach(() => {
+      delete abortableRequests['my-token']
+    })
+    it('should delete request from abortable requests by key', () => {
+      removeAbortableKey('my-token')
+      expect(abortableRequests).to.deep.equal({})
+    })
   })
 
   describe('requestIsSuccess : ', () => {
