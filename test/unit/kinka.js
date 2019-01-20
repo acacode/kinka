@@ -1,7 +1,7 @@
 import '../__unit__'
+import nock from 'nock'
 import { expect } from 'chai'
-import { describe, it, beforeEach } from 'mocha'
-import sinon from 'sinon'
+import { describe, it, beforeEach, afterEach } from 'mocha'
 import kinka from '../..'
 const MockXMLHttpRequest = require('mock-xmlhttprequest')
 
@@ -11,45 +11,61 @@ describe('kinka instance : ', () => {
   })
 
   const testMethod = (name, options = {}) => {
+    const methodName = name.toUpperCase()
     const api = options.api || kinka
-    const path = (options.baseURL || '') + '/test'
+    const baseURL = options.baseURL || global.location.origin
+    const path = `/test-path/method-${name}/custom-method-${Boolean(
+      options.testCustom
+    )}`
+    const url = `${baseURL}${path}`
+    const httpMock = nock(baseURL)
+    const testFunc = options.testCustom
+      ? api.custom.bind(api, name)
+      : api[name].bind(api)
+    let testRequest
     describe(`${name} method : `, function() {
-      let onCreateXHRstub = sinon.stub()
-      let testFunction = options.testCustom
-        ? api.custom.bind(api, name)
-        : api[name].bind(api)
+      let XHRisCreated = false
+      const OriginXHR = global.XMLHttpRequest
       beforeEach(() => {
-        global.XMLHttpRequest = MockXMLHttpRequest.newMockXhr()
-        global.XMLHttpRequest.onCreate = function(xhr) {
-          onCreateXHRstub()
+        global.XMLHttpRequest = function() {
+          XHRisCreated = true
+          return new OriginXHR()
         }
-        onCreateXHRstub.reset()
+        httpMock
+          .intercept(path, methodName)
+          .reply(200, { fullName: 'Donald Trump', id: 1 })
+        testRequest = testFunc(url)
       })
+      afterEach(() => {
+        XHRisCreated = false
+        global.XMLHttpRequest = OriginXHR
+        nock.cleanAll()
+      })
+
       it(`should be function`, () => {
-        expect(typeof testFunction).to.be.equal('function')
+        expect(typeof testFunc).to.be.equal('function')
       })
-      it(`should return Promise instance`, done => {
-        expect(testFunction(path) instanceof Promise).to.be.equal(true)
-        done()
+      it(`should return Promise instance`, () => {
+        expect(testRequest instanceof Promise).to.be.equal(true)
       })
       it(`should create XMLHttpRequest instance`, done => {
-        testFunction(path)
-        expect(onCreateXHRstub.calledOnce).to.equal(true)
+        expect(XHRisCreated).to.equal(true)
         done()
       })
-      it(`request should have ${name.toUpperCase()} method`, function(done) {
-        global.XMLHttpRequest.onSend = function(xhr) {
-          expect(xhr.method).to.be.equal(name.toUpperCase())
+      it(`request should return expected data`, function(done) {
+        testRequest.then(function(response) {
+          expect(response.data).to.deep.equal({
+            fullName: 'Donald Trump',
+            id: 1,
+          })
           done()
-        }
-        testFunction(path)
+        })
       })
-      it(`request should have "${path}" url`, function(done) {
-        global.XMLHttpRequest.onSend = function(xhr) {
-          expect(xhr.url).to.be.equal(path)
+      it(`request should have "${url}" url`, function(done) {
+        testRequest.then(function(response) {
+          expect(response.url).to.be.equal(url)
           done()
-        }
-        testFunction(path)
+        })
       })
     })
   }

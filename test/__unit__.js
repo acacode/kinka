@@ -1,9 +1,9 @@
-const MockXMLHttpRequest = require('mock-xmlhttprequest').newMockXhr()
+const XMLHttpRequest = require('xmlhttprequest')
 const MockBrowser = require('mock-browser')
 
-// Install in global context so "new XMLHttpRequest()" works in MyModuleUsingXhr
-global.XMLHttpRequest = MockXMLHttpRequest
-
-global.location = undefined
-
+global.XMLHttpRequest = XMLHttpRequest.XMLHttpRequest
 global.window = MockBrowser.mocks.MockBrowser.createWindow()
+
+global.location = {
+  origin: 'http://127.0.0.1:8988',
+}

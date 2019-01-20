@@ -9,6 +9,9 @@ plugins:
   - standard
   - prettier
 
+globals:
+  jasmine: true
+
 env:
   browser: true
 

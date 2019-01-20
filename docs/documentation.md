@@ -1,14 +1,11 @@
 
 # Documentation
 
-Here is all public documentation about kinka.
+Here is all public documentation about kinka.  
+If you didn't find the answer on your question don't be shy to [post your question here](https://github.com/acacode/kinka/issues)  
 
-If you didn't find the answer on your question don't be shy to [post your question here](https://github.com/acacode/kinka/issues)
-
-
-Kinka have two versions: **development** and **production** (~4KB)
-
-For using production version needs set environment variable `NODE_ENV` to `production`
+Kinka have two versions: **development** and **production** (~4KB)  
+For using production version needs set environment variable `NODE_ENV` to `production`  
 ```
 process.env.NODE_ENV = 'production'
 ```
@@ -48,7 +45,7 @@ process.env.NODE_ENV = 'production'
     </td>
     <td><code>Promise&lt;Response[]&gt;</code></td>
     <td>
-          It method can helps if needed to wait more than one request<br>
+        That method can helps if needed to wait more than one request<br>
 	      Return a promise that is fulfilled when all the items in the array are fulfilled.<br>
 	      example: <br>
 	  
@@ -88,6 +85,11 @@ process.env.NODE_ENV = 'production'
 	<td><code>Promise&lt;Response&gt;</code></td>
     <td>
         create request with custom method name.
+	      example: <br>
+	  
+	const promise = kinka.custom('kill', '/all')
+  // KILL: myapi.com/all promise
+	  
    </td>
   </tr>
   <tr>
@@ -200,7 +202,8 @@ kinka.get('/all', {
         disabled: true, 
         sortBy: 'date' 
     }})
-// endpoint will be {{baseURL}}/all?disabled=true&sortBy=date
+// request will have url: 
+// {{baseURL}}/all?disabled=true&sortBy=date
     </code></pre>	  
   </td>
   </tr>
@@ -215,7 +218,7 @@ kinka.get('/all', {
     <td><b>omitCatches?: bool</b></td>
     <td><code>instance.omitCatches | true</code></td>
     <td>
-        With <code>true</code> value your responses will not be throwing exceptions and you don't need to wrap your requests in <code>try/catch</code>.<br>
+        With <code>true</code> your responses will not be throwing exceptions and you don't need to wrap your requests in <code>try/catch</code>.<br>
         And if you want to catch exception you can get this from <code>response.err</code> or <code>response.isError</code><br>
         Example:<br>
   <pre><code>
@@ -238,9 +241,31 @@ try{
     <td><b>withAuth?: bool</b></td>
     <td><code>false</code></td>
     <td>
-        Indicates that this request should use credentials (like cookies or specific auth headers)<br>
+        Indicates that this request should use credentials<br>
+        (like cookies or specific auth headers)<br>
         Sets flag <code>withCredentials</code><br>
-        <a href="https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/withCredentials">Read more about it is here...</a>
+        <a href="https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/withCredentials">Read more about it here...</a>
+    </td>
+  </tr>
+  <tr>
+    <td><b>successStatus?: number</b></td>
+    <td><code>range between 200 and 300</code></td>
+    <td>
+        Allows to set specific success status for your http request<br>
+        If you added this property with 201 value then all another responses<br>
+        with success status codes will be catches an exception,<br>
+        or will have fulfilled `err` property<br>
+        Example:<br>
+  <pre><code>
+const { data, err } = await kinka.get('/wrong-request', {
+  successStatus: 401 
+})
+// request returned 401 status code then
+// this condition have truthy value
+if(!err) {
+  console.log('response -> ', data)
+}
+  </code></pre>
     </td>
   </tr>
   <tr>
@@ -269,8 +294,9 @@ await kinka.get('/donuts/all', {
     <td><b>timeout?: number</b></td>
     <td><code>0</code></td>
     <td>
-        Sets the number of milliseconds after which request automatically will be terminated. 0 value means no timeout.<br>
-        <a href="https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/timeout">Read more about it is here...</a>
+        Sets the number of milliseconds after which<br>
+        request automatically will be terminated. 0 value means no timeout.<br>
+        <a href="https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/timeout">Read more about it here...</a>
     </td>
   </tr>
   <tr>
@@ -300,6 +326,42 @@ api.post(
     },
   }
 )
+    </code></pre>
+    </td>
+  </tr>
+  <tr>
+    <td><b>onDownloadProgress?: function</b></td>
+    <td><code>undefined</code></td>
+    <td>
+        Allows to handle progress of the request download<br>
+    <pre><code>
+const response = await kinka.get('/kittens', {
+  onDownloadProgress: ({ total, loaded }) => {
+    console.log(
+      'kittens downloaded at ',
+      Math.floor(loaded * 100 / total),
+      '%'
+    )
+  },
+})
+    </code></pre>
+    </td>
+  </tr>
+  <tr>
+    <td><b>onUploadProgress?: function</b></td>
+    <td><code>undefined</code></td>
+    <td>
+        Allows to handle progress of the request upload<br>
+    <pre><code>
+const response = await kinka.post('/kittens', {
+  onUploadProgress: ({ total, loaded }) => {
+    console.log(
+      'kittens uploaded at ',
+      Math.floor(loaded * 100 / total),
+      '%'
+    )
+  },
+})
     </code></pre>
     </td>
   </tr>

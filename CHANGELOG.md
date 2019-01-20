@@ -1,6 +1,38 @@
 
 # CHANGELOG
 
+
+## [2.0.0](https://github.com/acacode/kinka/releases/tag/2.0.0)
+
+### Removed
+- Property `body` from `KinkaRequestOptions` (renamed to `data`)  
+- Property `abortableKey` from `KinkaRequestOptions` (renamed to `cancelToken`)  
+
+### Changed
+- Unit tests for request methods using `nock` and `xmlhttprequest` testing libraries  
+- Small code refactoring  
+- Changed logic in `parseResponseData` response helper. Currently is not required availability of  `application/json` response headers
+
+### Added
+- Unit tests for request helpers:  
+  - abortRequest  
+  - createAbortableRequest  
+  - createRequest  
+  - getUrl  
+  - getUrlWithQuery  
+  - prepareRequestData  
+  - removeAbortableKey  
+  - requestIsSuccess  
+  - setHeaders  
+  - abortableRequests  
+  - updateContentType  
+- Unit tests for response helpers:  
+  - createResponse  
+  - parseResponseData  
+  - getHeaders  
+- extra `onDownloadProgress` property for `KinkaRequestOptions`  
+- extra `onUploadProgress` property for `KinkaRequestOptions`  
+
 ## [1.0.4](https://github.com/acacode/kinka/releases/tag/1.0.4)
 
 ### Changed
