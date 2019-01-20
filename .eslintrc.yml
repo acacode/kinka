@@ -11,6 +11,7 @@ plugins:
 
 globals:
   jasmine: true
+  typeCheck: true
 
 env:
   browser: true
