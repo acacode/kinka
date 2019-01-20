@@ -11,6 +11,7 @@
 ### Changed
 - Unit tests for request methods using `nock` and `xmlhttprequest` testing libraries  
 - Small code refactoring  
+- Changed logic in `parseResponseData` response helper. Currently is not required availability of  `application/json` response headers
 
 ### Added
 - Unit tests for request helpers:  
@@ -25,6 +26,10 @@
   - setHeaders  
   - abortableRequests  
   - updateContentType  
+- Unit tests for response helpers:  
+  - createResponse  
+  - parseResponseData  
+  - getHeaders  
 - extra `onDownloadProgress` property for `KinkaRequestOptions`  
 - extra `onUploadProgress` property for `KinkaRequestOptions`  
 
