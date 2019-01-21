@@ -10,6 +10,8 @@ import {
   parseUrlEncodedForm,
   valueIs,
 } from '../../../lib/helpers'
+// load dev loggers
+require('../../../lib/kinka')
 
 describe('base helpers : ', () => {
   const shouldBeFunction = func =>
