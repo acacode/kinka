@@ -12,6 +12,7 @@ plugins:
 globals:
   jasmine: true
   typeCheck: true
+  emptyCheck: true
 
 env:
   browser: true
