@@ -1,19 +1,23 @@
 module.exports = function(source) {
+  const isDevCodeStarted = line =>
+    new RegExp('(// <dev-version-code>)', 'g').test(line)
+  const isDevCodeEnded = line =>
+    new RegExp('(// </dev-version-code>)', 'g').test(line)
   const prodSource = source
     .replace(/typeCheck\([\w\r\n., '[\]+]+\)/g, '')
-    .replace(
-      new RegExp('(// <non-prod-code>)[^]*(// </non-prod-code>)', 'g'),
-      ''
-    )
     .replace(/emptyCheck\([\w\r\n., '[\]+]+\)/g, '')
-  if (
-    prodSource.indexOf('typeCheck') > -1 ||
-    prodSource.indexOf('emptyCheck') > -1
-  ) {
-    console.log('see source ', prodSource)
-    throw Error(
-      'Occured an error linked with removing typeCheck and emptyCheck function from source file'
-    )
-  }
   return prodSource
+    .split('\n')
+    .reduce(
+      ({ lines, isDevCode }, line) => {
+        isDevCode = isDevCode || isDevCodeStarted(line)
+        lines.push((isDevCode ? '// ' : '') + line)
+        return {
+          lines,
+          isDevCode: isDevCode && isDevCodeEnded(line) ? false : isDevCode,
+        }
+      },
+      { lines: [], isDevCode: false }
+    )
+    .lines.join('\n')
 }
