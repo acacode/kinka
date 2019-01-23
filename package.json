@@ -12,6 +12,7 @@
     "compare-versions": "node ./bin/compare-versions.js",
     "test": "karma start",
     "git-release": "release-it",
+    "test-server": "node ./test/manual/server.js",
     "unit-test": "mocha \"test/unit/**/*.js\" --compilers js:babel-core/register"
   },
   "author": {
