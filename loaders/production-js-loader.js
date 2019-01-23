@@ -1,11 +1,10 @@
 module.exports = function(source) {
-  const isDevCodeStarted = line =>
-    new RegExp('(// <dev-version-code>)', 'g').test(line)
-  const isDevCodeEnded = line =>
-    new RegExp('(// </dev-version-code>)', 'g').test(line)
-  const prodSource = source
-    .replace(/typeCheck\([\w\r\n., '[\]+]+\)/g, '')
-    .replace(/emptyCheck\([\w\r\n., '[\]+]+\)/g, '')
+  const isDevCodeStarted = line => new RegExp('(// <dev-code>)', 'g').test(line)
+  const isDevCodeEnded = line => new RegExp('(// </dev-code>)', 'g').test(line)
+  const prodSource = source.replace(
+    /(typeCheck|emptyCheck)\([\w\r\n., '[\]+"]+\)/g,
+    ''
+  )
   return prodSource
     .split('\n')
     .reduce(
