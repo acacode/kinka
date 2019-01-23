@@ -8,7 +8,7 @@ const clearDevFunctions = () => {
 // It's requred to test all kinka versions
 // Because what if some version is not contains specific function ?
 // Like typeCheck or emptyCheck
-testKinka('..', 'original kinka instance')
+testKinka('..', 'original kinka instance', clearDevFunctions)
 testKinka('../dist/kinka.js', 'develop kinka instance')
 testKinka(
   '../dist/kinka.min.js',
