@@ -14,8 +14,8 @@ install:
   - yarn
 script:
   - yarn lint
-  - yarn unit-test
   - yarn build
+  - yarn unit-test
 after_success:
   - ls -l
   - env

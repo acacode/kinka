@@ -6,13 +6,13 @@
   "main": "index.js",
   "scripts": {
     "clean-build": "rm -rf dist",
-    "build": "npm run clean-build && webpack",
+    "build": "webpack",
     "lint": "eslint .",
     "lint-fix": "eslint . --fix",
     "compare-versions": "node ./bin/compare-versions.js",
     "test": "karma start",
     "git-release": "release-it",
-    "unit-test": "npm run build && mocha \"test/unit/**/*.js\" --compilers js:babel-core/register"
+    "unit-test": "mocha \"test/unit/**/*.js\" --compilers js:babel-core/register"
   },
   "author": {
     "name": "acacode"
