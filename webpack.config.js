@@ -1,12 +1,10 @@
 const path = require('path')
-// const webpack = require('webpack')
 
 const createConfig = (mode, configration) => {
   if (!configration) configration = {}
   const isProd = mode === 'production'
   let filename = configration.filename || 'kinka'
   const plugins = configration.plugins || []
-  // process.env.EXCLUDE_PROMISES = !!configration.withoutPromises
   if (configration.withoutPromises) {
     filename += '.non-promise'
   }
@@ -31,7 +29,6 @@ const createConfig = (mode, configration) => {
             isProd && 'production-js-loader',
             'non-promise-js-loader?exclude-promises=' +
               !!configration.withoutPromises,
-            'custom-minify-js-loader',
           ].filter(loader => loader),
           exclude: /node_modules/,
         },
