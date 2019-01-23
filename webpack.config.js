@@ -1,9 +1,10 @@
 const path = require('path')
 
 const createConfig = (mode, configration) => {
+  if (!configration) configration = {}
   const isProd = mode === 'production'
-  const filename = configration ? configration.filename : 'kinka'
-  const plugins = (configration && configration.plugins) || []
+  let filename = configration.filename || 'kinka'
+  const plugins = configration.plugins || []
   return {
     entry: path.resolve(__dirname, 'lib/kinka.js'),
     mode: mode,
@@ -20,9 +21,9 @@ const createConfig = (mode, configration) => {
       rules: [
         {
           test: /\.js$/,
-          loaders: isProd
-            ? ['babel-loader', 'production-js-loader']
-            : ['babel-loader'],
+          loaders: ['babel-loader', isProd && 'production-js-loader'].filter(
+            loader => loader
+          ),
           exclude: /node_modules/,
         },
       ],
