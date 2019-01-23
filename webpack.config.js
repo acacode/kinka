@@ -13,11 +13,16 @@ const createConfig = (mode, configration) => {
       library: 'kinka',
       libraryTarget: 'umd',
     },
+    resolveLoader: {
+      modules: ['node_modules', path.resolve(__dirname, 'loaders')],
+    },
     module: {
       rules: [
         {
           test: /\.js$/,
-          loader: 'babel-loader',
+          loaders: isProd
+            ? ['babel-loader', 'production-js-loader']
+            : ['babel-loader'],
           exclude: /node_modules/,
         },
       ],

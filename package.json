@@ -5,13 +5,14 @@
   "description": "very light and simple http web client",
   "main": "index.js",
   "scripts": {
-    "build": "webpack",
+    "clean-build": "rm -rf dist",
+    "build": "npm clean-build && webpack",
     "lint": "eslint .",
     "lint-fix": "eslint . --fix",
     "compare-versions": "node ./bin/compare-versions.js",
     "test": "karma start",
     "git-release": "release-it",
-    "unit-test": "mocha \"test/unit/**/*.js\" --compilers js:babel-core/register"
+    "unit-test": "npm build && mocha \"test/unit/**/*.js\" --compilers js:babel-core/register"
   },
   "author": {
     "name": "acacode"
