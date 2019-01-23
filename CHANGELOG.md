@@ -1,6 +1,14 @@
 
 # CHANGELOG
 
+## [next](https://github.com/acacode/kinka/releases/tag/next)
+
+### Added
+- Warning of type checks or empty checks for develop kinka version  
+
+### Changed
+- Typo fixes in `README.md`
+
 
 ## [2.0.0](https://github.com/acacode/kinka/releases/tag/2.0.0)
 
