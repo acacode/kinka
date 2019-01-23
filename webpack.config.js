@@ -1,9 +1,15 @@
 const path = require('path')
+// const webpack = require('webpack')
 
 const createConfig = (mode, configration) => {
+  if (!configration) configration = {}
   const isProd = mode === 'production'
-  const filename = configration ? configration.filename : 'kinka'
-  const plugins = (configration && configration.plugins) || []
+  let filename = configration.filename || 'kinka'
+  const plugins = configration.plugins || []
+  // process.env.EXCLUDE_PROMISES = !!configration.withoutPromises
+  if (configration.withoutPromises) {
+    filename += '.non-promise'
+  }
   return {
     entry: path.resolve(__dirname, 'lib/kinka.js'),
     mode: mode,
@@ -20,9 +26,13 @@ const createConfig = (mode, configration) => {
       rules: [
         {
           test: /\.js$/,
-          loaders: isProd
-            ? ['babel-loader', 'production-js-loader']
-            : ['babel-loader'],
+          loaders: [
+            'babel-loader',
+            isProd && 'production-js-loader',
+            'non-promise-js-loader?exclude-promises=' +
+              !!configration.withoutPromises,
+            'custom-minify-js-loader',
+          ].filter(loader => loader),
           exclude: /node_modules/,
         },
       ],
@@ -31,4 +41,13 @@ const createConfig = (mode, configration) => {
   }
 }
 
-module.exports = [createConfig('production'), createConfig('development')]
+module.exports = [
+  createConfig('production'),
+  createConfig('development'),
+  createConfig('production', {
+    withoutPromises: true,
+  }),
+  createConfig('development', {
+    withoutPromises: true,
+  }),
+]

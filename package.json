@@ -61,6 +61,7 @@
     "karma-safari-launcher": "1.0.0",
     "karma-sauce-launcher": "2.0.2",
     "karma-sinon": "1.0.5",
+    "loader-utils": "^1.2.3",
     "mocha": "5.2.0",
     "mock-browser": "0.92.14",
     "mock-xmlhttprequest": "2.0.0",
