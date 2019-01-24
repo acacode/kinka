@@ -5,6 +5,9 @@ const createConfig = (mode, configration) => {
   const isProd = mode === 'production'
   let filename = configration.filename || 'kinka'
   const plugins = configration.plugins || []
+  if (configration.withoutPromises) {
+    filename += '.non-promise'
+  }
   return {
     entry: path.resolve(__dirname, 'lib/kinka.js'),
     mode: mode,
@@ -21,9 +24,12 @@ const createConfig = (mode, configration) => {
       rules: [
         {
           test: /\.js$/,
-          loaders: ['babel-loader', isProd && 'production-js-loader'].filter(
-            loader => loader
-          ),
+          loaders: [
+            'babel-loader',
+            isProd && 'production-js-loader',
+            'non-promise-js-loader?exclude-promises=' +
+              !!configration.withoutPromises,
+          ].filter(loader => loader),
           exclude: /node_modules/,
         },
       ],
@@ -32,4 +38,13 @@ const createConfig = (mode, configration) => {
   }
 }
 
-module.exports = [createConfig('production'), createConfig('development')]
+module.exports = [
+  createConfig('production'),
+  createConfig('development'),
+  createConfig('production', {
+    withoutPromises: true,
+  }),
+  createConfig('development', {
+    withoutPromises: true,
+  }),
+]
