@@ -24,7 +24,5 @@ module.exports = function(source) {
       { lines: [], isNeedToComment: false }
     )
     .lines.join('\n')
-  // console.warn(process.env.EXCLUDE_PROMISES, process.env.NODE_ENV)
-  // console.log(result)
   return result
 }
