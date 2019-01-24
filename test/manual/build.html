@@ -34,19 +34,23 @@
             border-bottom: 2px solid #464646;
         }
 
-        .request > div {
-            word-break: break-word;
-        }
         .request > p:first-child{
             font-size: 16px;
             margin-top: 0;
         }
-
-        .request.succeeded > div {
+        .response{
+            word-break: break-word;
+        }
+        .response > summary{
+            outline: 0;
+            padding: 10px;
+            cursor: pointer;
+        }
+        .request.succeeded .response {
             color: #35b97d;
         }
 
-        .request.failed > div {
+        .request.failed .response {
             color: #ca445c;
         }
     </style>
@@ -62,11 +66,12 @@
         function renderResponse(response){
             var requestEl = document.createElement('div')
             requestEl.className = ['request', response.err ? 'failed':'succeeded'].join(' ')
-            requestEl.innerHTML = '<p>request ' + response.url + '</p><div>'+JSON.stringify(response)+'</div>'
+            requestEl.innerHTML = '<p>request ' + response.url + '</p><details class="response"><summary>response</summary><span>'+JSON.stringify(response)+'</span></details>'
             requestsEl.appendChild(requestEl)
         }
         api.get('/users', { query: { page: 1 }}).then(renderResponse)
         api.get('/users', { query: { page: 2 }}).then(renderResponse)
+        api.get('https://google.com/bad-request').then(renderResponse)
     </script>
     
 </body>
