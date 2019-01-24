@@ -4,9 +4,10 @@
 ## [next](https://github.com/acacode/kinka/releases/tag/next)
 
 ### Added
-- Warning of type checks or empty checks for develop kinka version  
+- Warnings/Checks linked with non valid type or empty value for develop kinka version  
+- Extra builds with the `Promise` support
 
-### Changed
+### Fixed
 - Typo fixes in `README.md`
 
 
