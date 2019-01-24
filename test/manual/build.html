@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Manual testing: {{build-file-name}}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="{{build-file-name}}"></script>
+    <style>
+        body{
+            color: #e3e2ef;
+            font-family: monospace;
+        }
+        header {
+            font-size: 16px;
+            text-transform: uppercase;
+            color: #cacaca;
+            position: fixed;
+            top: 0;
+            left: 0;
+            padding: 5px 10px;
+            width: 100%;
+            background: #1e1d23;
+            font-weight: bold;
+        }
+        .requests {
+            margin-top: 36px;
+        }
+        .request {
+            overflow: auto;
+            box-sizing: border-box;
+            margin: 8px 0;
+            padding: 8px 0 25px;
+            border-bottom: 2px solid #464646;
+        }
+
+        .request > div {
+            word-break: break-word;
+        }
+        .request > p:first-child{
+            font-size: 16px;
+            margin-top: 0;
+        }
+
+        .request.succeeded > div {
+            color: #35b97d;
+        }
+
+        .request.failed > div {
+            color: #ca445c;
+        }
+    </style>
+</head>
+<body>
+    <header>requests with using {{build-file-name}}</header>
+    <div class="requests"></div>
+    <script>
+        var api = kinka.create({
+            baseURL: 'https://reqres.in/api',
+        })
+        var requestsEl = document.querySelector('.requests')
+        function renderResponse(response){
+            var requestEl = document.createElement('div')
+            requestEl.className = ['request', response.err ? 'failed':'succeeded'].join(' ')
+            requestEl.innerHTML = '<p>request ' + response.url + '</p><div>'+JSON.stringify(response)+'</div>'
+            requestsEl.appendChild(requestEl)
+        }
+        api.get('/users', { query: { page: 1 }}).then(renderResponse)
+        api.get('/users', { query: { page: 2 }}).then(renderResponse)
+    </script>
+    
+</body>
+</html>

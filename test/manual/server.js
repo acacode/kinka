@@ -1,7 +1,39 @@
-// const path = require('path')
-// const express = require('express')
-// const config = require('../../webpack.config.js')
+const path = require('path')
+const fs = require('fs')
+const express = require('express')
+const configs = require('../../webpack.config.js')
 
-// const webpack = require('webpack')
+const app = express()
+const webpack = require('webpack')
+const PORT = 7077
 
-// console.log(webpack(config))
+const resolve = dir => path.resolve(__dirname, dir)
+
+fs.readFile(resolve('build.html'), 'utf8', (err, buildTemplate) => {
+  if (err) throw err
+
+  app.use(express.static(resolve('../../dist')))
+
+  configs.forEach(config => {
+    const publicPath = ''
+    const filename = config.output.filename
+    config.output.publicPath = publicPath
+    app.use(
+      require('webpack-dev-middleware')(webpack(config), {
+        noInfo: true,
+        publicPath: publicPath,
+      })
+    )
+    app.get('/' + filename.replace('.js', '.html'), function(req, res) {
+      res.send(buildTemplate.replace(/({{build-file-name}})/g, filename))
+    })
+  })
+
+  app.get('/', function(req, res) {
+    res.sendFile(resolve('index.html'))
+  })
+
+  app.listen(PORT, function(error) {
+    console.log(error || 'Listen on http://localhost:' + PORT)
+  })
+})
