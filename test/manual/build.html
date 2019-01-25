@@ -72,6 +72,8 @@
         api.get('/users', { query: { page: 1 }}).then(renderResponse)
         api.get('/users', { query: { page: 2 }}).then(renderResponse)
         api.get('https://google.com/bad-request').then(renderResponse)
+        api.get('/users', { query: { page: 3 }, cancelToken: '/users-req'}).then(renderResponse)
+        api.get('/users', { query: { page: 3 }, cancelToken: '/users-req'}).then(renderResponse)
     </script>
     
 </body>
