@@ -30,13 +30,14 @@
             overflow: auto;
             box-sizing: border-box;
             margin: 8px 0;
-            padding: 8px 0 25px;
+            padding: 0 0 6px;
             border-bottom: 2px solid #464646;
         }
 
         .request > p:first-child{
             font-size: 16px;
-            margin-top: 0;
+            margin: 0;
+            color: #51b8ca;
         }
         .response{
             word-break: break-word;
@@ -46,35 +47,33 @@
             padding: 10px;
             cursor: pointer;
         }
-        .request.succeeded .response {
-            color: #35b97d;
+        .request.succeeded .response, .green {
+            color: #65ff9d;
         }
 
-        .request.failed .response {
-            color: #ca445c;
+        .request.failed .response, .red {
+            color: #ff6581;
+        }
+        
+        .response-data-map > div {
+            margin-bottom: 6px;
+            margin: 0 30px 6px;
+        }
+        .key {
+            margin-left: -8px;
+            text-decoration: underline;
+        }
+        .description {
+            display: block;
+            color: #545454;
+            font-size: 14px;
+            padding-top: 6px;
         }
     </style>
 </head>
 <body>
     <header>requests with using {{build-file-name}}</header>
     <div class="requests"></div>
-    <script>
-        var api = kinka.create({
-            baseURL: 'https://reqres.in/api',
-        })
-        var requestsEl = document.querySelector('.requests')
-        function renderResponse(response){
-            var requestEl = document.createElement('div')
-            requestEl.className = ['request', response.err ? 'failed':'succeeded'].join(' ')
-            requestEl.innerHTML = '<p>request ' + response.url + '</p><details class="response"><summary>response</summary><span>'+JSON.stringify(response)+'</span></details>'
-            requestsEl.appendChild(requestEl)
-        }
-        api.get('/users', { query: { page: 1 }}).then(renderResponse)
-        api.get('/users', { query: { page: 2 }}).then(renderResponse)
-        api.get('https://google.com/bad-request').then(renderResponse)
-        api.get('/users', { query: { page: 3 }, cancelToken: '/users-req'}).then(renderResponse)
-        api.get('/users', { query: { page: 3 }, cancelToken: '/users-req'}).then(renderResponse)
-    </script>
-    
+    <script src="test.js"></script>
 </body>
 </html>

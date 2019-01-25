@@ -29,6 +29,10 @@ fs.readFile(resolve('build.html'), 'utf8', (err, buildTemplate) => {
     })
   })
 
+  app.get('/test.js', function(req, res) {
+    res.sendFile(resolve('test.js'))
+  })
+
   app.get('/', function(req, res) {
     res.sendFile(resolve('index.html'))
   })
