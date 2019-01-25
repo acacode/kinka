@@ -1,4 +1,5 @@
-const path = require('path')
+const resolve = require('path').resolve
+const path = dir => resolve(__dirname, dir)
 
 const createConfig = (mode, configration) => {
   if (!configration) configration = {}
@@ -9,16 +10,16 @@ const createConfig = (mode, configration) => {
     filename += '.non-promise'
   }
   return {
-    entry: path.resolve(__dirname, 'lib/kinka.js'),
+    entry: path('lib/kinka.js'),
     mode: mode,
     output: {
-      path: path.resolve(__dirname, 'dist'),
+      path: path('dist'),
       filename: (isProd ? `${filename}.min` : filename) + '.js',
       library: 'kinka',
       libraryTarget: 'umd',
     },
     resolveLoader: {
-      modules: ['node_modules', path.resolve(__dirname, 'loaders')],
+      modules: ['node_modules', path('loaders')],
     },
     module: {
       rules: [
