@@ -238,7 +238,7 @@ try{
   </td>
   </tr>
   <tr>
-    <td><b>withAuth?: bool</b></td>
+    <td><b>credentials?: bool</b></td>
     <td><code>false</code></td>
     <td>
         Indicates that this request should use credentials<br>
