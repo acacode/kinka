@@ -15,7 +15,7 @@
 
         iframe.active{
             width: 100vw;
-            height: 100vh;
+            height: calc(100vh - 40px);
             display: block;
         }
 
@@ -38,6 +38,8 @@
             font-size: 24px;
         }
     </style>
+    <!-- specifically for manual testing via developer tools in browsers -->
+    <script src="kinka.js"></script>
 <body>
     <select autofocus class="builds-select" onchange="handleSelectBuild(this)"></select>
 

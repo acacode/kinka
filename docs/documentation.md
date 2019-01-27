@@ -63,7 +63,7 @@ process.env.NODE_ENV = 'production'
   <tr>
     <td><b>create</b></td>
     <td>
-        <code>options?: InstanceOptions</code>
+        <code>object?: config (KinkaInstanceOptions)</code>
     </td>
 	<td><code>Kinka</code></td>
     <td>
