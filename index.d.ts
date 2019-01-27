@@ -220,7 +220,7 @@ export declare interface KinkaRequestOptions{
      * @type {boolean}
      * @memberof KinkaRequestOptions
      */
-    withAuth?: boolean;
+    credentials?: boolean;
 }
 
 /**
