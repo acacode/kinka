@@ -169,11 +169,22 @@ process.env.NODE_ENV = 'production'
         <br><code>data?: any</code>, 
         <br><code>options?: RequestOptions</code>
     </td>
-	<td>
+	  <td>
         <code>Promise&lt;Response&gt;</code>
     </td>
     <td>
         create request with <code>PUT</code> method.
+    </td>
+  </tr>
+  <tr>
+    <td>
+        <b>clone</b>
+    </td>
+    <td>
+    </td>
+	  <td><code>Kinka</code></td>
+    <td>
+        create a new copy of the current kinka instance
     </td>
   </tr>
 </table>

@@ -420,6 +420,19 @@ export interface KinkaInstance {
     create(options?: KinkaInstanceOptions): KinkaInstance;
 
     /**
+     * create a new copy of the current kinka instance.
+     * Example:
+     * const api = kinka.create({baseURL: 'myapi.com'})
+     * api.config.headers['Some-Extra'] = 'some extra'
+	 * const copyApi = api.copy()
+     * copyApi.config.headers['Some-Extra'] // 'some extra'
+     * 
+     * @returns {KinkaInstance}
+     * @memberof KinkaInstance
+     */
+    copy(): KinkaInstance;
+
+    /**
      * create request with custom method name.
      * Example:
      * const api = kinka.create({baseURL: 'myapi.com'})
