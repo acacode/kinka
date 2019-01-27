@@ -1,51 +1,89 @@
 /* global kinka */
 
-var requestsEl = document.querySelector('.requests')
+var logsEl = document.querySelector('.logs')
 var header = document.querySelector('header')
 var templateName = header.innerText
 var failed = 0
 var succeeded = 0
 
-function responseHandler(description) {
-  return function renderResponse(response) {
-    var requestEl = document.createElement('div')
-    var className = response.err ? 'failed' : 'succeeded'
-    if (response.err) {
-      failed++
-    } else succeeded++
-    header.innerHTML =
-      templateName +
-      ' ( <span class="green">succeeded: ' +
-      succeeded +
-      '</span> | <span class="red">failed: ' +
-      failed +
-      '</span> )'
-    requestEl.className = ['request', className].join(' ')
-    requestEl.innerHTML =
-      '<p>' +
-      response.url +
-      (description
-        ? '<span class="description">' + description + '</span>'
-        : '') +
-      '</p><details class="response"><summary>response (' +
-      className +
-      ')</summary><div class="response-data-map">' +
+// stringified html element
+function el(query, childs) {
+  var parsed = query.split('.')
+  var tag = parsed[0]
+  var className = parsed.slice(1).join(' ')
+  var elem =
+    '<' +
+    tag +
+    (className ? ' class="' + className + '"' : '') +
+    '>' +
+    (childs && childs.length
+      ? childs
+          .filter(function(child) {
+            return !!child
+          })
+          .join('')
+      : '') +
+    '</' +
+    tag +
+    '>'
+  // var elem = document[
+  //   tag.indexOf('text') > -1 ? 'createTextNode' : 'createElement'
+  // ](tag.replace('text?'))
+  // if (className) {
+  //   elem.classList.add(className)
+  // }
+  // if (childs && childs.length) {
+  //   childs.forEach(element => {
+  //     elem.appendChild(element)
+  //   })
+  // }
+  return elem
+}
+
+function createResponse(response, isFailed) {
+  return el('details.response', [
+    el('summary', ['response (' + (isFailed ? 'failed' : 'succeeded') + ')']),
+    el('div.response-data-map', [
       Object.keys(response)
         .map(function(key) {
-          return (
-            '<span class="key">' +
-            key +
-            '</span>' +
-            ' : ' +
-            JSON.stringify(response[key])
-          )
+          return el('div', [
+            el('span.key', [key]),
+            ' : ',
+            JSON.stringify(response[key]),
+          ])
         })
-        .map(function(value) {
-          return '<div>' + value + '</div>'
-        })
-        .join('') +
-      '</div></details>'
-    requestsEl.appendChild(requestEl)
+        .join(''),
+    ]),
+  ])
+}
+
+function renderLog(title, isNegative, log, description) {
+  var logEl = document.createElement('div')
+  var className = isNegative ? 'red' : 'green'
+  if (isNegative) {
+    failed++
+  } else succeeded++
+  header.innerHTML =
+    templateName +
+    ' ( ' +
+    el('span.green', ['positive: ' + succeeded]) +
+    ' | ' +
+    el('span.red', ['negative: ' + failed]) +
+    ' ) '
+  logEl.className = ['log', className].join(' ')
+  logEl.innerHTML =
+    el('p', [title, description && el('span.description', [description])]) + log
+  logsEl.appendChild(logEl)
+}
+
+function responseHandler(description) {
+  return function renderResponse(response) {
+    renderLog(
+      response.url,
+      response.err,
+      createResponse(response, response.err),
+      description
+    )
   }
 }
 
@@ -106,3 +144,12 @@ api2
   .catch(
     responseHandler('api2. post request should be catched (successStatus)')
   )
+
+try {
+  var get = kinka.get
+  get('https://google.com/all')
+    .then(responseHandler())
+    .catch(responseHandler())
+} catch (e) {
+  renderLog('var get = kinka.get exception', true, e)
+}

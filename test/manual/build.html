@@ -23,10 +23,10 @@
             background: #1e1d23;
             font-weight: bold;
         }
-        .requests {
+        .logs {
             margin-top: 36px;
         }
-        .request {
+        .log {
             overflow: auto;
             box-sizing: border-box;
             margin: 8px 0;
@@ -34,7 +34,7 @@
             border-bottom: 2px solid #464646;
         }
 
-        .request > p:first-child{
+        .log > p:first-child{
             font-size: 16px;
             margin: 0;
             color: #51b8ca;
@@ -47,11 +47,11 @@
             padding: 10px;
             cursor: pointer;
         }
-        .request.succeeded .response, .green {
+        .log.positive .response, .green {
             color: #65ff9d;
         }
 
-        .request.failed .response, .red {
+        .log.negative .response, .red {
             color: #ff6581;
         }
         
@@ -72,8 +72,8 @@
     </style>
 </head>
 <body>
-    <header>requests with using {{build-file-name}}</header>
-    <div class="requests"></div>
+    <header>logs from {{build-file-name}}</header>
+    <div class="logs"></div>
     <script src="test.js"></script>
 </body>
 </html>
