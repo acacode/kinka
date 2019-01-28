@@ -510,6 +510,16 @@ api.get('/data', {
         </code></pre>
     </td>
   </tr>
+  <tr>
+    <td><b>credentials?: bool</b></td>
+    <td><code>false</code></td>
+    <td>
+        Indicates that this request should use credentials<br>
+        (like cookies or specific auth headers)<br>
+        Sets flag <code>withCredentials</code><br>
+        <a href="https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/withCredentials">Read more about it here...</a>
+    </td>
+  </tr>
 </table>
 
 

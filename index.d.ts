@@ -364,6 +364,16 @@ export declare interface KinkaInstanceOptions{
      * @memberof KinkaInstanceOptions
      */
     timeout?: number;
+
+    /**
+     * Indicates that all requests should use credentials (like cookies or specific auth headers)
+     * Sets flag {request.withCredentials}
+     * Read more: https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/withCredentials
+     *
+     * @type {boolean}
+     * @memberof KinkaInstanceOptions
+     */
+    credentials?: boolean;
 }
 
 /**
