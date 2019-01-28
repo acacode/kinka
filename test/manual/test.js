@@ -42,7 +42,7 @@ function el(query, childs) {
 
 function createResponse(response, isFailed) {
   return el('details.response', [
-    el('summary', ['response (' + (isFailed ? 'failed' : 'succeeded') + ')']),
+    el('summary', ['log (' + (isFailed ? 'failed' : 'succeeded') + ')']),
     el('div.response-data-map', [
       Object.keys(response)
         .map(function(key) {
@@ -72,7 +72,8 @@ function renderLog(title, isNegative, log, description) {
     ' ) '
   logEl.className = ['log', className].join(' ')
   logEl.innerHTML =
-    el('p', [title, description && el('span.description', [description])]) + log
+    el('p', [title, description && el('span.description', [description])]) +
+    (typeof log === 'object' ? createResponse(log, isNegative) : log)
   logsEl.appendChild(logEl)
 }
 
@@ -89,67 +90,93 @@ function responseHandler(description) {
 
 // requests
 
-var api1 = kinka.create({
-  baseURL: 'https://reqres.in/api',
-})
-api1.get('/users', { query: { page: 1 } }).then(responseHandler('api1'))
-api1.get('https://google.com/bad-request').then(responseHandler('api1'))
-api1
-  .get('/users', { query: { page: 3 }, cancelToken: '/users-req' })
-  .then(
-    responseHandler(
-      'api1. Should be canceled because it have "cancelToken" and was created newest request with the same cancel token'
-    )
-  )
-api1
-  .get('/users', { query: { page: 3 }, cancelToken: '/users-req' })
-  .then(responseHandler('api1'))
-api1
-  .post('/register', { email: 'sydney@fife' })
-  .then(responseHandler('api1. should have error'))
+function logger(apiName, responseHandler) {
+  return function log(message) {
+    var logMessage =
+      'api name : ' +
+      el('span.grey', [apiName || 'kinka']) +
+      '; ' +
+      (message ? ' message : ' + el('span.grey', [message]) : '')
+    return responseHandler ? responseHandler(logMessage) : logMessage
+  }
+}
 
-var api2 = kinka.create({
-  baseURL: 'https://reqres.in/api',
-  omitCatches: false,
-})
-api2
-  .get('https://google.com/bad-request')
-  .catch(responseHandler('api2. request with using falsy omitCatches'))
-api2
-  .get('/users', { query: { page: 3 }, cancelToken: '/users-req' })
-  .catch(
-    responseHandler(
-      'api2. request with using falsy omitCatches.' +
-        'Should be canceled because it have "cancelToken" and was created newest request with the same cancel token'
-    )
-  )
-api2
-  .get('/users', { query: { page: 3 }, cancelToken: '/users-req' })
-  .then(responseHandler('api2. request with using falsy omitCatches'))
-api2
-  .post('/users', {
-    username: 'vasya',
-    creationDate: new Date(),
+;(function test1() {
+  var api = kinka.create({
+    baseURL: 'https://reqres.in/api',
   })
-  .then(responseHandler('api2. post request should return 201'))
-api2
-  .post(
-    '/users',
-    {
+  var log = logger('testApi1', responseHandler)
+  api.get('/users', { query: { page: 1 } }).then(log())
+  api.get('https://google.com/bad-request').then(log())
+  api
+    .get('/users', { query: { page: 3 }, cancelToken: '/users-req' })
+    .then(
+      log(
+        'Should be canceled because it have "cancelToken" and was created newest request with the same cancel token'
+      )
+    )
+  api
+    .get('/users', { query: { page: 3 }, cancelToken: '/users-req' })
+    .then(log())
+  api.post('/register', { email: 'sydney@fife' }).then(log('should have error'))
+})()
+;(function test2() {
+  var api = kinka.create({
+    baseURL: 'https://reqres.in/api',
+    omitCatches: false,
+  })
+  var log = logger('testApi2', responseHandler)
+  api
+    .get('https://google.com/bad-request')
+    .catch(log('request with using falsy omitCatches'))
+  api
+    .get('/users', { query: { page: 3 }, cancelToken: '/users-req' })
+    .catch(
+      log(
+        'request with using falsy omitCatches.' +
+          'Should be canceled because it have "cancelToken" and was created newest request with the same cancel token'
+      )
+    )
+  api
+    .get('/users', { query: { page: 3 }, cancelToken: '/users-req' })
+    .then(log('request with using falsy omitCatches'))
+  api
+    .post('/users', {
       username: 'vasya',
       creationDate: new Date(),
+    })
+    .then(log('post request should return 201'))
+  api
+    .post(
+      '/users',
+      {
+        username: 'vasya',
+        creationDate: new Date(),
+      },
+      { successStatus: 200 }
+    )
+    .catch(log('post request should be catched (successStatus)'))
+})()
+;(function nonApi() {
+  var log = logger()
+  try {
+    var get = kinka.get
+    get('https://google.com/all')
+      .then(responseHandler(log()))
+      .catch(responseHandler(log()))
+  } catch (e) {
+    renderLog(log('var get = kinka.get exception', true, e))
+  }
+})()
+;(function api3() {
+  var log = logger('testApi3')
+  var api = kinka.create({
+    baseURL: 'https://reqres.in/api',
+    inspectors: {
+      request: function(url, method, options) {
+        renderLog('', false, options, log('request inspector'))
+      },
     },
-    { successStatus: 200 }
-  )
-  .catch(
-    responseHandler('api2. post request should be catched (successStatus)')
-  )
-
-try {
-  var get = kinka.get
-  get('https://google.com/all')
-    .then(responseHandler())
-    .catch(responseHandler())
-} catch (e) {
-  renderLog('var get = kinka.get exception', true, e)
-}
+  })
+  api.get('/all').then(responseHandler(log()))
+})()

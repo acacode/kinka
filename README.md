@@ -27,7 +27,7 @@ It will reduce your http code (which are using [XMLHttpRequests](https://develop
 ## 📚 Documentation & Examples
 
 [Documentation](./docs/documentation.md)  
-[Examples](./examples)  
+[Examples](./test/examples)  
 [Sandbox](https://jsfiddle.net/js2me/0y3ng8xu/)  
 
 ## Why kinka ❔
