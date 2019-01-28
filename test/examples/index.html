@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Example with kinka</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://cdn.jsdelivr.net/npm/kinka@latest/dist/kinka.min.js"></script>
+    <style>
+        body{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            margin: 0;
+            height: 100vh;
+            width: 100vw;
+            text-align: center;
+        }
+        .find-user-form{
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%) translateY(-80%);
+            top: 20%;
+        }
+    </style>
+</head>
+<body>
+    <form onsubmit="findUser()" class="find-user-form">
+        <header>Find user by ID in reqres.in</header>
+        <input id="user-id" placeholder="2"/>
+        <button type="submit">Find!</button>
+    </form>
+    <div class="user">
+        <label id="first-name"></label>
+        <label id="last-name"></label>
+        <img id="user-avatar"/>
+    </div>
+    <script>
+        var el = function(query) { return document.querySelector(query) }
+        var api = kinka.create({
+            baseURL: 'https://reqres.in/api',
+        })
+        function findUser(){
+            window.event.preventDefault()
+
+            api.get('/users/' + el('#user-id').value).then(function(response){
+                if(response.err) return alert('occured an error ', response.err)
+                var user = response.data.data
+                el('#first-name').innerText = user.first_name
+                el('#last-name').innerText = user.last_name
+                el('#user-avatar').setAttribute('src', user.avatar)
+            })
+            return false
+        }
+    </script>
+</body>
+</html>

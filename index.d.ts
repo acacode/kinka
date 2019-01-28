@@ -220,7 +220,7 @@ export declare interface KinkaRequestOptions{
      * @type {boolean}
      * @memberof KinkaRequestOptions
      */
-    withAuth?: boolean;
+    credentials?: boolean;
 }
 
 /**
@@ -364,6 +364,16 @@ export declare interface KinkaInstanceOptions{
      * @memberof KinkaInstanceOptions
      */
     timeout?: number;
+
+    /**
+     * Indicates that all requests should use credentials (like cookies or specific auth headers)
+     * Sets flag {request.withCredentials}
+     * Read more: https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/withCredentials
+     *
+     * @type {boolean}
+     * @memberof KinkaInstanceOptions
+     */
+    credentials?: boolean;
 }
 
 /**
@@ -418,6 +428,19 @@ export interface KinkaInstance {
      * @memberof KinkaInstance
      */
     create(options?: KinkaInstanceOptions): KinkaInstance;
+
+    /**
+     * create a new copy of the current kinka instance.
+     * Example:
+     * const api = kinka.create({baseURL: 'myapi.com'})
+     * api.config.headers['Some-Extra'] = 'some extra'
+	 * const copyApi = api.copy()
+     * copyApi.config.headers['Some-Extra'] // 'some extra'
+     * 
+     * @returns {KinkaInstance}
+     * @memberof KinkaInstance
+     */
+    copy(): KinkaInstance;
 
     /**
      * create request with custom method name.

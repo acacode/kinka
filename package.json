@@ -1,16 +1,18 @@
 {
   "name": "kinka",
-  "version": "2.0.0",
+  "version": "2.5.4",
   "license": "MIT",
   "description": "very light and simple http web client",
   "main": "index.js",
   "scripts": {
+    "clean-build": "rm -rf dist",
     "build": "webpack",
     "lint": "eslint .",
     "lint-fix": "eslint . --fix",
     "compare-versions": "node ./bin/compare-versions.js",
     "test": "karma start",
     "git-release": "release-it",
+    "test-server": "nodemon test/manual/server.js --exec node --watch test/manual lib -e html",
     "unit-test": "mocha \"test/unit/**/*.js\" --compilers js:babel-core/register"
   },
   "author": {
@@ -60,10 +62,12 @@
     "karma-safari-launcher": "1.0.0",
     "karma-sauce-launcher": "2.0.2",
     "karma-sinon": "1.0.5",
+    "loader-utils": "^1.2.3",
     "mocha": "5.2.0",
     "mock-browser": "0.92.14",
     "mock-xmlhttprequest": "2.0.0",
     "nock": "10.0.6",
+    "nodemon": "1.18.9",
     "prettier": "1.10.2",
     "release-it": "9.2.0",
     "requirejs": "2.3.6",
@@ -71,6 +75,7 @@
     "sinon-chai": "3.3.0",
     "webpack": "4.16.5",
     "webpack-cli": "3.1.0",
+    "webpack-dev-middleware": "3.5.1",
     "xmlhttprequest": "1.8.0"
   },
   "keywords": [

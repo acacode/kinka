@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Manual testing: {{build-file-name}}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="{{build-file-name}}"></script>
+    <style>
+        body{
+            color: #e3e2ef;
+            font-family: monospace;
+        }
+        header {
+            font-size: 16px;
+            text-transform: uppercase;
+            color: #cacaca;
+            position: fixed;
+            top: 0;
+            left: 0;
+            padding: 5px 10px;
+            width: 100%;
+            background: #1e1d23;
+            font-weight: bold;
+        }
+        .logs {
+            margin-top: 36px;
+        }
+        .log {
+            overflow: auto;
+            box-sizing: border-box;
+            margin: 8px 0;
+            padding: 0 0 6px;
+            border-bottom: 2px solid #464646;
+        }
+
+        .log > p:first-child{
+            font-size: 16px;
+            margin: 0;
+            color: #51b8ca;
+        }
+        .response{
+            word-break: break-word;
+        }
+        .response > summary{
+            outline: 0;
+            padding: 10px;
+            cursor: pointer;
+        }
+        .log.positive .response, .green {
+            color: #65ff9d;
+        }
+
+        .log.negative .response, .red {
+            color: #ff6581;
+        }
+        
+        .response-data-map > div {
+            margin-bottom: 6px;
+            margin: 0 30px 6px;
+        }
+        .key {
+            margin-left: -8px;
+            text-decoration: underline;
+        }
+        .description {
+            display: block;
+            color: #545454;
+            font-size: 14px;
+            padding-top: 6px;
+        }
+        .grey {
+            color: #8c8b92;
+        }
+    </style>
+</head>
+<body>
+    <header>logs from {{build-file-name}}</header>
+    <div class="logs"></div>
+    <script src="test.js"></script>
+</body>
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Manual testing: all kinka builds</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        iframe {
+            display: inline-block;
+            border: 0;
+            background: #1e1d23;
+            display: none;
+        }
+
+        iframe.active{
+            width: 100vw;
+            height: calc(100vh - 40px);
+            display: block;
+        }
+
+        body {
+            margin: 0;
+            position: absolute;
+            width: 100vw;
+            height: 100vh;
+            left: 0;
+            top: 0;
+            overflow: hidden;
+            background: #7b7b7b;
+        }
+        .builds-select{
+            width: 100%;
+            height: 40px;
+            background: #1e1d23;
+            border: 2px solid #1e1d23;
+            color: #cacaca;
+            font-size: 24px;
+        }
+    </style>
+    <!-- specifically for manual testing via developer tools in browsers -->
+    <script src="kinka.js"></script>
+<body>
+    <select autofocus class="builds-select" onchange="handleSelectBuild(this)"></select>
+
+    <script>
+        var builds = [
+            'kinka.html',
+            'kinka.min.html',
+            'kinka.non-promise.html',
+            'kinka.non-promise.min.html',
+        ]
+        var buildsSelect = document.querySelector('.builds-select')
+
+        builds.forEach(function(build, index){
+            var option = document.createElement('option')
+            option.setAttribute('value', build)
+            option.innerText = build.replace('.html', '.js')
+
+            var iFrame = document.createElement('iframe')
+            iFrame.setAttribute('src', build)
+            if(!index){
+                option.setAttribute('selected', 'selected')
+                iFrame.classList.add('active')
+            }
+            buildsSelect.appendChild(option)
+            document.body.appendChild(iFrame)
+        })
+
+        function handleSelectBuild(select){
+            var prevIframe = document.querySelector('iframe.active')
+            if(prevIframe){
+                prevIframe.classList.remove('active')
+            }
+            var newIframe = document.querySelector('iframe[src="' + select.value + '"]')
+            newIframe.classList.add('active')
+        }
+    </script>
+</body>
+</html>

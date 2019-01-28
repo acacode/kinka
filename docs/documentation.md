@@ -63,7 +63,7 @@ process.env.NODE_ENV = 'production'
   <tr>
     <td><b>create</b></td>
     <td>
-        <code>options?: InstanceOptions</code>
+        <code>object?: config (KinkaInstanceOptions)</code>
     </td>
 	<td><code>Kinka</code></td>
     <td>
@@ -169,11 +169,22 @@ process.env.NODE_ENV = 'production'
         <br><code>data?: any</code>, 
         <br><code>options?: RequestOptions</code>
     </td>
-	<td>
+	  <td>
         <code>Promise&lt;Response&gt;</code>
     </td>
     <td>
         create request with <code>PUT</code> method.
+    </td>
+  </tr>
+  <tr>
+    <td>
+        <b>clone</b>
+    </td>
+    <td>
+    </td>
+	  <td><code>Kinka</code></td>
+    <td>
+        create a new copy of the current kinka instance
     </td>
   </tr>
 </table>
@@ -238,7 +249,7 @@ try{
   </td>
   </tr>
   <tr>
-    <td><b>withAuth?: bool</b></td>
+    <td><b>credentials?: bool</b></td>
     <td><code>false</code></td>
     <td>
         Indicates that this request should use credentials<br>
@@ -497,6 +508,16 @@ api.get('/data', {
   auth: { username: 'TheFlash', password: 'SpeedF0rce' },
 })
         </code></pre>
+    </td>
+  </tr>
+  <tr>
+    <td><b>credentials?: bool</b></td>
+    <td><code>false</code></td>
+    <td>
+        Indicates that this request should use credentials<br>
+        (like cookies or specific auth headers)<br>
+        Sets flag <code>withCredentials</code><br>
+        <a href="https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/withCredentials">Read more about it here...</a>
     </td>
   </tr>
 </table>

@@ -18,6 +18,8 @@ import {
   abortableRequests,
   updateContentType,
 } from '../../../lib/helpers'
+// load dev loggers
+require('../../../lib/kinka')
 
 describe('request helpers : ', () => {
   const itShouldBeFunc = testFunc => {

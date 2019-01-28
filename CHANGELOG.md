@@ -1,6 +1,23 @@
 
 # CHANGELOG
 
+## [2.5.4](https://github.com/acacode/kinka/releases/tag/2.5.4)
+
+### Added
+- Warnings/Checks linked with non valid type or empty value for develop kinka version  
+- Extra builds with the partially `Promise` support
+- method `kinka.clone()` to copy current kinka instance
+- Manual tests
+- `credentials` property can be seated in kinka instance
+
+### Changed
+- [internal] Creating of new kinka instance ( methods always will be binded to instance )  
+- [internal] Renamed `instanceOptions` to `config` ( for `kinka.create(config)` and `kinka.instanceOptions` -> `kinka.config` )  
+- Renamed `withAuth` to `credentials` for more name readability  
+
+### Fixed
+- Typo fixes in `README.md`
+
 
 ## [2.0.0](https://github.com/acacode/kinka/releases/tag/2.0.0)
 
