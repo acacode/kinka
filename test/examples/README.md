@@ -1,6 +1,6 @@
 <div align="center">
 
-  [![kinka](../logo.png)](https://www.npmjs.com/package/kinka) 
+  [![kinka](https://github.com/acacode/kinka/blob/master/logo.png?raw=true)](https://www.npmjs.com/package/kinka) 
 
 </div>
 
