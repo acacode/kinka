@@ -1,6 +1,11 @@
 
 # CHANGELOG
 
+## [2.5.5](https://github.com/acacode/kinka/releases/tag/2.5.5)
+
+### Fixed
+- Production builds
+
 ## [2.5.4](https://github.com/acacode/kinka/releases/tag/2.5.4)
 
 ### Added

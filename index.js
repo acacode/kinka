@@ -9,21 +9,8 @@
 
 'use strict'
 
-if (process) {
-  var isProd = process.env.NODE_ENV === 'production'
-  var excludePromises = !!process.env.EXCLUDE_PROMISES
-  /**
-   *  variations:
-   *
-   *  kinka.js
-   *  kinka.min.js
-   *  kinka.non-promise.js
-   *  kinka.non-promise.min.js
-   */
-  module.exports = require('./dist/kinka' +
-    (excludePromises ? '.non-promise' : '') +
-    (isProd ? '.min' : '') +
-    '.js')
+if (process.env.NODE_ENV === 'production') {
+  module.exports = require('./dist/kinka.min.js')
 } else {
   module.exports = require('./dist/kinka.js')
 }
