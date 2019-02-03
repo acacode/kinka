@@ -14,8 +14,8 @@ install:
   - yarn
 script:
   - yarn lint
-  - yarn build
   - yarn unit-test
+  - yarn build
 after_success:
   - ls -l
   - git remote rm origin
