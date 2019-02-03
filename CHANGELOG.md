@@ -1,6 +1,11 @@
 
 # CHANGELOG
 
+## [2.5.6](https://github.com/acacode/kinka/releases/tag/2.5.6)
+
+### Fixed
+- BREAKING CHANGE: Prev. version is haven't build files. This version is solved problem.
+
 ## [2.5.5](https://github.com/acacode/kinka/releases/tag/2.5.5)
 
 ### Fixed
