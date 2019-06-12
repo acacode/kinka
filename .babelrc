@@ -1,6 +1,12 @@
 {
-  "presets": ["env", "es2015", "stage-0"],
-  "plugins": [
-      "transform-async-await"
+  "presets": [[
+    "@babel/env",
+    {
+      "targets": {
+        "browsers": ["ie >= 11"]
+      },
+      "modules": false,
+      "loose": true
+    }]
   ]
 }

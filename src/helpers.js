@@ -518,8 +518,9 @@ function getHeaders(request) {
 // Exception of above rule is 'isUndefined' and 'createRequest'
 // because they actually using in kinka
 // differences between exports is the size of minified version
-module.exports =
-  process.env.NODE_ENV === 'production'
+
+
+export default process.env.NODE_ENV === 'production'
     ? { isUndefined: isUndefined, createRequest: createRequest }
     : {
         // base helpers
