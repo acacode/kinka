@@ -1,5 +1,24 @@
-
 # CHANGELOG
+
+<!-- TEMPLATE OF NEW VERSION -->
+
+<!-- 
+## [VERSION](https://github.com/acacode/kinka/releases/tag/VERSION)
+
+### Changed
+### Fixed
+### Added
+### Removed
+ -->
+
+## [3.0.0-alpha.1]  
+
+### Fixed  
+- problem with using IP as baseURL ([issue](https://github.com/acacode/kinka/issues/19))  
+
+### Removed  
+- `withAuth` property because it is deprecated property  
+
 
 ## [2.5.6](https://github.com/acacode/kinka/releases/tag/2.5.6)
 

@@ -11,13 +11,12 @@ plugins:
 
 globals:
   jasmine: true
-  typeCheck: true
-  emptyCheck: true
 
 env:
   browser: true
 
 rules:
+  prefer-const: true
   prettier/prettier:
     - error
     - trailingComma: es5
