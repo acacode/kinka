@@ -73,10 +73,10 @@ export function parseResponseData(rawData, contentType) {
  * @returns {object}
  */
 export function createResponse(request, isError, url, cancelToken) {
-  var status = request.status
-  var type = request.responseType
-  var text = !type || type === 'text' ? request.responseText : null
-  var data = parseResponseData(
+  const status = request.status
+  const type = request.responseType
+  const text = !type || type === 'text' ? request.responseText : null
+  const data = parseResponseData(
     text || request.response,
     request.getResponseHeader('content-type')
   )
@@ -114,9 +114,9 @@ export function getHeaders(request) {
     .trim()
     .split(/[\r\n]+/)
     .reduce(function(headers, line) {
-      var splitChar = ': '
-      var parts = line.split(splitChar)
-      var header = parts.shift()
+      const splitChar = ': '
+      const parts = line.split(splitChar)
+      const header = parts.shift()
       if (header) headers[header] = parts.join(splitChar)
       return headers
     }, {})
@@ -130,9 +130,9 @@ export function getHeaders(request) {
  * @returns {object} parsed url encoded form
  */
 export function parseUrlEncodedForm(form) {
-  var decoder = decodeURIComponent
+  const decoder = decodeURIComponent
   return form.split('&').reduce(function(data, pair) {
-    var pos = pair.indexOf('=')
+    const pos = pair.indexOf('=')
     if (pos === -1) {
       data[decoder(pair)] = ''
     } else {

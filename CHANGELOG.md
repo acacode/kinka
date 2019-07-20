@@ -16,8 +16,16 @@
 ### Fixed  
 - problem with using IP as baseURL ([issue](https://github.com/acacode/kinka/issues/19))  
 
+### Added
+- More additional builds and rollup  
+
+### Changed  
+- Reduced library size (.3KB)
+
 ### Removed  
 - `withAuth` property because it is deprecated property  
+- non promised builds (just use polyfills)  
+- [Internal] Webpack build  
 
 
 ## [2.5.6](https://github.com/acacode/kinka/releases/tag/2.5.6)

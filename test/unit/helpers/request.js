@@ -60,7 +60,7 @@ describe('request helpers : ', () => {
     itShouldBeFunc(createAbortableRequest)
     describe('new request : ', () => {
       const testAbortableKey = 'test-new-request'
-      let XHRspy = sinon.spy()
+      const XHRspy = sinon.spy()
       let returnedValue
       const clearAbortableStorage = () => {
         delete abortableRequests[testAbortableKey]
@@ -114,7 +114,7 @@ describe('request helpers : ', () => {
   describe('createRequest : ', () => {
     itShouldBeFunc(createRequest)
 
-    let spies = {
+    const spies = {
       open: sinon.spy(),
       send: sinon.spy(),
     }
@@ -452,7 +452,7 @@ describe('request helpers : ', () => {
         'Content-Type': 'application/json',
         'Cache-Control': 'no-cache',
       }
-      let setRequestHeaderStub = sinon.spy()
+      const setRequestHeaderStub = sinon.spy()
       const setRequestHeader = xhr.setRequestHeader
       xhr.open('GET', '/some-url')
       xhr.setRequestHeader = function() {

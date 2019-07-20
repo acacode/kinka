@@ -16,7 +16,8 @@ env:
   browser: true
 
 rules:
-  prefer-const: true
+  no-var: error
+  prefer-const: error
   prettier/prettier:
     - error
     - trailingComma: es5

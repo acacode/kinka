@@ -13,8 +13,8 @@ import { createResponse } from './response'
 /*                            request helpers                            */
 /** **********************************************************************/
 
-var abortableRequests = {}
-var CONTENT_TYPE = 'Content-Type'
+const abortableRequests = {}
+const CONTENT_TYPE = 'Content-Type'
 
 /**
  * terminate XMLHttpRequest by cancelToken
@@ -66,7 +66,7 @@ export function removeAbortableKey(cancelToken) {
  * @returns {boolean} true/false
  */
 export function requestIsSuccess(request, successStatus) {
-  var status = request.status
+  const status = request.status
   return successStatus
     ? status === successStatus
     : (status >= 200 && status < 300) || status === 101
@@ -80,9 +80,9 @@ export function requestIsSuccess(request, successStatus) {
  * @param {object} headers
  */
 export function setHeaders(request, headers) {
-  var headerNames = Object.keys(headers)
-  for (var x = 0; x < headerNames.length; x++) {
-    var header = headerNames[x]
+  const headerNames = Object.keys(headers)
+  for (let x = 0; x < headerNames.length; x++) {
+    const header = headerNames[x]
     if (header) request.setRequestHeader(header, headers[header])
   }
 }
@@ -100,7 +100,7 @@ export function setHeaders(request, headers) {
  */
 export function getUrlWithQuery(url, query) {
   typeCheck(query, 'object', 'query in your request options')
-  var parsed = url.split('?')
+  const parsed = url.split('?')
   return (
     parsed[0] +
     '?' +
@@ -123,8 +123,8 @@ export function getUrlWithQuery(url, query) {
  * @returns {string}
  */
 export function getUrl(path, baseURL, query) {
-  var protocol = path.slice(0, 4)
-  var url =
+  const protocol = path.slice(0, 4)
+  const url =
     protocol === 'http' || includes(protocol, 'ws') || includes(protocol, '//')
       ? path
       : baseURL + path
@@ -192,18 +192,18 @@ export function createRequest(method, path, reqOptions, reqData) {
   typeCheck(path, 'string', 'path in your request')
   typeCheck(method, 'string', 'name of method in your request')
   typeCheck(reqOptions, 'object', 'request options "reqOptions"', true)
-  var requestInspector = this.inspectors.request
-  var responseInspector = this.inspectors.response
+  const requestInspector = this.inspectors.request
+  const responseInspector = this.inspectors.response
 
-  var upperCaseMethod = method.toUpperCase()
+  const upperCaseMethod = method.toUpperCase()
   // merge instance options with request options
   // if this.auth is exist then also merge result of this.auth call
-  var options = merge(
+  let options = merge(
     this.config,
     reqOptions,
     reqOptions && this.auth && reqOptions.auth && this.auth(reqOptions.auth)
   )
-  var baseURL = this.baseURL
+  const baseURL = this.baseURL
   if (requestInspector) {
     options =
       requestInspector(
@@ -212,8 +212,8 @@ export function createRequest(method, path, reqOptions, reqData) {
         options
       ) || options
   }
-  var cancelToken = options.cancelToken
-  var url = getUrl(path, baseURL, options.query)
+  const cancelToken = options.cancelToken
+  const url = getUrl(path, baseURL, options.query)
   typeCheck(
     cancelToken,
     'string',
@@ -221,13 +221,13 @@ export function createRequest(method, path, reqOptions, reqData) {
     true
   )
   emptyCheck(cancelToken, 'cancelToken')
-  var onDownloadProgress = options.onDownloadProgress
-  var onUploadProgress = options.onUploadProgress
+  const onDownloadProgress = options.onDownloadProgress
+  const onUploadProgress = options.onUploadProgress
   typeCheck(onDownloadProgress, 'function', 'onDownloadProgress', true)
   typeCheck(onUploadProgress, 'function', 'onUploadProgress', true)
   // create XMLHttpRequest instance
   // if abortable key is exist then reference of instance will been attached to abortableRequests
-  var request = cancelToken
+  let request = cancelToken
     ? createAbortableRequest(cancelToken)
     : new XMLHttpRequest()
 
@@ -249,8 +249,8 @@ export function createRequest(method, path, reqOptions, reqData) {
       if (request.readyState === 4) {
         typeCheck(options.successStatus, 'number', 'successStatus', true)
         // completeRequest
-        var isError = !requestIsSuccess(request, options.successStatus)
-        var response = createResponse(request, isError, url, cancelToken)
+        const isError = !requestIsSuccess(request, options.successStatus)
+        let response = createResponse(request, isError, url, cancelToken)
         if (responseInspector) {
           response =
             responseInspector(url, upperCaseMethod, response) || response
@@ -264,9 +264,9 @@ export function createRequest(method, path, reqOptions, reqData) {
     // after open and before send because IE will cause an error
     // if timeout has been setted before open or after send
     request.timeout = options.timeout
-    var headers = options.headers
+    const headers = options.headers
     typeCheck(headers, 'object', 'headers in your request [' + url + ']', true)
-    var requestBody = prepareRequestData(
+    const requestBody = prepareRequestData(
       reqData || options.data,
       headers,
       options.charset

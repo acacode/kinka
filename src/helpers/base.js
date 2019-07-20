@@ -4,7 +4,7 @@
 
 export function typeCheck(value, expectedType, varName, checkOnUndef) {
   if (!checkOnUndef || typeof value !== 'undefined') {
-    var actualType = typeof value
+    const actualType = typeof value
     const typeIsInvalid =
       (expectedType === 'array' && !(value instanceof Array)) ||
       (expectedType === 'object' &&
@@ -22,8 +22,8 @@ export function typeCheck(value, expectedType, varName, checkOnUndef) {
 
 export function emptyCheck(value, varName) {
   const valueType = typeof value
-  var isString = valueType === 'string'
-  var isObject = valueType === 'object'
+  const isString = valueType === 'string'
+  const isObject = valueType === 'object'
   if (
     valueType !== 'undefined' &&
     (isObject ? value === null || !Object.keys(value).length : !value)
@@ -45,11 +45,11 @@ export function emptyCheck(value, varName) {
  * @returns {object} merged all argument objects into one object
  */
 export function merge() {
-  var object = {}
-  for (var args = [].slice.call(arguments), x = 0; x < args.length; x++) {
+  const object = {}
+  for (let args = [].slice.call(arguments), x = 0; x < args.length; x++) {
     if (isObject(args[x]))
-      for (var attr in args[x]) {
-        var value = args[x][attr]
+      for (const attr in args[x]) {
+        const value = args[x][attr]
         object[attr] = isObject(value) ? merge(object[attr], value) : value
       }
   }
