@@ -8,9 +8,9 @@ import {
   requestIsSuccess,
   parseResponseData,
   getHeaders,
-} from '../../../lib/helpers'
+} from '../../../src/helpers'
 // load dev loggers
-require('../../../lib/kinka')
+require('../../../src/kinka')
 
 describe('response helpers : ', () => {
   const itShouldBeFunc = testFunc => {

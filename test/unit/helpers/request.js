@@ -17,9 +17,9 @@ import {
   setHeaders,
   abortableRequests,
   updateContentType,
-} from '../../../lib/helpers'
+} from '../../../src/helpers'
 // load dev loggers
-require('../../../lib/kinka')
+require('../../../src/kinka')
 
 describe('request helpers : ', () => {
   const itShouldBeFunc = testFunc => {
