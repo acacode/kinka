@@ -8,13 +8,11 @@
   "module": "es/kinka.js",
   "scripts": {
     "clean-build": "rm -rf dist || rmdir /S /Q dist",
-    "build": "webpack",
-    "build:r": "rollup -c",
+    "build": "rollup -c",
     "lint": "eslint .",
     "lint-fix": "eslint . --fix",
     "compare-versions": "node ./bin/compare-versions.js",
     "test": "karma start",
-    "git-release": "release-it",
     "test-server": "nodemon test/manual/server.js --exec node --watch test/manual lib -e html",
     "unit-test": "yarn run build --quiet && mocha \"test/unit/**/*.js\" --compilers js:babel-core/register && yarn clean-build"
   },
@@ -66,7 +64,6 @@
     "nock": "10.0.6",
     "nodemon": "1.18.9",
     "prettier": "1.10.2",
-    "release-it": "9.2.0",
     "requirejs": "2.3.6",
     "rollup": "1.11.3",
     "rollup-plugin-babel": "4.3.2",
