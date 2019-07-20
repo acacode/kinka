@@ -209,7 +209,9 @@ export function createRequest(method, path, reqOptions, reqData) {
       requestInspector(
         getUrl(path, baseURL, options.query),
         upperCaseMethod,
-        options
+        options,
+        // TODO: add here request data for serializy integration
+        reqData || options.data
       ) || options
   }
   const cancelToken = options.cancelToken
@@ -253,7 +255,7 @@ export function createRequest(method, path, reqOptions, reqData) {
         let response = createResponse(request, isError, url, cancelToken)
         if (responseInspector) {
           response =
-            responseInspector(url, upperCaseMethod, response) || response
+            responseInspector(url, upperCaseMethod, response, options) || response
         }
         if (!options.omitCatches && isError) reject(response)
         else resolve(response)
