@@ -22,7 +22,7 @@
 - `.eslintignore` file to ignore production files
 
 ### Changed  
-- Reduced library size (.3KB)
+- Reduced library size (-0.3KB)
 
 ### Removed  
 - `withAuth` property because it is deprecated property  
