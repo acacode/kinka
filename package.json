@@ -12,9 +12,8 @@
     "lint": "eslint .",
     "lint-fix": "eslint . --fix",
     "compare-versions": "node ./bin/compare-versions.js",
-    "test": "karma start",
     "test-server": "nodemon test/manual/server.js --exec node --watch test/manual lib -e html",
-    "unit-test": "yarn run build --quiet && mocha \"test/unit/**/*.js\" --compilers js:babel-core/register && yarn clean-build"
+    "test": "yarn run build --quiet && mocha \"test/unit/**/*.js\" --compilers js:babel-core/register && yarn clean-build"
   },
   "author": {
     "name": "acacode"
