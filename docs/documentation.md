@@ -317,7 +317,7 @@ await kinka.get('/donuts/all', {
         Sets data for the instance `auth` mixin.<br>
         Only works if `auth` mixin is setted in instance options<br>
         Example:<br>
-    <pre><code>
+    <pre><code lang="javascript">
 const api = kinka.create({
   baseURL: `${baseURL}/${apiPath}`,
   auth: ({ username, password }) => ({
@@ -345,7 +345,7 @@ api.post(
     <td><code>undefined</code></td>
     <td>
         Allows to handle progress of the request download<br>
-    <pre><code>
+    <pre><code lang="javascript">
 const response = await kinka.get('/kittens', {
   onDownloadProgress: ({ total, loaded }) => {
     console.log(
@@ -363,7 +363,7 @@ const response = await kinka.get('/kittens', {
     <td><code>undefined</code></td>
     <td>
         Allows to handle progress of the request upload<br>
-    <pre><code>
+    <pre><code lang="javascript">
 const response = await kinka.post('/kittens', {
   onUploadProgress: ({ total, loaded }) => {
     console.log(
@@ -395,7 +395,7 @@ const response = await kinka.post('/kittens', {
         Sets the `baseURL` for instance.<br>
         Allows to set base url address for server.<br>
         Example:<br>
-        <pre><code>
+        <pre><code lang="javascript">
 const api = kinka.create({ baseURL: 'https://api.com' })
 api.get('/data') //GET: https://api.com/data
         </code></pre>
@@ -407,7 +407,7 @@ api.get('/data') //GET: https://api.com/data
     <td>
         Allows to create instance methods which will have special http methods.<br>
         Example:<br>
-        <pre><code>
+        <pre><code lang="javascript">
 const api = kinka.create({
     baseURL: 'https://api.com',
     customMethods: ['move'],
@@ -423,7 +423,7 @@ api.move('/data', { data: { files: null } })
     <td>
         Allows to set specific headers for each request created via instance<br>
         Example:<br>
-        <pre><code>
+        <pre><code lang="javascript">
 const api = kinka.create({
     baseURL: 'https://api.com',
     headers: {
@@ -466,7 +466,7 @@ api.get('/data')
         If needed to change request options or response data then<br>
         need to return modified options/response.
         Example:<br>
-        <pre><code>
+        <pre><code lang="javascript">
 const api = kinka.create({
   baseURL: `${baseURL}/${apiPath}`,
   inspectors: {
@@ -489,13 +489,32 @@ const api = kinka.create({
     </td>
   </tr>
   <tr>
+    <td><b>middlewares?: function[]</b></td>
+    <td>[]</td>
+    <td>
+        Allows to attach middlewares to your kinka instance.<br>
+        Middleware have ability to change behaviour of all actions created via kinka<br>
+        Example:<br>
+        <pre><code lang="javascript">
+const api = kinka.create({
+  baseURL: `${baseURL}/${apiPath}`,
+  middlewares: [
+    (instance) => {
+      // some code
+    }
+  ]
+})
+        </code></pre>
+    </td>
+  </tr>
+  <tr>
     <td><b>auth?(authData):RequestOptions</b></td>
     <td><code>undefined</code></td>
     <td>
         Allows to attach auth mixin for requests in your kinka instance.<br>
         It mixin will be modify your request options before sending request.<br>
         Example:<br>
-        <pre><code>
+        <pre><code lang="javascript">
 const api = kinka.create({
   baseURL: `${baseURL}/${apiPath}`,
   auth: ({ username, password }) => ({
@@ -525,7 +544,7 @@ api.get('/data', {
 
 # Examples
 
-```
+```js
 import kinka from 'kinka'
 
 kinka.get('https://test-api.com/users').then(response => {
@@ -536,7 +555,7 @@ kinka.get('https://test-api.com/users').then(response => {
 })
 ```
 
-```
+```js
 import kinka from 'kinka'
 
 const api = kinka.create({ baseURL: 'https://test-api.com' })
@@ -549,7 +568,7 @@ api.get('/users').then(response => {
 })
 ```
 
-```
+```js
 import kinka from 'kinka'
 
 const api = kinka.create({ baseURL: 'https://test-api.com' })
@@ -574,7 +593,7 @@ api
   })
 ```
 
-```
+```js
 import kinka from 'kinka'
 
 const api = kinka.create({ baseURL: 'https://test-api.com' })

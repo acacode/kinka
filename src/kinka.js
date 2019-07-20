@@ -31,6 +31,7 @@ import { isUndefined, typeCheck } from './helpers/base'
  * @param {number?} config.timeout Sets the timeout for each request
  * @param {object?} config.headers Sets the request headers for each request created via api.
  * @param {object?} config.inspectors Sets the inspectors (See documentation)
+ * @param {function[]?} config.middlewares Sets the middlewares (See documentation)
  * @param {string?} config.baseURL Sets the base url address for api.
  * @param {string?} config.charset Sets the charset
  * @param {string[]?} config.customMethods Sets the custom methods for api.
@@ -62,6 +63,7 @@ function createInstance(config) {
       charset: isUndefined(config.charset, 'utf-8'),
     },
     inspectors: config.inspectors || {},
+    middlewares: config.middlewares || [],
   }
 
   instance.clone = createInstance.bind(null, instance.config)
@@ -78,8 +80,7 @@ function createInstance(config) {
     methods.push.apply(methods, customMethods)
   }
 
-  for (const x in methods) {
-    const method = methods[x]
+  for (const method of methods) {
     typeCheck(
       method,
       'string',
@@ -111,6 +112,11 @@ function createInstance(config) {
   )
   typeCheck(instance.config.timeout, 'number', 'timeout in your kinka instance')
   typeCheck(instance.config.charset, 'string', 'charset in your kinka instance')
+
+  for (const middleware of instance.middlewares) {
+    typeCheck(middleware, 'function', 'middleware')
+    middleware(instance)
+  }
 
   return instance
 }

@@ -1,17 +1,17 @@
 /* global kinka */
 
-var logsEl = document.querySelector('.logs')
-var header = document.querySelector('header')
-var templateName = header.innerText
-var failed = 0
-var succeeded = 0
+const logsEl = document.querySelector('.logs')
+const header = document.querySelector('header')
+const templateName = header.innerText
+let failed = 0
+let succeeded = 0
 
 // stringified html element
 function el(query, childs) {
-  var parsed = query.split('.')
-  var tag = parsed[0]
-  var className = parsed.slice(1).join(' ')
-  var elem =
+  const parsed = query.split('.')
+  const tag = parsed[0]
+  const className = parsed.slice(1).join(' ')
+  const elem =
     '<' +
     tag +
     (className ? ' class="' + className + '"' : '') +
@@ -58,8 +58,8 @@ function createResponse(response, isFailed) {
 }
 
 function renderLog(title, isNegative, log, description) {
-  var logEl = document.createElement('div')
-  var className = isNegative ? 'red' : 'green'
+  const logEl = document.createElement('div')
+  const className = isNegative ? 'red' : 'green'
   if (isNegative) {
     failed++
   } else succeeded++
@@ -92,7 +92,7 @@ function responseHandler(description) {
 
 function logger(apiName, responseHandler) {
   return function log(message) {
-    var logMessage =
+    const logMessage =
       'api name : ' +
       el('span.grey', [apiName || 'kinka']) +
       '; ' +
@@ -102,10 +102,10 @@ function logger(apiName, responseHandler) {
 }
 
 ;(function test1() {
-  var api = kinka.create({
+  const api = kinka.create({
     baseURL: 'https://reqres.in/api',
   })
-  var log = logger('testApi1', responseHandler)
+  const log = logger('testApi1', responseHandler)
   api.get('/users', { query: { page: 1 } }).then(log())
   api.get('https://google.com/bad-request').then(log())
   api
@@ -121,11 +121,11 @@ function logger(apiName, responseHandler) {
   api.post('/register', { email: 'sydney@fife' }).then(log('should have error'))
 })()
 ;(function test2() {
-  var api = kinka.create({
+  const api = kinka.create({
     baseURL: 'https://reqres.in/api',
     omitCatches: false,
   })
-  var log = logger('testApi2', responseHandler)
+  const log = logger('testApi2', responseHandler)
   api
     .get('https://google.com/bad-request')
     .catch(log('request with using falsy omitCatches'))
@@ -158,9 +158,9 @@ function logger(apiName, responseHandler) {
     .catch(log('post request should be catched (successStatus)'))
 })()
 ;(function nonApi() {
-  var log = logger()
+  const log = logger()
   try {
-    var get = kinka.get
+    const get = kinka.get
     get('https://google.com/all')
       .then(responseHandler(log()))
       .catch(responseHandler(log()))
@@ -169,8 +169,8 @@ function logger(apiName, responseHandler) {
   }
 })()
 ;(function api3() {
-  var log = logger('testApi3')
-  var api = kinka.create({
+  const log = logger('testApi3')
+  const api = kinka.create({
     baseURL: 'https://reqres.in/api',
     inspectors: {
       request: function(url, method, options) {

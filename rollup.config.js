@@ -54,6 +54,7 @@ const productionBuildPlugins = [
           'baseURL',
           'config',
           'omitCatches',
+          'middleware',
           'credentials',
           'omitCatches',
           'headers',

@@ -18,6 +18,8 @@
 
 ### Added
 - More additional builds and rollup  
+- `middleware` option for kinka instance  
+- `.eslintignore` file to ignore production files
 
 ### Changed  
 - Reduced library size (.3KB)
