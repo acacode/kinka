@@ -13,8 +13,9 @@ import { createResponse } from './response'
 /*                            request helpers                            */
 /** **********************************************************************/
 
-const abortableRequests = {}
 const CONTENT_TYPE = 'Content-Type'
+
+export const abortableRequests = {}
 
 /**
  * terminate XMLHttpRequest by cancelToken
@@ -205,7 +206,7 @@ export function createRequest(method, path, reqOptions, reqData) {
     reqOptions,
     reqOptions && this.auth && reqOptions.auth && this.auth(reqOptions.auth),
     {
-      data: reqData || reqOptions.data,
+      data: reqData || (reqOptions && reqOptions.data) || null,
     }
   )
   const baseURL = this.baseURL

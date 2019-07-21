@@ -85,6 +85,26 @@ export function parseJSON(data) {
 }
 
 /**
+ * Convert string into valid url encoded form
+ *
+ *
+ * @param {string} form
+ * @returns {object} parsed url encoded form
+ */
+export function parseUrlEncodedForm(form) {
+  const decoder = decodeURIComponent
+  return form.split('&').reduce(function(data, pair) {
+    const pos = pair.indexOf('=')
+    if (pos === -1) {
+      data[decoder(pair)] = ''
+    } else {
+      data[decoder(pair.slice(0, pos))] = decoder(pair.slice(pos + 1))
+    }
+    return data
+  }, {})
+}
+
+/**
  * Check value on undefined
  *
  *

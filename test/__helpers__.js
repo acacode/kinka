@@ -5,24 +5,42 @@ import { describe, it, beforeEach, afterEach, before } from 'mocha'
 const MockXMLHttpRequest = require('mock-xmlhttprequest')
 
 export const testKinka = (kinkaPath, instanceName, beforeHook) => {
-  describe(`${instanceName} : `, () => {
+  describe(`test kinka (type: ${instanceName}, path: ${kinkaPath})`, () => {
     before(() => {
       if (beforeHook) beforeHook()
     })
+
     const kinka = require(kinkaPath)
+
     it('should be defined', () => {
       expect(!!kinka).to.be.equal(true)
     })
 
+    console.log('kinka', kinka)
+
     const testMethod = (name, options = {}) => {
       const methodName = name.toUpperCase()
       const api = options.api || kinka
+
+      if (!api) {
+        throw new Error('api is not defined')
+      }
+
       const baseURL = options.baseURL || global.location.origin
       const path = `/test-path/method-${name}/custom-method-${Boolean(
         options.testCustom
       )}`
       const url = `${baseURL}${path}`
       const httpMock = nock(baseURL)
+
+      if (typeof api[options.testCustom ? 'custom' : name] !== 'function') {
+        throw new Error(
+          `Property with name "${
+            options.testCustom ? 'custom' : name
+          }" is not existing in api`
+        )
+      }
+
       const testFunc = options.testCustom
         ? api.custom.bind(api, name)
         : api[name].bind(api)
@@ -76,6 +94,7 @@ export const testKinka = (kinkaPath, instanceName, beforeHook) => {
 
     describe('basic methods : ', () => {
       const methods = [
+        // FIXME: property 'delete' is not existing in api
         'delete',
         'get',
         'head',
@@ -88,9 +107,12 @@ export const testKinka = (kinkaPath, instanceName, beforeHook) => {
     })
 
     describe('custom methods : ', () => {
-      const customMethods = ['permanent', 'kill', 'stop', 'move']
-      const api = kinka.create({ customMethods })
-      customMethods.forEach(name => testMethod(name, { api }))
+      describe('using "kinka[methodName] : ', () => {
+        const customMethods = ['permanent', 'kill', 'stop', 'move']
+        const api = kinka.create({ customMethods })
+        customMethods.forEach(name => testMethod(name, { api }))
+      })
+
       describe('using "kinka.custom" function : ', () => {
         const customMethods = ['foo', 'bar', 'baz', 'moveout']
         customMethods.forEach(name => testMethod(name, { testCustom: true }))

@@ -17,7 +17,7 @@ import {
   setHeaders,
   abortableRequests,
   updateContentType,
-} from '../../../src/helpers'
+} from '../../../src/helpers/request'
 // load dev loggers
 require('../../../src/kinka')
 

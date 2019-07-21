@@ -62,6 +62,7 @@ const productionBuildPlugins = [
           'inspectors',
           'clone',
           'custom',
+          'customMethods',
           'auth',
           'response',
           'request',

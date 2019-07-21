@@ -9,7 +9,7 @@ import {
   parseJSON,
   parseUrlEncodedForm,
   valueIs,
-} from '../../../src/helpers'
+} from '../../../src/helpers/base'
 // load dev loggers
 require('../../../src/kinka')
 

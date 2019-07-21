@@ -12,9 +12,9 @@
     "clean": "rimraf lib dist es",
     "lint": "eslint .",
     "lint-fix": "eslint . --fix",
-    "prepare": "yarn clean && yarn build",
+    "prepare": "yarn clean && cross-env NODE_ENV=build yarn build",
     "test-server": "nodemon test/manual/server.js --exec node --watch test/manual lib -e html",
-    "test": "yarn run build --quiet && mocha \"test/unit/**/*.js\" --compilers js:babel-core/register && yarn clean-build"
+    "test": "cross-env NODE_ENV=test mocha \"test/unit/**/*.js\" --require @babel/register && yarn clean-build"
   },
   "author": {
     "name": "acacode"
@@ -29,6 +29,7 @@
     "ajv": "6.0.0",
     "babel-eslint": "8.2.1",
     "chai": "4.2.0",
+    "cross-env": "^5.2.0",
     "eslint": "4.18.0",
     "eslint-config-prettier": "2.9.0",
     "eslint-config-standard": "11.0.0",
@@ -90,7 +91,9 @@
     "http"
   ],
   "typings": "./index.d.ts",
-  "dependencies": {},
+  "dependencies": {
+    "@babel/register": "^7.5.5"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/acacode/kinka.git"
