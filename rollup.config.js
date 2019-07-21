@@ -81,7 +81,7 @@ const productionBuildPlugins = [
           'cancelToken',
           'onDownloadProgress',
           'onUploadProgress',
-          'successStatus'
+          'successStatus',
         ],
       },
       module: true,

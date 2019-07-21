@@ -187,6 +187,8 @@ export function prepareRequestData(data, headers, charset) {
  */
 export function createRequest(method, path, reqOptions, reqData) {
   if (['post', 'put', 'patch'].indexOf(method) > -1) {
+    // swap variables because post put and patch methods have ability
+    // to send request data as first argument
     reqData = [reqOptions, (reqOptions = reqData)][0]
   }
   typeCheck(path, 'string', 'path in your request')
@@ -201,7 +203,10 @@ export function createRequest(method, path, reqOptions, reqData) {
   let options = merge(
     this.config,
     reqOptions,
-    reqOptions && this.auth && reqOptions.auth && this.auth(reqOptions.auth)
+    reqOptions && this.auth && reqOptions.auth && this.auth(reqOptions.auth),
+    {
+      data: reqData || reqOptions.data,
+    }
   )
   const baseURL = this.baseURL
   if (requestInspector) {
@@ -209,9 +214,7 @@ export function createRequest(method, path, reqOptions, reqData) {
       requestInspector(
         getUrl(path, baseURL, options.query),
         upperCaseMethod,
-        options,
-        // TODO: add here request data for serializy integration
-        reqData || options.data
+        options
       ) || options
   }
   const cancelToken = options.cancelToken
@@ -255,7 +258,8 @@ export function createRequest(method, path, reqOptions, reqData) {
         let response = createResponse(request, isError, url, cancelToken)
         if (responseInspector) {
           response =
-            responseInspector(url, upperCaseMethod, response, options) || response
+            responseInspector(url, upperCaseMethod, response, options) ||
+            response
         }
         if (!options.omitCatches && isError) reject(response)
         else resolve(response)
@@ -269,7 +273,7 @@ export function createRequest(method, path, reqOptions, reqData) {
     const headers = options.headers
     typeCheck(headers, 'object', 'headers in your request [' + url + ']', true)
     const requestBody = prepareRequestData(
-      reqData || options.data,
+      options.data,
       headers,
       options.charset
     )
