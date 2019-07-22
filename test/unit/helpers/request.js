@@ -334,6 +334,14 @@ describe('request helpers : ', () => {
       ['https://localhost:7070/all', 'https://localhost:7070/all'],
       ['ws://localhost:7070/all', 'ws://localhost:7070/all'],
       ['//localhost:7070/all', '//localhost:7070/all'],
+      ['//localhost:7070/all', '//localhost:7070/all', '//localhost:7070/bar'],
+      ['localhost:7070/all', 'localhost:7070/all', 'localhost:7070/bar'],
+      [
+        '128.0.0.1:7001/auth/login',
+        '128.0.0.1:7001/auth/login',
+        '128.0.0.1:7001/api/v1',
+      ],
+      ['128.0.0.1/auth/login', '128.0.0.1/auth/login', '128.0.0.1/api/v1'],
       [
         'https://localhost:7070/all?yes=no&foo=bar',
         '/all',
