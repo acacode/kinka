@@ -12,7 +12,7 @@
     "prepare": "npm run clean && cross-env NODE_ENV=build npm run build",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "test": "npm run run test:unit",
+    "test": "npm run test:unit",
     "test:manual": "npm run prepare && nodemon test/manual/server.js --exec node --watch test/manual lib -e html",
     "test:unit": "cross-env NODE_ENV=test mocha \"test/unit/**/*.js\" --require @babel/register"
   },
