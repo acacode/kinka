@@ -4,7 +4,6 @@ node_js:
   - "node"
 
 cache:
-  yarn: true
   directories:
     - "node_modules"
 
@@ -18,16 +17,16 @@ before_install:
   - export RELEASE_BODY=$(node -p "'[Click here to see release changes](https://github.com/$PROJECT_NAME/blob/$TRAVIS_BRANCH/CHANGELOG.md#' + require('./bin/getLatestTag.js') + ')'")
 
 install:
-  - yarn install --frozen-lockfile
+  - npm ci
 
 jobs:
   include:
     - stage: lint
-      script: yarn lint
+      script: npm run lint
     - stage: test
       script:
-        - yarn run build
-        - yarn test
+        - npm run build
+        - npm run test
     - stage: publish
       if: env(BRANCH_IS_TAG) != true AND branch = master AND type = push
       name: "Create Github Release"
