@@ -9,11 +9,12 @@
   "scripts": {
     "build": "rollup -c",
     "clean": "rimraf lib dist es",
-    "lint": "eslint .",
-    "lint-fix": "eslint . --fix",
     "prepare": "yarn clean && cross-env NODE_ENV=build yarn build",
-    "test-server": "nodemon test/manual/server.js --exec node --watch test/manual lib -e html",
-    "test": "cross-env NODE_ENV=test mocha \"test/unit/**/*.js\" --require @babel/register"
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "test": "yarn run test:unit",
+    "test:manual": "yarn prepare && nodemon test/manual/server.js --exec node --watch test/manual lib -e html",
+    "test:unit": "cross-env NODE_ENV=test mocha \"test/unit/**/*.js\" --require @babel/register"
   },
   "author": {
     "name": "acacode"
