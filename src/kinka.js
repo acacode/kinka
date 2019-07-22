@@ -7,66 +7,8 @@
  * @flow
  */
 
-var helpers = require('./helpers')
-var isUndefined = helpers.isUndefined
-
-// <non-promise>
-if (process.env.EXCLUDE_PROMISES) {
-  require('./promise')
-}
-// </non-promise>
-
-// <dev-code>
-if (process.env.NODE_ENV !== 'production') {
-  var globalObject = typeof global !== 'undefined' ? global : window
-  /**
-   * Internal helper for logging arguments in helpers
-   *
-   *
-   * Is exist only in development build (dist/kinka.js)
-   *
-   * @param {any} value
-   * @param {string} type
-   * @param {string} varName
-   */
-  globalObject.typeCheck = function(value, type, varName, checkOnUndef) {
-    function validateType() {
-      var actualType = typeof value
-      switch (type) {
-        case 'array': {
-          return !(value instanceof Array)
-        }
-        case 'object': {
-          return value === null || value instanceof Array || actualType !== type
-        }
-        default: {
-          return actualType !== type
-        }
-      }
-    }
-    if (!checkOnUndef || typeof value !== 'undefined') {
-      if (validateType()) {
-        console.warn('[kinka warning] ' + varName + ' should have type ' + type)
-      }
-    }
-  }
-  globalObject.emptyCheck = function(value, varName) {
-    var isString = typeof value === 'string'
-    var isObject = typeof value === 'object'
-    if (
-      typeof value !== 'undefined' &&
-      (isObject ? value === null || !Object.keys(value).length : !value)
-    ) {
-      console.warn(
-        '[kinka warning] ' +
-          varName +
-          ' should not ' +
-          (isString || isObject ? 'be empty' : 'have falsy value')
-      )
-    }
-  }
-}
-// </dev-code>
+import { abortRequest, createRequest } from './helpers/request'
+import { isUndefined, typeCheck } from './helpers/base'
 
 /**
  * Create new instance of Kinka
@@ -89,6 +31,7 @@ if (process.env.NODE_ENV !== 'production') {
  * @param {number?} config.timeout Sets the timeout for each request
  * @param {object?} config.headers Sets the request headers for each request created via api.
  * @param {object?} config.inspectors Sets the inspectors (See documentation)
+ * @param {function[]?} config.middlewares Sets the middlewares (See documentation)
  * @param {string?} config.baseURL Sets the base url address for api.
  * @param {string?} config.charset Sets the charset
  * @param {string[]?} config.customMethods Sets the custom methods for api.
@@ -105,10 +48,10 @@ function createInstance(config) {
   )
   typeCheck(config.baseURL, 'string', 'baseURL', true)
 
-  var customMethods = config.customMethods
+  const customMethods = config.customMethods
 
-  var instance = {
-    abort: helpers.abortRequest,
+  const instance = {
+    abort: abortRequest,
     all: Promise.all,
     create: createInstance,
     baseURL: config.baseURL || (location && location.origin) || '',
@@ -120,12 +63,13 @@ function createInstance(config) {
       charset: isUndefined(config.charset, 'utf-8'),
     },
     inspectors: config.inspectors || {},
+    middlewares: config.middlewares || [],
   }
 
   instance.clone = createInstance.bind(null, instance.config)
-  instance.custom = helpers.createRequest.bind(instance)
+  instance.custom = createRequest.bind(instance)
 
-  var methods = ['get', 'post', 'put', 'patch', 'delete', 'head', 'options']
+  const methods = ['get', 'post', 'put', 'patch', 'delete', 'head', 'options']
 
   if (customMethods) {
     typeCheck(
@@ -136,8 +80,7 @@ function createInstance(config) {
     methods.push.apply(methods, customMethods)
   }
 
-  for (var x in methods) {
-    var method = methods[x]
+  for (const method of methods) {
     typeCheck(
       method,
       'string',
@@ -146,7 +89,7 @@ function createInstance(config) {
         '" in your kinka instance option customMethods'
     )
     if (!instance[method])
-      instance[method] = helpers.createRequest.bind(instance, method)
+      instance[method] = createRequest.bind(instance, method)
   }
 
   if (config.auth) {
@@ -170,13 +113,12 @@ function createInstance(config) {
   typeCheck(instance.config.timeout, 'number', 'timeout in your kinka instance')
   typeCheck(instance.config.charset, 'string', 'charset in your kinka instance')
 
+  for (const middleware of instance.middlewares) {
+    typeCheck(middleware, 'function', 'middleware')
+    middleware(instance)
+  }
+
   return instance
 }
 
-var kinka = createInstance()
-
-if (window) {
-  window.kinka = kinka
-}
-
-module.exports = kinka
+export default createInstance()

@@ -9,9 +9,9 @@ import {
   parseJSON,
   parseUrlEncodedForm,
   valueIs,
-} from '../../../lib/helpers'
+} from '../../../src/helpers/base'
 // load dev loggers
-require('../../../lib/kinka')
+require('../../../src/kinka')
 
 describe('base helpers : ', () => {
   const shouldBeFunction = func =>

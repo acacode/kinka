@@ -3,14 +3,14 @@ import nock from 'nock'
 import { expect } from 'chai'
 import { XMLHttpRequest as OriginalXHR } from 'xmlhttprequest'
 import { describe, it, afterEach } from 'mocha'
+import { requestIsSuccess } from '../../../src/helpers/request'
 import {
   createResponse,
-  requestIsSuccess,
   parseResponseData,
   getHeaders,
-} from '../../../lib/helpers'
+} from '../../../src/helpers/response'
 // load dev loggers
-require('../../../lib/kinka')
+require('../../../src/kinka')
 
 describe('response helpers : ', () => {
   const itShouldBeFunc = testFunc => {

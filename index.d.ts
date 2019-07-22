@@ -585,6 +585,8 @@ export interface KinkaInstance {
     [customMethod: string]: <T = any, R = KinkaResponse<T>>(path: string, options?: KinkaRequestOptions) => Promise<R>;
 }
 
+export declare type MiddlewareFunction = (instance: KinkaInstance) => any
+
 declare const kinka: KinkaInstance;
 
 export default kinka

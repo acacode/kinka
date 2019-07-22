@@ -15,7 +15,7 @@
   </p>
 </div>
 
-**kinka** it is [most lighter 💨](https://bundlephobia.com/result?p=kinka) and very powerful JavaScript library designed for ajax requests!  
+**kinka** it is [most lighter 💨](https://bundlephobia.com/result?p=kinka) and very powerful JavaScript library designed for http requests!  
 It will reduce your http code (which are using [XMLHttpRequests](https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest)) and allows do http code more simpler and easy to read.  
 
 ## 🚀 Installation

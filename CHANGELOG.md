@@ -1,5 +1,34 @@
-
 # CHANGELOG
+
+<!-- TEMPLATE OF NEW VERSION -->
+
+<!-- 
+## [VERSION](https://github.com/acacode/kinka/releases/tag/VERSION)
+
+### Changed
+### Fixed
+### Added
+### Removed
+ -->
+
+## [3.0.0-alpha.1]  
+
+### Fixed  
+- problem with using IP as baseURL ([issue](https://github.com/acacode/kinka/issues/19))  
+
+### Added
+- More additional builds and rollup  
+- `middleware` option for kinka instance  
+- `.eslintignore` file to ignore production files
+
+### Changed  
+- Reduced library size (-0.3KB)
+
+### Removed  
+- `withAuth` property because it is deprecated property  
+- non promised builds (just use polyfills)  
+- [Internal] Webpack build  
+
 
 ## [2.5.6](https://github.com/acacode/kinka/releases/tag/2.5.6)
 

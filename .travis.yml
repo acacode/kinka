@@ -1,40 +1,60 @@
+
 language: node_js
 node_js:
   - "node"
+
 cache:
-  yarn: true
   directories:
-      - "node_modules"
+    - "node_modules"
+
 before_install:
-  - echo "//registry.npmjs.org/:_authToken=\${NPM_TOKEN}" > .npmrc
   - export PACKAGE_VERSION=$(node -p "require('./package.json').version")
   - export NPM_REMOTE_VERSION=$(npm view kinka version)
   - export PACKAGE_NAME=$(node -p "require('./package.json').name")
-install:
-  - yarn
-script:
-  - yarn lint
-  - yarn unit-test
-  - yarn build
-after_success:
-  - ls -l
-  - git remote rm origin
-  - git remote add origin https://js2me:${GITHUB_TOKEN}@github.com/acacode/kinka.git
-  - git remote set-url origin https://js2me:${GITHUB_TOKEN}@github.com/acacode/kinka.git
-  - git fetch -p
-  - git fetch
-  - git symbolic-ref HEAD refs/heads/${TRAVIS_BRANCH}
-  - git symbolic-ref HEAD
-  - git remote show origin
-  - git status
-  - if [ ${TRAVIS_BRANCH} = "master" ] && [ "${TRAVIS_PULL_REQUEST}" = "false" ];then
-    git add dist && git commit -m "build release ${PACKAGE_VERSION} [ci skip]";
-    git push --set-upstream origin ${TRAVIS_BRANCH};
-    yarn git-release ${PACKAGE_VERSION};
-    rm -rf test;
-    npm publish;
-    rm -rf dist;
-    git add dist && git commit -m "remove dist folder [ci skip]";
-    git push --set-upstream origin ${TRAVIS_BRANCH};
-    fi
+  - export BRANCH_IS_TAG=$(node -p "/^([0-9].[0-9].[0-9]+((-(alpha|beta))|))$/.test('${TRAVIS_BRANCH}')")
+  - export GIT_LOG="$(git log --pretty=format:"* %s (%h)")"
+  - export PROJECT_NAME="acacode/kinka"
+  - export RELEASE_BODY=$(node -p "'[Click here to see release changes](https://github.com/$PROJECT_NAME/blob/$TRAVIS_BRANCH/CHANGELOG.md#' + require('./bin/getLatestTag.js') + ')'")
 
+install:
+  - npm ci
+
+jobs:
+  include:
+    - stage: lint
+      script: npm run lint
+    - stage: test
+      script:
+        - npm run build
+        - npm run test
+    - stage: publish
+      if: env(BRANCH_IS_TAG) != true AND branch = master AND type = push
+      name: "Create Github Release"
+      before_deploy:
+        - git config --global user.email "builds@travis-ci.com"
+        - git config --global user.name "Travis CI"
+        - git tag $PACKAGE_VERSION -a -m "Generated tag from TravisCI for build $TRAVIS_BUILD_NUMBER from $TRAVIS_BRANCH"
+        - git push -q https://$GITHUB_TOKEN@github.com/$PROJECT_NAME --tags
+        - zip -r release.zip dist lib es src index.d.ts LICENSE README.md package.json
+        - ls -l
+      deploy:
+        provider: releases
+        name: "Release ${PACKAGE_VERSION}"
+        body: "$RELEASE_BODY"
+        overwrite: true
+        skip_cleanup: true
+        api_key:
+          secure: ${GITHUB_TOKEN}
+        file:
+          - release.zip
+        on:
+          all_branches: true
+          repo: $PROJECT_NAME
+      after_deploy:
+        - echo "//registry.npmjs.org/:_authToken=\${NPM_TOKEN}" > .npmrc
+        - npm publish
+
+notifications:
+  slack:
+    rooms:
+      secure: t9LO6BExYzs4mElFgeeVhoDC01t9tg/L/6extSBqIQmJzvVNQaOMiZh6QYUg9wmnzVU4FqjoVeuMrR7bMrlzek2jvC7bPYHwnWCN86QFcbtnr8IApYhxLWmByDWruxcTbBhkTHzkyBJJboaZXnk0zcJhcsRkFYntUwBo/PTuYnQvZoAh/vQqRDoVQEUa+4dp+W3Muu7TTit06t+T4Qxk4wtoGd1ehVUoi4e/UONa7Ykm4QyQz16vksjz4loHly8aJ6hP4KP89vqksC1bGzn15StvA4YHBvg0PDrHcqGwVHtZUkD72CzKB7C96TFIojej+wh+MDX8SR9GDRpqlKNblCcbm+pObHPkvESC3+w9uZJAyLgoA398zp0sPt3RYZ37Rz+RXUx3Vnlu6t7IM+Bo6q6ZlivmiYKUujoX91cbBiMu2dOXWAtgVV3+qpsskUOEi8cm/O1/kuM/n2pjsgU4AYqE+f2rRNd9OeXHQoEr+j56PqgOcOOGdzOi8IxfpCfVSrrePHvTE534FbAySEbpX+Ulk1nuFzj6ort0DfYKDU8SxFCmfOl42BiCg/T4e5dxP9plpnBHBFJYNqqfcLIu9o2RsXILSAtoawzvrsBN3wxgeFmSJ9dMARODSRNGmeROwBDyT7y03gJcmxYT4UI8DsXkTEBANv/IfinbeBGrMo4=

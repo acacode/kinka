@@ -17,9 +17,9 @@ import {
   setHeaders,
   abortableRequests,
   updateContentType,
-} from '../../../lib/helpers'
+} from '../../../src/helpers/request'
 // load dev loggers
-require('../../../lib/kinka')
+require('../../../src/kinka')
 
 describe('request helpers : ', () => {
   const itShouldBeFunc = testFunc => {
@@ -60,7 +60,7 @@ describe('request helpers : ', () => {
     itShouldBeFunc(createAbortableRequest)
     describe('new request : ', () => {
       const testAbortableKey = 'test-new-request'
-      let XHRspy = sinon.spy()
+      const XHRspy = sinon.spy()
       let returnedValue
       const clearAbortableStorage = () => {
         delete abortableRequests[testAbortableKey]
@@ -114,7 +114,7 @@ describe('request helpers : ', () => {
   describe('createRequest : ', () => {
     itShouldBeFunc(createRequest)
 
-    let spies = {
+    const spies = {
       open: sinon.spy(),
       send: sinon.spy(),
     }
@@ -221,6 +221,17 @@ describe('request helpers : ', () => {
           done()
         })
       })
+      it("request should not catches with 'omitCatches' as truthy value (promise)", function(done) {
+        makeRequest(badResponse, {
+          omitCatches: true,
+        }).then(function(err) {
+          expect(err.err).to.deep.equal({
+            errorMessage: 'occurred an server error',
+          })
+          expect(err.status).to.be.equal(404)
+          done()
+        })
+      })
       it("request should catches with 'omitCatches' as falsy value (promise)", function(done) {
         makeRequest(badResponse, {
           omitCatches: false,
@@ -323,6 +334,29 @@ describe('request helpers : ', () => {
       ['https://localhost:7070/all', 'https://localhost:7070/all'],
       ['ws://localhost:7070/all', 'ws://localhost:7070/all'],
       ['//localhost:7070/all', '//localhost:7070/all'],
+      ['//localhost:7070/all', '//localhost:7070/all', '//localhost:7070/bar'],
+      ['localhost:7070/all', 'localhost:7070/all', 'localhost:7070/bar'],
+      [
+        '//128.0.0.1:7001/auth/login',
+        '128.0.0.1:7001/auth/login',
+        '128.0.0.1:7001/api/v1',
+      ],
+      ['//128.0.0.1/auth/login', '128.0.0.1/auth/login', '128.0.0.1/api/v1'],
+      [
+        '//125.243.22.55:8001/auth/login',
+        '125.243.22.55:8001/auth/login',
+        '125.243.22.55:8001/api/v1',
+      ],
+      [
+        '//125.243.22.55:8001/api/v1/auth/login',
+        '/auth/login',
+        '125.243.22.55:8001/api/v1',
+      ],
+      [
+        '//125.243.22.55:8001/api/v1/12.th/login',
+        '/12.th/login',
+        '125.243.22.55:8001/api/v1',
+      ],
       [
         'https://localhost:7070/all?yes=no&foo=bar',
         '/all',
@@ -403,7 +437,6 @@ describe('request helpers : ', () => {
       expect(prepareRequestData(undefined)).to.be.equal(null)
       expect(prepareRequestData(null)).to.be.equal(null)
     })
-    // TODO: JSONs, undefined checks
   })
   describe('removeAbortableKey : ', () => {
     itShouldBeFunc(removeAbortableKey)
@@ -452,7 +485,7 @@ describe('request helpers : ', () => {
         'Content-Type': 'application/json',
         'Cache-Control': 'no-cache',
       }
-      let setRequestHeaderStub = sinon.spy()
+      const setRequestHeaderStub = sinon.spy()
       const setRequestHeader = xhr.setRequestHeader
       xhr.open('GET', '/some-url')
       xhr.setRequestHeader = function() {
