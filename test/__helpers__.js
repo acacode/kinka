@@ -10,13 +10,16 @@ export const testKinka = (kinkaPath, instanceName, beforeHook) => {
       if (beforeHook) beforeHook()
     })
 
-    const kinka = require(kinkaPath)
+    const kinka = (() => {
+      const module = require(kinkaPath)
+      return Object.keys(module).length === 1 && module.default
+        ? module.default
+        : module
+    })()
 
     it('should be defined', () => {
       expect(!!kinka).to.be.equal(true)
     })
-
-    console.log('kinka', kinka)
 
     const testMethod = (name, options = {}) => {
       const methodName = name.toUpperCase()

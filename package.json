@@ -7,14 +7,13 @@
   "unpkg": "dist/kinka.js",
   "module": "es/kinka.js",
   "scripts": {
-    "clean-build": "rm -rf dist || rmdir /S /Q dist",
     "build": "rollup -c",
     "clean": "rimraf lib dist es",
     "lint": "eslint .",
     "lint-fix": "eslint . --fix",
     "prepare": "yarn clean && cross-env NODE_ENV=build yarn build",
     "test-server": "nodemon test/manual/server.js --exec node --watch test/manual lib -e html",
-    "test": "cross-env NODE_ENV=test mocha \"test/unit/**/*.js\" --require @babel/register && yarn clean-build"
+    "test": "cross-env NODE_ENV=test mocha \"test/unit/**/*.js\" --require @babel/register"
   },
   "author": {
     "name": "acacode"
