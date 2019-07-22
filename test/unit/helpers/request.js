@@ -337,11 +337,26 @@ describe('request helpers : ', () => {
       ['//localhost:7070/all', '//localhost:7070/all', '//localhost:7070/bar'],
       ['localhost:7070/all', 'localhost:7070/all', 'localhost:7070/bar'],
       [
-        '128.0.0.1:7001/auth/login',
+        '//128.0.0.1:7001/auth/login',
         '128.0.0.1:7001/auth/login',
         '128.0.0.1:7001/api/v1',
       ],
-      ['128.0.0.1/auth/login', '128.0.0.1/auth/login', '128.0.0.1/api/v1'],
+      ['//128.0.0.1/auth/login', '128.0.0.1/auth/login', '128.0.0.1/api/v1'],
+      [
+        '//213.183.63.32:8001/auth/login',
+        '213.183.63.32:8001/auth/login',
+        '213.183.63.32:8001/api/v1',
+      ],
+      [
+        '//213.183.63.32:8001/api/v1/auth/login',
+        '/auth/login',
+        '213.183.63.32:8001/api/v1',
+      ],
+      [
+        '//213.183.63.32:8001/api/v1/12.th/auth/login',
+        '/12.th/login',
+        '213.183.63.32:8001/api/v1',
+      ],
       [
         'https://localhost:7070/all?yes=no&foo=bar',
         '/all',

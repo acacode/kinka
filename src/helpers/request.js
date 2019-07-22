@@ -125,13 +125,24 @@ export function getUrlWithQuery(url, query) {
  */
 export function getUrl(path, baseURL, query) {
   const protocol = path.slice(0, 4)
-  const pathContainsIp = /(\d+(\.))/g.exec(path)
-  const pathContainsFullUrl =
+  let pathContainsFullUrl =
     protocol === 'http' ||
     includes(protocol, 'ws') ||
     includes(protocol, '//') ||
-    path.indexOf('localhost') === 0 ||
-    (pathContainsIp && pathContainsIp.index === 0)
+    path.indexOf('localhost') === 0
+
+  if (!pathContainsFullUrl) {
+    const pathContainsIp = /(\d+(\.))/g.exec(path)
+    const baseURLContainsIp = /(\d+(\.))/g.exec(baseURL)
+
+    if (pathContainsIp && pathContainsIp.index === 0) {
+      path = '//' + path
+      pathContainsFullUrl = true
+    }
+    if (baseURLContainsIp && baseURLContainsIp.index === 0) {
+      baseURL = '//' + baseURL
+    }
+  }
 
   const url = pathContainsFullUrl ? path : baseURL + path
   return query ? getUrlWithQuery(url, query) : url
