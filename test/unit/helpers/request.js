@@ -221,6 +221,17 @@ describe('request helpers : ', () => {
           done()
         })
       })
+      it("request should not catches with 'omitCatches' as truthy value (promise)", function(done) {
+        makeRequest(badResponse, {
+          omitCatches: true,
+        }).then(function(err) {
+          expect(err.err).to.deep.equal({
+            errorMessage: 'occurred an server error',
+          })
+          expect(err.status).to.be.equal(404)
+          done()
+        })
+      })
       it("request should catches with 'omitCatches' as falsy value (promise)", function(done) {
         makeRequest(badResponse, {
           omitCatches: false,
@@ -403,7 +414,6 @@ describe('request helpers : ', () => {
       expect(prepareRequestData(undefined)).to.be.equal(null)
       expect(prepareRequestData(null)).to.be.equal(null)
     })
-    // TODO: JSONs, undefined checks
   })
   describe('removeAbortableKey : ', () => {
     itShouldBeFunc(removeAbortableKey)
