@@ -26,6 +26,7 @@
   "devDependencies": {
     "@babel/core": "^7.4.5",
     "@babel/preset-env": "^7.4.5",
+    "@babel/register": "^7.5.5",
     "ajv": "6.0.0",
     "babel-eslint": "8.2.1",
     "braces": ">=2.3.1",
@@ -93,9 +94,7 @@
     "http"
   ],
   "typings": "./index.d.ts",
-  "dependencies": {
-    "@babel/register": "^7.5.5"
-  },
+  "dependencies": {},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/acacode/kinka.git"
